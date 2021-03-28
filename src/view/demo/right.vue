@@ -2,9 +2,9 @@
 <div>
   <div>
 <div class="tc1">{{istc1}}</div>
-  <div class="tc2" ref="tc2">{{rightto[0]}}</div>
-  <div class="tc3" ref="tc3">{{rightto[1]}}</div>
-  <div class="tc4" ref="tc4">{{rightto[2]}}</div>
+    <div class="tc2" ref="tc2"><span>{{rightto[0]}}</span></div>
+  <div class="tc3" ref="tc3"><span>{{rightto[1]}}</span></div>
+  <div class="tc4" ref="tc4"><span>{{rightto[2]}}</span></div>
 </div>
 </div>
 </template>
@@ -74,5 +74,8 @@ name: "right",
 }
 .tc{
   display: none;
+}
+span:hover{
+  cursor:pointer;
 }
 </style>

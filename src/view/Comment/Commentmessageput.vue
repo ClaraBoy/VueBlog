@@ -36,7 +36,6 @@ export default {
   }},
   methods:{
     btnclick(){
-      console.log(this.Comment_text);
       //保存到
       this.$emit("categoriesclick",this.Comment_text);//发射事件
     }

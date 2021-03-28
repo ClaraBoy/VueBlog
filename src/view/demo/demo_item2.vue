@@ -11,10 +11,10 @@
         </div>
       </div>
       <div class="top2boxf">
-        <div class="top2boxouts1" @click="isf1()">阅读: {{items.menured}}</div>
+        <div class="top2boxouts1" @click="isf1()"><span>阅读: {{items.menured}}</span></div>
         <div class="top2boxouts2"><span @click="isf2()">{{share}}</span></div>
         <div class="top2boxsshow" ref="l" ><span @click="isf5()">{{isactiveshow}}</span></div>
-        <div class="top2boxs3"><img :src="ismags"></div>
+        <div class="top2boxs3" @click="Abotuto()"><img :src="ismags"></div>
         <div :class="{but:isbut}"></div>
         <div class="top2boxs2"><span  @click="isf()">{{items.menutitle}}</span></div>
       </div>
@@ -130,6 +130,12 @@ export default {
       this.isactiveshow=""
       this.istop2boxouts3=true;
       this.isbut=false;
+    },
+    Abotuto(){
+      this.$router.push({
+        path:"/About-page-1",
+        query:{tilesid:this.items.titleid}
+      })
     }
   },
   mounted() {
@@ -251,5 +257,7 @@ export default {
 .but{
   position: absolute; bottom: 0; float: left; z-index: 7;width: 100%;height: 49px;  background-color: #404040;
 }
-
+span,.top2boxs3:hover{
+  cursor:pointer;
+}
 </style>

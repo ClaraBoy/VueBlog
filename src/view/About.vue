@@ -64,6 +64,7 @@ export default {
     Bloebottom,
     Bloebottomslot,
   },
+  inject:['reload'],                                 //注入App里的reload方法
   data() {
     return {
       textarea: "",
@@ -103,12 +104,25 @@ export default {
       },
       methods: {
         sonclick(Comment_text) {
-          const obj = {name: '掌拉', time: "刚刚", messages: Comment_text};
+          let Data = new Date();
+
           console.log(Comment_text);
+          console.log(this.til.detailstitle);
+          let date=Data.getFullYear() + "-" + (Data.getMonth() + 1) + "-" + Data.getDate();
+          console.log(date) //2019-8-20
+          const obj = {name: '掌拉', time: "刚刚", messages: Comment_text};
+          demos({
+            url:"/addComments",
+          }).then(res=>{
+              if(Number(res.data)==1){alert("已发送 审核中")}else{alert("失败")}
+          }).catch(err=>{
+            console.log(err);
+          });
+
         }
       },
   mounted() {
-
+    this.reload();
     demos({
       url:"/Details?titleid="+this.$route.query.tilesid,
     }).then(res=>{

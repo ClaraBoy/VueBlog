@@ -72,7 +72,10 @@ export default {
                   menudate:"",
                   menured:'',
                   menucomment:"",
-                  titleid:""
+                  titleid:"",
+                  info1:"",
+                  info2:"",
+                  info3:"",
                 }
               ]
           },
@@ -86,7 +89,10 @@ export default {
                   menudate:"",
                   menured:'',
                   menucomment:"",
-                  titleid:""
+                  titleid:"",
+                  info1:"",
+                  info2:"",
+                  info3:"",
                 }
               ]
           }
