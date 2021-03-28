@@ -1,6 +1,6 @@
 <template>
   <div class="cl">
-    <div  style="position: sticky;top: 5px; z-index: 10"><h1><span style="color: #FB5353">Clara</span> <span style="color: #404040">Write</span></h1></div>
+    <div><h1><span style="color: #FB5353">Clara</span> <span style="color: #404040">Write</span></h1></div>
     <div class="Bloe-top">
       <div class="Bloe-top-1">
         <div class="imgto">
@@ -31,8 +31,9 @@
         <div><demo :peos="peo[isdemo].list" :isdemos="isdemo"></demo></div>
       </div>
     </div>
-    <div><demo2></demo2></div>
-    <div><Bloebottomslot><Bloebottom></Bloebottom></Bloebottomslot></div>
+    <div><demo2 :lsits="lsits"></demo2></div>
+    <div style="display: none"><Bloebottomslot><Bloebottom></Bloebottom></Bloebottomslot></div>
+    <div style="position: fixed;right: 30px;bottom: 0;display: none"><Cat></Cat></div>
   </div>
 </template>
 <script>
@@ -42,6 +43,7 @@ import demo2 from "./demo/demo2";
 import Bloebottom from "./Bottom/Bloebottom";
 import Bloebottomslot from "./Bottom/Bloebottomslot";
 import {demos} from "../network/request"
+import Cat from "./demo/Cat";
 export default {
   name: "Bloe",
   components: {
@@ -49,6 +51,7 @@ export default {
     demo2,
     Bloebottom,
     Bloebottomslot,
+    Cat,
 
   },
   data() {
@@ -88,6 +91,7 @@ export default {
               ]
           }
       },
+      lsits:{},
     }
   },
   methods: {
@@ -116,7 +120,7 @@ export default {
   },
   mounted() {
     demos({
-      url:"/Menucomments?comments=60",
+      url:"/Menucomments?comments=90",
     }).then(res=>{
       this.peo["lists"].list=res.data;
       console.log(res.data);
@@ -130,8 +134,15 @@ export default {
         console.log(res.data);
       }).catch(err=>{
         console.log(err);
+      }),
+      demos({
+        url:"/queryLists",
+      }).then(res=>{
+        this.lsits=res.data;
+        console.log(res.data);
+      }).catch(err=>{
+        console.log(err);
       })
-
   },
   computed:
     {
