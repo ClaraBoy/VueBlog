@@ -50,6 +50,7 @@ export default {
   width: 100%;
   position: relative;
   margin: 0;
+  z-index: 10;
 }
 .Logindiv{
   position: absolute;

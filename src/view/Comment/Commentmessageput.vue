@@ -40,13 +40,9 @@ export default {
       this.$emit("categoriesclick",this.Comment_text);//发射事件
     }
   }
-
 }
 </script>
-
 <style scoped>
-/*Base css ---*/
-
 * {
   margin: 0;
   padding: 0;

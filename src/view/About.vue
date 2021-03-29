@@ -11,14 +11,16 @@
           <br>
           <el-divider></el-divider>
           <div class="roundbut">
-            <div class="roundbut1">
+           <!-- <div class="roundbut1">
               <span>相关标签:&nbsp</span>
               <el-button size="medium" round>Vue</el-button>
               <el-button size="medium" round>js</el-button>
               <el-button size="medium" round>springboot</el-button>
             </div>
+            -->
             <div class="roundbut2">
-              <span>分享到:&nbsp</span>
+              <span>分享到&nbsp</span>
+              <el-button size="medium" round>QQ</el-button>
               <el-button size="medium" round>微信</el-button>
               <el-button size="medium" round>微博</el-button>
             </div>
@@ -64,7 +66,7 @@ export default {
     Bloebottom,
     Bloebottomslot,
   },
-  inject:['reload'],                                 //注入App里的reload方法
+  inject:['reload'],//注入App里的reload方法
   data() {
     return {
       textarea: "",
@@ -105,7 +107,6 @@ export default {
       methods: {
         sonclick(Comment_text) {
           let Data = new Date();
-
           console.log(Comment_text);
           console.log(this.til.detailstitle);
           let date=Data.getFullYear() + "-" + (Data.getMonth() + 1) + "-" + Data.getDate();

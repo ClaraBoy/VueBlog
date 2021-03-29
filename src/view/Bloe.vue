@@ -52,7 +52,6 @@ export default {
     Bloebottom,
     Bloebottomslot,
     Cat,
-
   },
   data() {
     return {
