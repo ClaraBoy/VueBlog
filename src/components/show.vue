@@ -1,6 +1,6 @@
 <template>
 <div class="show">
-  <div>
+  <div style=" width: 100%; display: flex; top:0">
   <top>
     <span @click="drawer=true" class="butindexlogin" slot="butindexlogin" >博客</span>
   </top>
@@ -84,6 +84,10 @@ export default {
 }
 </script>
 <style scoped>
+*{
+  padding: 0;
+  margin:0;
+}
 .Ep{
   display: flex;
   position: center;
@@ -154,8 +158,19 @@ h3,h2,h1{
 h3,h2,h1:hover{
   cursor:pointer;
 }
+.butindexlogin{
+  width: 120px;
+  height: 53px;
+  display: block;
+  top: 0;
+  transition: all 1.0s;
+  font-size: 20px;
+
+}
 .butindexlogin:hover{
   cursor:pointer;
+  font-size: 25px;
+  margin-left: 30%;
 }
 span:hover{
   cursor:pointer;

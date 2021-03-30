@@ -74,7 +74,7 @@ export default {
   transition:width 1s;
   -webkit-transition:width 1s; /* Safari */
   margin-right: 16%;
-  margin-top: 0.5%
+  margin-top: 0.5%;
 }
 .inputw:hover{
   width: 50%;
@@ -90,5 +90,6 @@ img{
   padding-left: 1%;
   left: 0;
   margin-left: 2%;
+  cursor: pointer;
 }
 </style>

@@ -22,7 +22,7 @@ export default {
 .deom2{
   width: 100%;
   top: 10px;
-  padding-top: 120px;
+  padding-top: 10px;
 
 }
 </style>

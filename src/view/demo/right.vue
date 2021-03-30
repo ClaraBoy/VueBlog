@@ -1,11 +1,14 @@
 <template>
 <div>
-  <div>
-<div class="tc1">{{istc1}}</div>
-    <div class="tc2" ref="tc2"><span>{{rightto[0]}}</span></div>
-  <div class="tc3" ref="tc3"><span>{{rightto[1]}}</span></div>
-  <div class="tc4" ref="tc4"><span>{{rightto[2]}}</span></div>
+  <div :class="'r'+index">
+  <div class="box">
+    <div class="tc_box_topbut">更多相关</div>
+    <div class="box1">
+    <div class="tcto s1" ref="tc2" @click="righto(1)"><span>{{rightto[0]}}</span></div>
+     <div class="tcto s1" ref="tc3" id="2" @click="righto(1)"><span>{{rightto[1]}}</span></div>
+    </div>
 </div>
+  </div>
 </div>
 </template>
 
@@ -19,63 +22,80 @@ name: "right",
   },
   data(){
   return{
-    istc1:"了解更多"
+    istc1:"了解更多",
+    isnum:0
   }},
   computed:{
-    tc2show(){},
-    tc3show(){},
-    tc4show(){},
   },
   methods: {
-    scrollHandle() {
-      const offset = this.$el.getBoundingClientRect();
-      const offsetTop = offset.top;
-      const offsetBottom = offset.bottom;
-      // const offsetHeight = offset.height;
-      // 进入可视区域
-      // console.log(offsetTop,offsetBottom)
-      if (offsetTop <= window.innerHeight && offsetBottom >= 0) {
-        // console.log('进入可视区域');
-
-      } else {
-        // console.log('移出可视区域');
-
+    righto(num){
+      this.isnum+=num;
+      if(this.isnum>=2){
+        anime({
+          targets: '.r'+this.index+' .s1',
+          translateX: "0px",
+          duration: 1600,
+        });
+        this.isnum=0;
+      }else{
+        anime({
+          targets: '.r'+this.index+' .s1',
+          translateX: "-400px",
+          duration: 1600,
+        });
       }
+
     }
   },
   mounted() {
-    if(this.rightto[0]===""&&this.rightto[1]===""&&this.rightto[2]===""){this.istc1="暂无更多";}
+    if(this.rightto[0]===""&&this.rightto[1]===""){this.istc1="暂无更多";}
     if(this.rightto[0]===""){this.$refs.tc2.className="tc"}
     if(this.rightto[1]===""){this.$refs.tc3.className="tc"}
-    if(this.rightto[2]===""){this.$refs.tc4.className="tc"}
-    window.addEventListener("scroll", this.scrollHandle, true); // 监听 监听元素是否进入/移出可视区域
   }
 }
 </script>
 
 <style scoped>
-.tc1{
-  background-color: #FB5353;
-  margin-top: 120px;
-  width: 100px;
-  height: 30px;
-  line-height: 30px;
-  text-align: center;
-  color: white;
+.box{
+  background-color: #404040;
+  height: 250px;
+  width: 400px;
+  overflow: hidden;
+  margin-top: 120px
+}.tc_box_topbut{
+   background-color: #404040;
+   width: 100px;
+   height: 30px;
+   line-height: 30px;
+   text-align: center;
+   color: white;
+   position: absolute;
+   margin-top: 20px;
+   z-index: 20;
+ }
+.box1{
+  width: 1200px;
+  height: 100%;
+  display: flex;
 }
-.tc2,.tc3,.tc4{
+.tcto{
   background-color: #FB5353;
+  width: 400px;
+  height: 230px;
+  color: white;
+  text-align: center;
+  line-height: 200px;
   margin-top: 10px;
-  width: 70%;
-  height: 30px;
-  line-height: 30px;
-  text-align: center;
-  color: white;
 }
-.tc{
-  display: none;
+.tcto span{
+  width: 100%;
+  height: 100%;
+  font-size: 30px;
 }
 span:hover{
   cursor:pointer;
+}
+.tc{
+  display: none;
 }
 </style>

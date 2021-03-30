@@ -20,7 +20,7 @@
       </div>
       </div>
     <div class="top2">
-      <right :index="index" :rightto="[items.info1,items.info2,items.info3]"></right>
+      <right :index="index" :rightto="[items.info1,items.info2]"></right>
     </div>
   </div>
 </div>

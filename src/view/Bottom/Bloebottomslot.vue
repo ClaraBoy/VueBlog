@@ -16,7 +16,10 @@ export default {
   position:fixed;
   bottom:0;
   width:100%;
-  height:50px;   /* Height of the footer */
+  height:60px;   /* Height of the footer */
   z-index: 10;
+  color: white;
+  line-height: 60px;
+  text-align: center;
 }
 </style>

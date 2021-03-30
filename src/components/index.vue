@@ -1,5 +1,6 @@
 <template>
   <div>
+    <div>
     <div class="slideshow mid">
       <div class="slides">
         <input type="radio" name="r" id="r1" checked>
@@ -12,7 +13,7 @@
           <span>简单</span>
         </div>
         <div class="box_sb1 sc1">
-          <span>1</span>
+          <p>以简单的代码</p>
         </div>
         <img src="../assets/img/index/1.jpg" alt=""/>
       </div>
@@ -56,6 +57,9 @@
       </div>
       </div>
       </div>
+      <div class="bottom">
+       <span>SpringBoot</span> <span>Vuecli</span> <span>Mybatis</span> <span>Html</span> <span>JQuery</span>
+      </div>
       <div class="nav">
         <label for="r1" class="bar" @click="but(1)"></label>
         <label for="r2" class="bar" @click="but(2)"></label>
@@ -64,18 +68,21 @@
         <label for="r5" class="bar" @click="but(5)"></label>
       </div>
     </div>
+  </div>
 </template>
 <script>
 import anime from "animejs/lib/anime.es.js";
+import Bloebottomslot from "../view/Bottom/Bloebottomslot";
 export default {
   name: "index",
   components:{
+    Bloebottomslot
   },
   methods: {
     but(ch){
       anime({
         targets: '.sb'+ch,
-        translateX: "250px",
+        translateX: "150px",
         easing: 'easeInOutQuart',
         width:"400px",
         duration: 1600,
@@ -111,7 +118,7 @@ export default {
   mounted() {
     anime({
       targets: '.sb1',
-      translateX: "250px",
+      translateX: "150px",
       easing: 'easeInOutQuart',
       width:"400px",
       duration: 1600,
@@ -138,7 +145,7 @@ export default {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  position: relative;
+  top: 0;
 }
 .mid{
   position: absolute;
@@ -161,7 +168,7 @@ export default {
 }
 .nav{
   position: absolute;
-  bottom: 5%;
+  bottom: 10%;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -205,7 +212,6 @@ input[name='r']{
   line-height: 200px;
   position: absolute;
   z-index: 10;
-  background-color: rgba(10,10,10,0.2);
   margin-top: 20%;
 }
 .box_sb1{
@@ -216,7 +222,6 @@ input[name='r']{
   line-height: 200px;
   position: absolute;
   z-index: 10;
-  background-color: rgba(10,10,10,0.2);
   margin-top: 15%;
   margin-left: 80%;
 }
@@ -225,5 +230,20 @@ input[name='r']{
 }
 .box_sb1 span{
   font-size: 60px;
+}
+.bottom{
+  width: 100%;height:60px;background-color: white;position: absolute;bottom: 0;line-height: 60px;text-align: center;
+ display: flex;
+}
+.bottom span{
+transition: all 1.0s;
+  flex: 1;
+  font-size: 15px;
+}
+.bottom span:hover{
+background-color: black;
+  color: white;
+  cursor: pointer;
+  font-size: 20px;
 }
 </style>

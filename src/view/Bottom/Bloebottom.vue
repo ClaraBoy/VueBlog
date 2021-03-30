@@ -11,8 +11,6 @@ export default {
 
 <style scoped>
 h3{
-  text-align: center;
-  color: white;
-  line-height: 50px;
+  z-index: 15;
 }
 </style>
