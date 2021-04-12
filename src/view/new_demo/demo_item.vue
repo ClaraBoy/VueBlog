@@ -40,7 +40,7 @@ name: "demo_item",
   isActives:false,
     iss:true,
     isShowActive:true,
-    ismags:require('../../assets/img/Bloe/'+Number(this.index+1)+'.jpg')
+    ismags:require('../../assets/img/Bloe/'+Number(this.index+1)+'.png')
   }
   },
   methods:{
@@ -130,7 +130,7 @@ name: "demo_item",
   width: 0;
   height: 260px;
   margin-left: 50%;
-  background-image: url("../../assets/img/Bloe/full-illustration.png");
+  background-image: url("../../assets/img/Bloe/1.png");
   background-position: center;
   background-repeat: no-repeat;
   box-shadow: 7px 29px 49px 0px rgba(0,0,0,3);
