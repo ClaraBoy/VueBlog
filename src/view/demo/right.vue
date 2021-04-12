@@ -61,7 +61,7 @@ name: "right",
   height: 250px;
   width: 400px;
   overflow: hidden;
-  margin-top: 120px
+  margin-top: 30px;
 }.tc_box_topbut{
    background-color: #404040;
    width: 100px;

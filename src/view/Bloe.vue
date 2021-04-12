@@ -31,24 +31,24 @@
         <div><demo :peos="peo[isdemo].list" :isdemos="isdemo"></demo></div>
       </div>
     </div>
-    <div><demo2 :lsits="lsits"></demo2></div>
+    <div><newdemo :lsits="lsits"></newdemo></div>
     <div style="display: none"><Bloebottomslot><Bloebottom></Bloebottom></Bloebottomslot></div>
   </div>
 </template>
 <script>
 import anime from "animejs/lib/anime.es.js";
 import demo from "./demo/demo"
-import demo2 from "./demo/demo2";
 import Bloebottom from "./Bottom/Bloebottom";
 import Bloebottomslot from "./Bottom/Bloebottomslot";
 import {demos} from "../network/request"
+import newdemo from "../view/new_demo/demo"
 export default {
   name: "Bloe",
   components: {
     demo,
-    demo2,
     Bloebottom,
     Bloebottomslot,
+    newdemo
   },
   data() {
     return {
