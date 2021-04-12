@@ -68,8 +68,8 @@ name: "demo_item",
       });
       anime({
         targets: '.left_span',
-        translateY: "80px",
-        translateX: "80px",
+        translateY: "70px",
+        translateX: "70px",
         duration: 1600,
         color:"",
         easing: 'easeInOutExpo'
@@ -128,7 +128,7 @@ name: "demo_item",
 .imgBox{
   position: absolute;
   width: 0;
-  height: 250px;
+  height: 260px;
   margin-left: 50%;
   background-image: url("../../assets/img/Bloe/full-illustration.png");
   background-position: center;
@@ -159,7 +159,7 @@ img{
  }
 .left_red{
   color: white;
-  margin-left: 150px;
+  margin-left: 130px;
   transition: all 2s;
 }
 .left_data{
@@ -168,7 +168,8 @@ img{
   transition: all 1s;
   position: absolute;
   transform: translateX(22%);
-  transform: translateY(400%);
+  z-index: 20;
+  bottom: 50px;
 }
 .showActive{
   display: none;
