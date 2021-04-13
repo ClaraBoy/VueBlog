@@ -19,6 +19,7 @@
             </div>
           </el-menu>
               <div class="Logindiv"><slot name="butindexlogin"></slot></div>
+              <div><slot name="Login"></slot></div>
         </div>
         </el-col>
       </el-row>
@@ -55,7 +56,7 @@ export default {
   position: absolute;
   top: 0;
   background-color: Transparent;
-  right: 5%;
+  right: 10%;
   height: 49px;
   line-height: 49px;
   margin-top: 0.2%;

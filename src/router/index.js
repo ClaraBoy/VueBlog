@@ -19,7 +19,11 @@ export default new Router({
     {
       path:'/About-page-1',
       component: () => import("../view/About")
-    }
+    },
+    {
+      path:'/Login',
+      component:() => import("../components/index")
+    },
   ],
   mode:"history"
 })

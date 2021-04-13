@@ -2,7 +2,8 @@
 <div class="show">
   <div style=" width: 100%; display: flex; top:0">
   <top>
-    <span @click="drawer=true" class="butindexlogin" slot="butindexlogin" >博客</span>
+    <div slot="butindexlogin" class="butindexlogin"><span style="display: inline" @click="Login">登陆</span><span @click="drawer=true" style="display: inline"  >博客</span></div>
+    <div slot="Login" class="LoginCss"><Login :isLoginShowOpinion="isLoginShowOpinion"/></div>
   </top>
   </div>
   <el-drawer
@@ -51,6 +52,7 @@
 </template>
 <script>
 import top from "./top";
+import Login from "./Login";
 require("../assets/css/style.css")
 export default {
   name: "show",
@@ -60,6 +62,9 @@ export default {
       innerDrawer: false,
       direction:"ltr",
       labelPosition: 'right',
+      isLoginShow:false,
+      isLoginShowOpinion:0,
+
     };
   },
   methods: {
@@ -71,22 +76,40 @@ export default {
     },
     but(Ep){
       console.log(Ep);
+    },
+    Login() {
+      this.isLoginShowOpinion++;
     }
   },
   computed:{
 
   },
   components:{
-    top
+    top,
+    Login
   },
-  mounted() {
-  }
 }
 </script>
 <style scoped>
 *{
   padding: 0;
   margin:0;
+}
+.LoginCss{
+  margin: 20% 80%;
+  position: absolute;
+}
+.butindexlogin{
+  width: 300px;
+  height: 53px;
+  display: block;
+  top: 0;
+  transition: all 1.0s;
+  font-size: 20px;
+}
+.butindexlogin span{
+  padding-left: 60px;
+  display: inline;
 }
 .Ep{
   display: flex;
@@ -157,20 +180,6 @@ h3,h2,h1{
 }
 h3,h2,h1:hover{
   cursor:pointer;
-}
-.butindexlogin{
-  width: 120px;
-  height: 53px;
-  display: block;
-  top: 0;
-  transition: all 1.0s;
-  font-size: 20px;
-
-}
-.butindexlogin:hover{
-  cursor:pointer;
-  font-size: 25px;
-  margin-left: 30%;
 }
 span:hover{
   cursor:pointer;
