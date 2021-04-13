@@ -45,7 +45,7 @@
 export default {
   name: "demo2item",
   props:{
-    items:[],
+    items:Object,
     isdemos:""
   },
   methods:{

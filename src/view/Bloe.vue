@@ -31,7 +31,7 @@
         <div><demo :peos="peo[isdemo].list" :isdemos="isdemo"></demo></div>
       </div>
     </div>
-    <div><newdemo :lsits="lsits"></newdemo></div>
+    <div><newdemo :Li="Li"></newdemo></div>
     <div style="display: none"><Bloebottomslot><Bloebottom></Bloebottom></Bloebottomslot></div>
   </div>
 </template>
@@ -93,7 +93,7 @@ export default {
               ]
           }
       },
-      lsits:{},
+      Li:{},
     }
   },
   methods: {
@@ -122,7 +122,7 @@ export default {
   },
   mounted() {
     demos({
-      url:"/Menucomments?comments=90",
+      url:"/Menucomments?comments=1",
     }).then(res=>{
       this.peo["lists"].list=res.data;
       console.log(res.data);
@@ -140,7 +140,7 @@ export default {
       demos({
         url:"/queryLists",
       }).then(res=>{
-        this.lsits=res.data;
+        this.Li=res.data;
         console.log(res.data);
       }).catch(err=>{
         console.log(err);

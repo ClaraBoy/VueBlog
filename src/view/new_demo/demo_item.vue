@@ -32,8 +32,8 @@ name: "demo_item",
     right
   },
   props:{
-    items:Array,
-    index:[],
+    items:Object,
+    index:Number,
   },
   data(){
   return{

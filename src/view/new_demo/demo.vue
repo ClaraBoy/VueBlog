@@ -1,6 +1,6 @@
 <template>
   <div>
-  <div v-for="(item,index) in lsits">
+  <div v-for="(item,index) in Li">
   <demo_item :items="item" :index="index"></demo_item>
 </div>
   </div>
@@ -14,7 +14,7 @@ export default {
     demo_item
   },
   props:{
-    lsits:Array,
+    Li:"",
   }
 }
 </script>

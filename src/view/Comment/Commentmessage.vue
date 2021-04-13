@@ -14,7 +14,7 @@ export default {
     Commentmessage_item
   },
   props:{
-    Comments:Array,
+    Comments:"",
   },
 }
 </script>

@@ -17,8 +17,8 @@ import anime from "animejs/lib/anime.es.js";
 export default {
 name: "right",
   props:{
-  index:[],
-    rightto:[]
+    index:Number,
+    rightto:Array
   },
   data(){
   return{

@@ -23,7 +23,7 @@
 export default {
 name: "Commentmessage",
   props:{
-  items:Array,
+  items:"",
   },
   data(){
 return{
