@@ -71,18 +71,8 @@ export default {
     return {
       textarea: "",
       isbottom: false,
-      til: {
-
-      },
-      Comment: {
-        commentsid:"",
-         commentsuserid:"",
-         commentsname:"",
-         commentstitle:"",
-         commentstext:"",
-         comments:"",
-        commentsred:""
-      },
+      til: {},
+      Comment: {},
     }
   },
       created() {
@@ -105,18 +95,6 @@ export default {
         sonclick(Comment_text) {
           let Data = new Date();
           console.log(Comment_text);
-          console.log(this.til.detailstitle);
-          let date=Data.getFullYear() + "-" + (Data.getMonth() + 1) + "-" + Data.getDate();
-          console.log(date) //2019-8-20
-          const obj = {name: '掌拉', time: "刚刚", messages: Comment_text};
-          demos({
-            url:"/addComments",
-          }).then(res=>{
-              if(Number(res.data)==1){alert("已发送 审核中")}else{alert("失败")}
-          }).catch(err=>{
-            console.log(err);
-          });
-
         }
       },
   mounted() {
@@ -128,17 +106,7 @@ export default {
       console.log('内容：'+res.data.toString());
     }).catch(err=>{
       console.log(err);
-    }),
-      setTimeout(()=>{
-        demos({
-          url:"/Comments?title="+this.til.detailstitle,
-        }).then(res=>{
-          this.Comment=res.data;
-          console.log('评论'+res.data);
-        }).catch(err=>{
-          console.log(err);
-        })
-      },100)
+    })
 
   }
 }

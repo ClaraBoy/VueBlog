@@ -8,14 +8,14 @@
         <div style="margin: 20px;"><h2>用户登陆</h2></div>
         <el-form label-position="top" label-width="80px" model="data">
           <el-form-item>
-            <el-input style="width: 80%;padding-top: 20px" placeholder="账号"></el-input>
+            <el-input style="width: 80%;padding-top: 20px" v-model="info.uname" placeholder="账号"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-input style="width: 80%;padding-top: 20px" placeholder="密码"></el-input>
+            <el-input style="width: 80%;padding-top: 20px" v-model="info.upwd" placeholder="密码"></el-input>
           </el-form-item>
           <label for="t1">忘记密码</label>
           <el-form-item size="large">
-            <el-button type="primary" style="background-color: black; color: white;width: 60%;">登陆</el-button>
+            <el-button type="primary" style="background-color: black; color: white;width: 60%;" @click="Submit()">登陆</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -46,11 +46,44 @@
 </div>
 </template>
 <script>
-import anime from "animejs/lib/anime.es.js";
+import {demos} from "../network/request"
 export default {
 name: "Login",
   props:{
     isLoginShowOpinion:Number,
+  },
+  data(){
+  return{
+    info:{
+        uname:"",
+        upwd:""
+    },
+    token:""
+  }
+  },
+  methods:{
+    Submit(){
+      demos({
+        method:"post",
+        url:"/Ulogin",
+        data:this.info,
+      }).then(res=>{
+        if("失败"===res.data) {
+          this.$message.error(res.data);
+          this.info.uname="";
+          this.info.upwd="";
+        }else{
+          this.token=res.data;
+          this.$message({
+            message: "欢迎您 亲爱的:"+this.info.uname,
+            type: 'success'
+          });
+        }
+        console.log(res.data);
+      }).catch(err=>{
+        console.log(err);
+      })
+    }
   }
 }
 </script>
