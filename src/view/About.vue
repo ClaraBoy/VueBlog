@@ -94,6 +94,17 @@ export default {
       methods: {
         sonclick(Comment_text) {
           let Data = new Date();
+          demos({
+            method:"get",
+            url:"/addComment",
+            headers: {
+              authorization: this.$store.getters.RetToken,
+            },
+          }).then(res=>{
+
+          }).catch(err=>{
+            console.log(err);
+          })
           console.log(Comment_text);
         }
       },
