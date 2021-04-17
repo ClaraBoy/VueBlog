@@ -6,7 +6,7 @@
     <div class="font">
       <div class="inputTable">
         <div style="margin: 20px;"><h2>用户登陆</h2></div>
-        <el-form label-position="top" label-width="80px" model="data">
+        <el-form label-position="top" label-width="80px">
           <el-form-item>
             <el-input style="width: 80%;padding-top: 20px" v-model="info.uname" placeholder="账号"></el-input>
           </el-form-item>
@@ -24,7 +24,7 @@
       <div class="back-conten">
         <div class="inputTable2">
         <div style="margin: 20px;"><h2>忘记密码</h2></div>
-          <el-form label-position="top" label-width="80px" model="data">
+          <el-form label-position="top" label-width="80px">
             <el-form-item>
               <el-input style="width: 80%;padding-top: 20px" placeholder="账号"></el-input>
             </el-form-item>
@@ -73,6 +73,7 @@ name: "Login",
           this.info.uname="";
           this.info.upwd="";
         }else{
+          this.$store.commit("LoginToken",res.data);
           this.token=res.data;
           this.$message({
             message: "欢迎您 亲爱的:"+this.info.uname,

@@ -2,8 +2,8 @@
 <div class="show">
   <div style=" width: 100%; display: flex; top:0">
   <top>
-    <div slot="butindexlogin" class="butindexlogin"><span style="display: inline" @click="Login">登陆</span><span @click="drawer=true" style="display: inline"  >博客</span></div>
-    <div slot="Login" class="LoginCss"><Login :isLoginShowOpinion="isLoginShowOpinion"/></div>
+    <div slot="butindexlogin" class="butindexlogin"><span style="display: inline" @click="Login">{{Loginspanshow}}</span><span @click="drawer=true" style="display: inline"  >博客</span></div>
+    <div slot="Login" class="LoginCss" v-show="!$store.getters.RetToken"><Login :isLoginShowOpinion="isLoginShowOpinion"/></div>
   </top>
   </div>
   <el-drawer
@@ -64,7 +64,7 @@ export default {
       labelPosition: 'right',
       isLoginShow:false,
       isLoginShowOpinion:0,
-
+      Logigspan:"",
     };
   },
   methods: {
@@ -82,12 +82,22 @@ export default {
     }
   },
   computed:{
-
+          Loginspanshow(){
+            if(!this.$store.getters.RetToken){
+              return "登陆";
+            }
+            else{
+              return "";
+            }
+          }
   },
   components:{
     top,
     Login
   },
+  mounted() {
+
+  }
 }
 </script>
 <style scoped>
