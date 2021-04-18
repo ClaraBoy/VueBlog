@@ -27,6 +27,10 @@ export default new VueRouter({
       path:'/Login',
       component:() => import("../components/index")
     },
+    {
+      path:'/show',
+      component:() => import("../components/show")
+    },
   ],
   mode:"history"
 })

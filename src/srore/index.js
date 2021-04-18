@@ -10,7 +10,6 @@ const store=new Vuex.Store({
       LoginToken(state,userinfo){
         state.Token=userinfo.token;
         state.ID=userinfo.uid;
-        localStorage.setItem('ID', userinfo.uid)
         localStorage.token=userinfo.token;
       }
   },
@@ -22,9 +21,9 @@ const store=new Vuex.Store({
       }
       return store.Token;
     },
-    RetUid(store){
-        return store.Uid=localStorage.getItem("ID");
-    }
+    // RetUid(store){
+    //     return store.Uid=localStorage.getItem("ID");
+    // }
   }
 })
 export default store

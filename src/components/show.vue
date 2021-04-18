@@ -56,6 +56,7 @@ import Login from "./Login";
 require("../assets/css/style.css")
 export default {
   name: "show",
+  inject:['reload'],
   data() {
     return {
       drawer:false,
@@ -95,6 +96,19 @@ export default {
   components:{
     top,
     Login
+  },
+  beforeRouteEnter (to, from,next) {
+    if(from.path==='/Details'){
+      next(vm => {
+        vm.$router.replace("/show")
+      })
+     setTimeout(()=>{
+       location.reload();
+     },10)
+      next(vm => {
+        vm.$router.replace("/")
+      })
+    }
   },
 }
 </script>

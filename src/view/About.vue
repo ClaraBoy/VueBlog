@@ -102,14 +102,14 @@ export default {
       },
       methods: {
         sonclick(Comment_text) {
-          if (this.$store.getters.RetUid == null||this.$store.getters.RetToken==null) {
+          if (localStorage.getItem("token") == null) {
             this.$message({
-              message: '警告,身份过期或未登录,请登陆',
+              message: '警告,身份过期或未登录,请登陆 等待跳转中...',
               type: 'warning'
             });
-            localStorage.removeItem("token")
-            localStorage.removeItem("ID")
-            this.$router.push("/Login");
+            setTimeout(()=>{
+              this.$router.push("/show");
+            },1000)
           } else {
             demos({
               method: "get",
@@ -122,11 +122,13 @@ export default {
                 this.realaddComment(Comment_text);
               } else {
                 this.$message({
-                  message: '警告,身份过期或未登录,请登陆',
+                  message: '警告,身份过期或未登录,请登陆 等待跳转中...',
                   type: 'warning'
                 });
                 localStorage.removeItem("token")
-                this.$router.push("/Login");
+                setTimeout(()=>{
+                  this.$router.push("/show");
+                },1000)
               }
             }).catch(err => {
               console.log(err)
@@ -135,7 +137,7 @@ export default {
           },
         realaddComment(Comment_text){
           this.info.topictext=Comment_text;
-          this.info.topicid=this.$store.getters.RetUid;
+          this.info.topicid=1;
           this.info.topicred=0;
           this.info.topictitle=this.til.menutitle;
           demos({
@@ -179,7 +181,7 @@ export default {
       console.log(err);
     })
 
-  }
+  },
 }
 </script>
 
