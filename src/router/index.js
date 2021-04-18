@@ -1,23 +1,26 @@
 import Vue from 'vue'
-import Router from 'vue-router'
-Vue.use(Router)
-
-export default new Router({
+import VueRouter from 'vue-router'
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err)
+}
+Vue.use(VueRouter)
+export default new VueRouter({
   routes: [
     {
       path:"/",
-      component:() => import("../components/index")
+      redirect:"/Clara"
     },
     {
-      path: "/index",
+      path: "/Clara",
       component: () => import("../components/index")
     },
     {
-      path:'/Bloe-page-1',
+      path:'/Clara_Write',
       component: () => import("../view/Bloe")
     },
     {
-      path:'/About-page-1',
+      path:'/Details',
       component: () => import("../view/About")
     },
     {

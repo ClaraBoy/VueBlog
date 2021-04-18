@@ -93,6 +93,7 @@ export default {
       },
       methods: {
         sonclick(Comment_text) {
+          console.log(this.$store.getters.RetToken)
           let Data = new Date();
           demos({
             method:"get",
@@ -101,9 +102,13 @@ export default {
               authorization: this.$store.getters.RetToken,
             },
           }).then(res=>{
-
+            this.$message('发布成功');
           }).catch(err=>{
-            console.log(err);
+            this.$message({
+              message: '警告,身份过期,请重新登陆',
+              type: 'warning'
+            });
+            localStorage.removeItem("token")
           })
           console.log(Comment_text);
         }

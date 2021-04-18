@@ -46,7 +46,7 @@ name: "demo_item",
   methods:{
     Abotuto(){
       this.$router.push({
-        path:"/About-page-1",
+        path:"/Details",
         query:{menutitle:this.items.menutitle}
       })
     }

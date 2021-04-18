@@ -51,7 +51,7 @@ export default {
   methods:{
     but(){
       this.$router.push({
-        path:"/About-page-1",
+        path:"/Details",
         query:{menutitle:this.items.menutitle}
       })
     }

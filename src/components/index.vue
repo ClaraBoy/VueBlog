@@ -128,7 +128,6 @@ export default {
             duration: 1600,
           });
         }
-
       }
     }
   },

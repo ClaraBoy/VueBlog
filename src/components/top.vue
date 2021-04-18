@@ -37,13 +37,11 @@ export default {
   },
   methods: {
     indexbuts(){
-      this.$router.replace("/");
+      this.$router.replace("/Clara");
     }
-
   },
 }
 </script>
-
 <style scoped>
 .top{
   line-height: 49px;

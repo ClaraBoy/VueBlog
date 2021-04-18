@@ -70,12 +70,13 @@ export default {
   methods: {
     inntitleland($event) {
       this.innerDrawer = true;
-      console.log($event.target.innerText);
-      this.$router.replace('/'+$event.target.innerText+'-page-1')
+     // console.log($event.target.innerText);
+      //this.$router.replace('/'+$event.target.innerText+'-page-1')
+      this.$router.push('/Clara_Write')
       this.drawer=false;
     },
     but(Ep){
-      console.log(Ep);
+     // console.log(Ep);
     },
     Login() {
       this.isLoginShowOpinion++;
@@ -95,9 +96,6 @@ export default {
     top,
     Login
   },
-  mounted() {
-
-  }
 }
 </script>
 <style scoped>
