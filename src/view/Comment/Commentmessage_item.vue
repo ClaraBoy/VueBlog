@@ -5,33 +5,63 @@
         <div class="comment-message-message">
           <div class="comment-message-body">
             <div class="comment-message-details">
-              <span class="message-details-sender"><h2>{{items.commentsname}}</h2></span>
-              <span class="message-details-time" ><h3>{{items.comments}}</h3></span>
-              <button class="but">回复</button>
+              <span class="message-details-sender"><h2>{{items.topicid}}</h2></span>
+              <span class="message-details-time" ><h3>{{items.topicdate}}</h3></span>
+              <button class="but" @click="openDialog">回复</button>
             </div>
             <div class="comment-message-text">
-              <p>{{items.commentstext}}</p>
+              <p>{{items.topictext}}</p>
+            </div>
+            <div v-for="item in RepleComments">
+              <div v-show="items.id===item.commentid">
+                {{item.fromusid}}我是回复
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+  <div>
+    <el-dialog title="回复" :visible.sync="dialogFormVisible">
+      <el-form>
+        <el-form-item label="内容" :label-width="formLabelWidth">
+          <el-input type="textarea" :rows="5" v-model="repleinfo.Text" autocomplete="off"></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogFormVisible = false" style="width: 80px;height: 50px">取 消</el-button>
+        <el-button type="primary" @click="butreple()" style="width: 80px;height: 50px;background-color: black" >确 定</el-button>
+      </div>
+    </el-dialog>
+  </div>
   </div>
 </template>
-
 <script>
 export default {
 name: "Commentmessage",
   props:{
   items:"",
+    RepleComments:"",
   },
   data(){
 return{
-
-
+  dialogFormVisible:false,
+  formLabelWidth: '60px',
+  repleinfo:{
+    id:this.items.id,
+    Text:"",
+  }
 }
   },
-  mounted() {},
+  methods:{
+    openDialog(){
+      this.dialogFormVisible=true;
+    },
+    butreple(){
+      this.dialogFormVisible=false;
+      this.$emit("reple",this.repleinfo);//发射事件
+    }
+  },
 }
 </script>
 
@@ -43,6 +73,7 @@ return{
   margin-left: 60%;
   font-family:Webdings;
   font-size: 16px;
+  cursor: pointer;
 }
 .but:hover{
   color: black;

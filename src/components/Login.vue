@@ -58,7 +58,7 @@ name: "Login",
         uname:"",
         upwd:""
     },
-    token:""
+    user:{}
   }
   },
   methods:{
@@ -68,13 +68,16 @@ name: "Login",
         url:"/Ulogin",
         data:this.info,
       }).then(res=>{
-        if("失败"===res.data) {
-          this.$message.error(res.data);
+        this.user=res.data;
+        if(this.user.token===null) {
+          console.log(res.data)
+          this.$message.error("登陆失败 请检查信息");
           this.info.uname="";
           this.info.upwd="";
         }else{
-          this.$store.commit("LoginToken",res.data);
-          this.token=res.data;
+          console.log(this.user.uid)
+          this.$store.commit("LoginToken",this.user);
+          this.user=res.data;
           this.$message({
             message: "欢迎您 亲爱的:"+this.info.uname,
             type: 'success'

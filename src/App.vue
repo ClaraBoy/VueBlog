@@ -1,7 +1,7 @@
 <template>
   <div id="app">
       <Show></Show>
-    <router-view></router-view>
+    <router-view v-if="isRouterAlive"></router-view>
   </div>
 </template>
 
@@ -18,9 +18,10 @@ export default {
     }
   },
   data() {
-    return{
-      isRouterAlive: true                    //控制视图是否显示的变量
-    }
+    return {
+      isCollapse: true,
+      isRouterAlive: true,
+    };
   },
   methods: {
     reload () {

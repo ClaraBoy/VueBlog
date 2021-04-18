@@ -10,7 +10,7 @@
               </div>
             </div>
             <div class="comment-add-textarea">
-              <textarea placeholder="留下你的痕迹" name="commentArea" v-model="Comment_text"  class="comment-area"></textarea>
+              <textarea placeholder="留下你的痕迹" name="commentArea" v-model="Comment_text"  class="comment-area"/>
               <div class="comment-tooling-wrap">
               </div>
             </div>
@@ -36,8 +36,14 @@ export default {
   }},
   methods:{
     btnclick(){
-      //保存到
-      this.$emit("categoriesclick",this.Comment_text);//发射事件
+      if(this.Comment_text===""){
+        this.$message({
+          message: '警告 内容为空',
+          type: 'warning'
+        });
+      }else{
+        this.$emit("categoriesclick",this.Comment_text);//发射事件
+      }
     }
   }
 }

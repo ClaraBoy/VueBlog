@@ -125,7 +125,7 @@ export default {
       url:"/Menucomments?comments=1",
     }).then(res=>{
       this.peo["lists"].list=res.data;
-      console.log(res.data);
+     // console.log(res.data);
     }).catch(err=>{
       console.log(err);
     }),
@@ -133,22 +133,19 @@ export default {
         url:"/Menuyear?year=2021",
       }).then(res=>{
         this.peo["lists2"].list=res.data;
-        console.log(res.data);
+      //  console.log(res.data);
       }).catch(err=>{
         console.log(err);
-      }),
+      })
       demos({
         url:"/queryLists",
       }).then(res=>{
         this.Li=res.data;
-        console.log(res.data);
+        //console.log(res.data);
       }).catch(err=>{
         console.log(err);
       })
   },
-  computed:
-    {
-    }
 }
 
 </script>

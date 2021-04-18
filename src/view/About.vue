@@ -30,7 +30,7 @@
           <div class="criticism">
             <div style="background-color: black;width: 100%;clear: both"></div>
             <Commentmesssageput :Commentslength="Comment.length" @categoriesclick="sonclick"></Commentmesssageput>
-           <Commentmessage :Comments="Comment"></Commentmessage>
+           <Commentmessage :Comments="Comment" :RepleComments="RepleComments" @repleoutto="butrepleoutto"></Commentmessage>
           </div>
         </div>
       </el-card>
@@ -66,13 +66,22 @@ export default {
     Bloebottom,
     Bloebottomslot,
   },
-  inject:['reload'],//注入App里的reload方法
+  inject:['reload'],
   data() {
     return {
       textarea: "",
       isbottom: false,
       til: {},
       Comment: {},
+      RepleComments:{},
+      info:{
+        id:0,
+        topicid:"",
+        topictitle:"",
+        topictext:"",
+        topicdate:"",
+        topicred:0
+      }
     }
   },
       created() {
@@ -93,33 +102,79 @@ export default {
       },
       methods: {
         sonclick(Comment_text) {
-          console.log(this.$store.getters.RetToken)
-          let Data = new Date();
-          demos({
-            method:"get",
-            url:"/addComment",
-            headers: {
-              authorization: this.$store.getters.RetToken,
-            },
-          }).then(res=>{
-            this.$message('发布成功');
-          }).catch(err=>{
+          if (this.$store.getters.RetUid == null||this.$store.getters.RetToken==null) {
             this.$message({
-              message: '警告,身份过期,请重新登陆',
+              message: '警告,身份过期或未登录,请登陆',
               type: 'warning'
             });
             localStorage.removeItem("token")
+            localStorage.removeItem("ID")
+            this.$router.push("/Login");
+          } else {
+            demos({
+              method: "get",
+              url: "/addComment",
+              headers: {
+                authorization: this.$store.getters.RetToken,
+              },
+            }).then(res => {
+              if (res.data == 0) {
+                this.realaddComment(Comment_text);
+              } else {
+                this.$message({
+                  message: '警告,身份过期或未登录,请登陆',
+                  type: 'warning'
+                });
+                localStorage.removeItem("token")
+                this.$router.push("/Login");
+              }
+            }).catch(err => {
+              console.log(err)
+            })
+          }
+          },
+        realaddComment(Comment_text){
+          this.info.topictext=Comment_text;
+          this.info.topicid=this.$store.getters.RetUid;
+          this.info.topicred=0;
+          this.info.topictitle=this.til.menutitle;
+          demos({
+            method: "post",
+            url:"/realaddComment",
+            data:this.info
+          }).then(res=>{
+            if(res.data==1){
+              this.$message('发布成功');
+              this.reload();
+            }
+          }).catch(err=>{
+            console.log(err);
           })
-          console.log(Comment_text);
+        },
+        butrepleoutto(repleinfo){
+           console.log("我是回复"+repleinfo.id+repleinfo.Text)
         }
       },
   mounted() {
-    this.reload();
     demos({
       url:"/Details?menutitle="+this.$route.query.menutitle,
     }).then(res=>{
       this.til=res.data;
       console.log('内容：'+res.data.toString());
+    }).catch(err=>{
+      console.log(err);
+    })
+    demos({
+      url:"/QueryComment?topictitle="+this.$route.query.menutitle,
+    }).then(res=>{
+      this.Comment=res.data;
+    }).catch(err=>{
+      console.log(err);
+    })
+    demos({
+      url:"/QueryRepleComments",
+    }).then(res=>{
+      this.RepleComments=res.data;
     }).catch(err=>{
       console.log(err);
     })
