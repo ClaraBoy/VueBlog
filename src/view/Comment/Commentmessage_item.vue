@@ -14,7 +14,7 @@
             </div>
             <div v-for="item in RepleComments">
               <div v-show="items.id===item.commentid">
-                {{item.fromusid}}我是回复
+                {{item.fromusid}}{{item.repletext}}
               </div>
             </div>
           </div>
@@ -25,7 +25,7 @@
     <el-dialog title="回复" :visible.sync="dialogFormVisible">
       <el-form>
         <el-form-item label="内容" :label-width="formLabelWidth">
-          <el-input type="textarea" :rows="5" v-model="repleinfo.Text" autocomplete="off"></el-input>
+          <el-input type="textarea" :rows="5" v-model="repleinfo.repletext" autocomplete="off"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -48,8 +48,13 @@ return{
   dialogFormVisible:false,
   formLabelWidth: '60px',
   repleinfo:{
-    id:this.items.id,
-    Text:"",
+    commentid:this.items.id,//根
+    repleid:this.items.topicid,//给谁的回复
+    repleType:0,//回复的类型
+    repletitle:"",//哪一篇文章
+    fromusid:this.$store.getters.RetUid,//回复人id
+    touid:"",//赞不知道
+    repletext:"",//内容
   }
 }
   },

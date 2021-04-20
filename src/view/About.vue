@@ -101,6 +101,15 @@ export default {
         }
       },
       methods: {
+    backreple(){
+      demos({
+        url:"/QueryRepleComments?menutitle="+this.$route.query.menutitle,
+      }).then(res=>{
+        this.RepleComments=res.data;
+      }).catch(err=>{
+        console.log(err);
+      })
+    },
         sonclick(Comment_text) {
           if (localStorage.getItem("token") == null) {
             this.$message({
@@ -137,7 +146,7 @@ export default {
           },
         realaddComment(Comment_text){
           this.info.topictext=Comment_text;
-          this.info.topicid=1;
+          this.info.topicid=this.$store.getters.RetUid;
           this.info.topicred=0;
           this.info.topictitle=this.til.menutitle;
           demos({
@@ -145,7 +154,7 @@ export default {
             url:"/realaddComment",
             data:this.info
           }).then(res=>{
-            if(res.data==1){
+            if(res.data===1){
               this.$message('发布成功');
               this.reload();
             }
@@ -154,10 +163,30 @@ export default {
           })
         },
         butrepleoutto(repleinfo){
-           console.log("我是回复"+repleinfo.id+repleinfo.Text)
+           console.log("我是回复"+repleinfo.commentid)
+          console.log("内容"+repleinfo.repletext)
+          console.log("文章名字"+this.til.menutitle)
+          console.log("给谁的恢复"+repleinfo.repleid)
+          console.log("恢复的类型"+repleinfo.repleType)
+          console.log("回复人id"+repleinfo.fromusid)
+          repleinfo.repletitle=this.til.menutitle;
+          demos({
+            method:"post",
+            url:"/replecomment",
+            data:repleinfo,
+          }).then(res=>{
+            if(res.data===1){
+              this.$message('回复成功');
+              this.backreple();
+              this.reload();
+            }
+          }).catch(err=>{
+            console.log(err);
+          })
         }
       },
   mounted() {
+    this.backreple();
     demos({
       url:"/Details?menutitle="+this.$route.query.menutitle,
     }).then(res=>{
@@ -173,14 +202,6 @@ export default {
     }).catch(err=>{
       console.log(err);
     })
-    demos({
-      url:"/QueryRepleComments",
-    }).then(res=>{
-      this.RepleComments=res.data;
-    }).catch(err=>{
-      console.log(err);
-    })
-
   },
 }
 </script>

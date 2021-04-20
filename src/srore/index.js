@@ -11,19 +11,25 @@ const store=new Vuex.Store({
         state.Token=userinfo.token;
         state.ID=userinfo.uid;
         localStorage.token=userinfo.token;
+        sessionStorage.setItem("ID",userinfo.uid);
+        state.ID=userinfo.uid;
       }
   },
   getters:{
-    RetToken(store){
-      if(!store.Token)
+    RetToken(state){
+      if(!state.Token)
       {
-        store.Token=localStorage.getItem("token");
+        state.Token=localStorage.getItem("token");
       }
-      return store.Token;
+      return state.Token;
     },
-    // RetUid(store){
-    //     return store.Uid=localStorage.getItem("ID");
-    // }
+     RetUid(state){
+       if(!state.ID)
+       {
+         state.ID=sessionStorage.getItem("ID");
+       }
+        return state.ID;
+     }
   }
 })
 export default store
