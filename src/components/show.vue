@@ -108,6 +108,10 @@ export default {
       next(vm => {
         vm.$router.replace("/")
       })
+    }else{
+      next(vm => {
+        vm.$router.replace("/")
+      })
     }
   },
 }
