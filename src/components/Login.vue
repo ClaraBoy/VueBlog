@@ -93,6 +93,9 @@ name: "Login",
 </script>
 
 <style scoped>
+body{
+  color: transparent;
+}
 input[name='r']{
   position: absolute;
   visibility: hidden;
@@ -156,7 +159,6 @@ label{
   opacity: 0.0;
 }
 .back-conten{
-  color: #FF0000;
   text-align: center;
   width: 100%;
 }
@@ -165,7 +167,6 @@ label{
   transform: perspective(600px) rotateY(0deg);
 }
 .back{
-  background-color: white;
   transform:perspective(600px) rotateY(180deg);
 }
 #t1:checked ~ .font{

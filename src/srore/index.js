@@ -5,6 +5,7 @@ const store=new Vuex.Store({
   state: {
     ID:"",
     Token:"",
+    nickname:""
   },
   mutations:{
       LoginToken(state,userinfo){
@@ -12,7 +13,9 @@ const store=new Vuex.Store({
         state.ID=userinfo.uid;
         localStorage.token=userinfo.token;
         sessionStorage.setItem("ID",userinfo.uid);
+        sessionStorage.setItem("Nickname",userinfo.nickname);
         state.ID=userinfo.uid;
+        state.Nickname=userinfo.nickname;
       }
   },
   getters:{
@@ -29,7 +32,14 @@ const store=new Vuex.Store({
          state.ID=sessionStorage.getItem("ID");
        }
         return state.ID;
-     }
+     },
+    Retnickname(state){
+      if(!state.nickname)
+      {
+        state.nickname=sessionStorage.getItem("Nickname");
+      }
+      return state.nickname;
+    }
   }
 })
 export default store

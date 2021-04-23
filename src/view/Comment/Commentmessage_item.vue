@@ -5,16 +5,18 @@
         <div class="comment-message-message">
           <div class="comment-message-body">
             <div class="comment-message-details">
-              <span class="message-details-sender"><h2>{{items.topicid}}</h2></span>
+              <span class="message-details-sender"><h5>{{username}}</h5></span>
               <span class="message-details-time" ><h3>{{items.topicdate}}</h3></span>
-              <button class="but" @click="openDialog">回复</button>
+              <button class="but" @click="openDialog(items.topicid)" >回复</button>
             </div>
             <div class="comment-message-text">
               <p>{{items.topictext}}</p>
             </div>
-            <div v-for="item in RepleComments">
+            <div v-for="(item,index) in RepleComments" style="margin-left: 40px;">
               <div v-show="items.id===item.commentid">
-                {{item.fromusid}}{{item.repletext}}
+                <br>
+             {{fromusname}}{{fname[index]}}-回复-{{replename}}{{rname[index]}}:{{item.repletext}}
+                <el-button type="primary" style="width: 60px;height: 20px; background-color: white;color: black;border: 0px" @click="but(item.fromusid)" v-show="item.fromusid.toString()!=$store.getters.RetUid">回复</el-button>
               </div>
             </div>
           </div>
@@ -40,8 +42,9 @@
 export default {
 name: "Commentmessage",
   props:{
-  items:"",
+    items:"",
     RepleComments:"",
+    nickname:""
   },
   data(){
 return{
@@ -55,17 +58,75 @@ return{
     fromusid:this.$store.getters.RetUid,//回复人id
     touid:"",//赞不知道
     repletext:"",//内容
-  }
+  },
+  fname:[],
+  rname:[]
 }
   },
   methods:{
-    openDialog(){
-      this.dialogFormVisible=true;
+    openDialog(topicid){
+      if(topicid.toString()===this.$store.getters.RetUid) {
+        this.$message({
+          message: '不能给自己回复',
+          type: 'warning'
+        });
+      }else{
+        this.dialogFormVisible=true;
+      }
     },
     butreple(){
       this.dialogFormVisible=false;
-      this.$emit("reple",this.repleinfo);//发射事件
+      if(this.repleinfo.repletext===""){
+        this.$message({
+          message: '内容为空',
+          type: 'warning'
+        });
+      }else {
+        this.$emit("reple",this.repleinfo);//发射事件
+      }
+    },
+    but(fromusid){
+      if(fromusid.toString()===this.$store.getters.RetUid){
+        this.$message({
+          message: '不能给自己回复',
+          type: 'warning'
+        });
+      }else{
+        this.repleinfo.repleid=fromusid;
+        this.dialogFormVisible=true;
+     }
+    },
+  },
+  computed:{
+    username(){
+      for(let i=0;i<this.nickname.length;i++){
+        if(this.nickname[i].uid.toString()===this.items.topicid.toString())
+        {
+          return this.nickname[i].nickname;
+        }
+      }
+    },
+    fromusname(){
+      for(let s=0;s<this.RepleComments.length;s++){
+      for(let i=0;i<this.nickname.length;i++){
+        if(this.nickname[i].uid.toString()===this.RepleComments[s].fromusid.toString())
+        {
+          this.fname.push(this.nickname[i].nickname);
+        }
+      }
+     }
+    },
+    replename(){
+      for(let s=0;s<this.RepleComments.length;s++){
+      for(let i=0;i<this.nickname.length;i++){
+          if(this.nickname[i].uid.toString()===this.RepleComments[s].repleid.toString())
+          {
+            this.rname.push(this.nickname[i].nickname) ;
+          }
+        }
+      }
     }
+
   },
 }
 </script>

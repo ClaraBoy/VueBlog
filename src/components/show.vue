@@ -89,7 +89,7 @@ export default {
               return "登陆";
             }
             else{
-              return "";
+              return this.$store.getters.Retnickname;
             }
           }
   },

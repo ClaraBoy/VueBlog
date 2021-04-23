@@ -1,7 +1,7 @@
 <template>
 <div>
   <div v-for="item in Comments">
-    <Commentmessage_item :items="item" @reple="butrepleout" :RepleComments="RepleComments"></Commentmessage_item>
+    <Commentmessage_item :items="item" @reple="butrepleout" :nickname="nickname" :RepleComments="RepleComments"></Commentmessage_item>
   </div>
 </div>
 </template>
@@ -15,7 +15,8 @@ export default {
   },
   props:{
     Comments:"",
-    RepleComments:""
+    RepleComments:"",
+    nickname:""
   },
   methods:{
     butrepleout(repleinfo){

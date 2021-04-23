@@ -30,7 +30,7 @@
           <div class="criticism">
             <div style="background-color: black;width: 100%;clear: both"></div>
             <Commentmesssageput :Commentslength="Comment.length" @categoriesclick="sonclick"></Commentmesssageput>
-           <Commentmessage :Comments="Comment" :RepleComments="RepleComments" @repleoutto="butrepleoutto"></Commentmessage>
+           <Commentmessage  :Comments="Comment" :RepleComments="RepleComments" :nickname="nickname" @repleoutto="butrepleoutto" ref="child"></Commentmessage>
           </div>
         </div>
       </el-card>
@@ -38,7 +38,7 @@
     <div class="rightbox">
       <el-card class="box-card">
         <ul>
-          <li>分类目录</li>
+          <li @click="rnm()">分类目录</li>
           <li>node.js</li>
           <li>uniapp</li>
           <li>vue</li>
@@ -81,7 +81,8 @@ export default {
         topictext:"",
         topicdate:"",
         topicred:0
-      }
+      },
+      nickname:{}
     }
   },
       created() {
@@ -101,6 +102,15 @@ export default {
         }
       },
       methods: {
+    rnm(){
+      demos({
+        url:"/Querynickname"
+      }).then(res=>{
+        this.nickname=res.data;
+      }).catch(err=>{
+        console.log(err);
+      })
+    },
     backreple(){
       demos({
         url:"/QueryRepleComments?menutitle="+this.$route.query.menutitle,
@@ -163,29 +173,55 @@ export default {
           })
         },
         butrepleoutto(repleinfo){
-           console.log("我是回复"+repleinfo.commentid)
-          console.log("内容"+repleinfo.repletext)
-          console.log("文章名字"+this.til.menutitle)
-          console.log("给谁的恢复"+repleinfo.repleid)
-          console.log("恢复的类型"+repleinfo.repleType)
-          console.log("回复人id"+repleinfo.fromusid)
-          repleinfo.repletitle=this.til.menutitle;
-          demos({
-            method:"post",
-            url:"/replecomment",
-            data:repleinfo,
-          }).then(res=>{
-            if(res.data===1){
-              this.$message('回复成功');
-              this.backreple();
-              this.reload();
-            }
-          }).catch(err=>{
-            console.log(err);
-          })
-        }
+          if (localStorage.getItem("token") == null) {
+            this.$message({
+              message: '警告,身份过期或未登录,请登陆 等待跳转中...',
+              type: 'warning'
+            });
+            setTimeout(()=>{
+              this.$router.push("/show");
+            },1000)
+          } else {
+            demos({
+              method: "get",
+              url: "/addComment",
+              headers: {
+                authorization: this.$store.getters.RetToken,
+              },
+            }).then(res => {
+              if (res.data == 0) {
+                repleinfo.repletitle = this.til.menutitle;
+                demos({
+                  method: "post",
+                  url: "/replecomment",
+                  data: repleinfo,
+                }).then(res => {
+                  if (res.data === 1) {
+                    this.$message('回复成功');
+                    this.backreple();
+                    this.reload();
+                  }
+                }).catch(err => {
+                  console.log(err);
+                })
+              } else {
+                this.$message({
+                  message: '警告,身份过期或未登录,请登陆 等待跳转中...',
+                  type: 'warning'
+                });
+                localStorage.removeItem("token")
+                setTimeout(() => {
+                  this.$router.push("/show");
+                }, 1000)
+              }
+            }).catch(err => {
+              console.log(err)
+            })
+          }
+        },
       },
   mounted() {
+    this.rnm();
     this.backreple();
     demos({
       url:"/Details?menutitle="+this.$route.query.menutitle,
