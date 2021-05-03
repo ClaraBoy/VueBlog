@@ -2,7 +2,8 @@
 <div class="show">
   <div style=" width: 100%; display: flex; top:0">
   <top>
-    <div slot="butindexlogin" class="butindexlogin"><span style="display: inline" @click="Login">{{Loginspanshow}}</span><span @click="drawer=true" style="display: inline"  >博客</span></div>
+    <div slot="butindexlogin" class="butindexlogin"><span style="display: inline" @click="Login">{{Loginspanshow}}
+    </span><span @click="drawer=true" style="display: inline"  >博客</span><span v-show="$store.getters.RetToken" @click="sign_out">退出登录</span></div>
     <div slot="Login" class="LoginCss" v-show="!$store.getters.RetToken"><Login :isLoginShowOpinion="isLoginShowOpinion"/></div>
   </top>
   </div>
@@ -81,6 +82,14 @@ export default {
     },
     Login() {
       this.isLoginShowOpinion++;
+    },
+    sign_out(){
+      sessionStorage.clear();
+      localStorage.clear();
+      setTimeout(()=>{
+        location.reload();
+      },10)
+     this.$router.replace("/")
     }
   },
   computed:{
@@ -126,7 +135,7 @@ export default {
   position: absolute;
 }
 .butindexlogin{
-  width: 300px;
+  width: 400px;
   height: 53px;
   display: block;
   top: 0;

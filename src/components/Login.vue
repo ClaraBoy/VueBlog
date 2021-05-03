@@ -3,9 +3,37 @@
   <div :class="{card:isLoginShowOpinion%2===0,card2:isLoginShowOpinion%2!==0,middle:true}">
     <input type="radio" name="r" id="t1"/>
     <input type="radio" name="r" id="t2"/>
+    <input type="radio" name="r" id="t3"/>
+    <input type="radio" name="r" id="t4"/>
+    <div :class="{registerBox:isLoginShowOpinion%2===0,registerBox2:isLoginShowOpinion%2!==0}">
+      <label for="t4">
+        <svg t="1620034191579" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1128" width="16" height="16"><path d="M926.1 813.5L810.7 928.9 510.4 628.6 210.2 928.9 94.7 813.5 395 513.2 94.7 212.9 210.2 97.5l300.3 300.3L810.7 97.5 926.1 213 625.9 513.2l300.2 300.3z" fill="#060001" p-id="1129"></path></svg>
+      </label>
+      <h2>注&nbsp册</h2>
+      <el-form label-position="top" label-width="80px">
+        <el-form-item>
+          <el-input style="width: 80%;padding-top: 10px" v-model="registerinfo.nickname" placeholder="昵称"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-input style="width: 80%;padding-top: 10px" v-model="registerinfo.uname" placeholder="用户名"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-input style="width: 80%;padding-top: 10px" v-model="registerinfo.upwd" placeholder="密码"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-input style="width: 80%;padding-top: 10px" v-model="registerinfo.upwd" placeholder="重复密码"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-input style="width: 80%;padding-top: 10px" v-model="registerinfo.uemile" placeholder="邮箱"></el-input>
+        </el-form-item>
+        <el-form-item size="large">
+          <el-button type="primary" style="background-color: black; color: white;width: 60%;" @click="Submitregister()">注册</el-button>
+        </el-form-item>
+      </el-form>
+    </div>
     <div class="font">
       <div class="inputTable">
-        <div style="margin: 20px;"><h2>用户登陆</h2></div>
+        <div style="margin: 20px;"><h2>用&nbsp户&nbsp登&nbsp陆</h2></div>
         <el-form label-position="top" label-width="80px">
           <el-form-item>
             <el-input style="width: 80%;padding-top: 20px" v-model="info.uname" placeholder="账号"></el-input>
@@ -14,7 +42,9 @@
             <el-input style="width: 80%;padding-top: 20px" v-model="info.upwd" placeholder="密码"></el-input>
           </el-form-item>
           <label for="t1">忘记密码</label>
+          <label for="t3">注册</label>
           <el-form-item size="large">
+            <br>
             <el-button type="primary" style="background-color: black; color: white;width: 60%;" @click="Submit()">登陆</el-button>
           </el-form-item>
         </el-form>
@@ -23,7 +53,7 @@
     <div class="back">
       <div class="back-conten">
         <div class="inputTable2">
-        <div style="margin: 20px;"><h2>忘记密码</h2></div>
+        <div style="margin: 20px;"><h2>忘&nbsp记&nbsp密&nbsp码</h2></div>
           <el-form label-position="top" label-width="80px">
             <el-form-item>
               <el-input style="width: 80%;padding-top: 20px" placeholder="账号"></el-input>
@@ -58,6 +88,12 @@ name: "Login",
         uname:"",
         upwd:""
     },
+    registerinfo:{
+        nickname:"",
+        uname:"",
+        upwd: "",
+        uemile:"",
+    },
     user:{}
   }
   },
@@ -87,14 +123,40 @@ name: "Login",
       }).catch(err=>{
         console.log(err);
       })
+    },
+    Submitregister(){
+      demos({
+        method:"post",
+        url:"/addUser",
+        data:this.registerinfo,
+      }).then(res=>{
+          alert(res.data)
+      }).catch(err=>{
+        console.log(err);
+      })
     }
-  },
+    },
 }
 </script>
 
 <style scoped>
 body{
   color: transparent;
+}
+.registerBox{
+  position: absolute;
+  transform: perspective(600px) rotateY(90deg);
+}
+.registerBox2{
+display: none;
+}
+.registerBox h2{
+  padding-top: 20px;
+}
+.registerBox label{
+  right: 20px;
+  top: 0px;
+  position: absolute;
 }
 input[name='r']{
   position: absolute;
@@ -174,5 +236,20 @@ label{
 }
 #t1:checked ~ .back{
   transform:perspective(600px) rotateY(0deg);
+}
+#t3:checked ~ .registerBox{
+  background-color: white;
+  transition: all 2.0s;
+  color: black;
+  z-index: 10;
+  width: 400px;
+  height: 500px;
+  position: absolute;
+  left: -410px;
+  border-right: 5px;
+  transform: perspective(600px) rotateY(0deg);
+}
+#t4:checked ~ .registerBox{
+  transform: perspective(600px) rotateY(-90deg);
 }
 </style>
