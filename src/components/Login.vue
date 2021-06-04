@@ -124,16 +124,33 @@ name: "Login",
         console.log(err);
       })
     },
-    Submitregister(){
-      demos({
-        method:"post",
-        url:"/addUser",
-        data:this.registerinfo,
-      }).then(res=>{
-          alert(res.data)
-      }).catch(err=>{
-        console.log(err);
-      })
+    Submitregister() {
+      if (this.registerinfo.nickname.length>0&&this.registerinfo.uname.length>0&&this.registerinfo.upwd.length>=6&&this.registerinfo.uemile.length>0) {
+        demos({
+          method: "post",
+          url: "/addUser",
+          data: this.registerinfo,
+        }).then(res => {
+          if(res.data==0){
+            this.$message({
+              message: "请检查信息 或有重复",
+              type: 'warning'
+            });
+          }else{
+            this.$message({
+              message: "注册成功",
+              type: 'success'
+            });
+          }
+        }).catch(err => {
+          console.log(err);
+        })
+      }else{
+        this.$message({
+          message: "请检查信息",
+          type: 'warning'
+        });
+      }
     }
     },
 }

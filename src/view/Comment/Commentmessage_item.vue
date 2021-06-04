@@ -65,14 +65,18 @@ return{
   },
   methods:{
     openDialog(topicid){
-      if(topicid.toString()===this.$store.getters.RetUid) {
-        this.$message({
-          message: '不能给自己回复',
-          type: 'warning'
-        });
-      }else{
-        this.dialogFormVisible=true;
-      }
+      // if(topicid.toString()===this.$store.getters.RetUid) {
+      //   this.$message({
+      //     message: '不能给自己回复',
+      //     type: 'warning'
+      //   });
+      // }else{
+      //   this.dialogFormVisible=true;
+      // }
+      this.$message({
+              message: '此功能改进中  敬请期待！',
+              type: 'warning'
+            });
     },
     butreple(){
       this.dialogFormVisible=false;
