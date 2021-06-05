@@ -13,8 +13,7 @@ export default {
 <style scoped>
 .Bloebottomslots{
   background-color: #404040;
-  position:fixed;
-  bottom:0;
+  margin-top: 80px;
   width:100%;
   height:60px;   /* Height of the footer */
   z-index: 10;

@@ -5,7 +5,7 @@
       <div class="Bloe-top-1">
         <div class="imgto">
           <div class="slider">
-            <div :class="{datetime:isdatetime,datetime2:isdatetime2}" @click="playtime()"><h1>2021-6-12</h1></div>
+            <div :class="{datetime:isdatetime,datetime2:isdatetime2}" @click="playtime()"><h1>{{time}}</h1></div>
             <div class="item is-active">
               <div class="imgs">
                 <div class="grid">
@@ -32,7 +32,7 @@
       </div>
     </div>
     <div><newdemo :Li="Li"></newdemo></div>
-    <div style="display: none"><Bloebottomslot><Bloebottom></Bloebottom></Bloebottomslot></div>
+    <div><Bloebottomslot><Bloebottom></Bloebottom></Bloebottomslot></div>
   </div>
 </template>
 <script>
@@ -119,6 +119,12 @@ export default {
     isdemos2() {
       this.isdemo = "lists2";
     }
+  },
+  computed:{
+    time(){
+    let date = new Date();
+    return date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDay();
+}
   },
   mounted() {
     demos({

@@ -34,6 +34,7 @@
           </div>
         </div>
       </el-card>
+      <div><Bloebottomslot><Bloebottom></Bloebottom></Bloebottomslot></div>
     </div>
     <div class="rightbox">
       <el-card class="box-card">
@@ -48,7 +49,6 @@
       </el-card>
     </div>
   </div>
-  <Bloebottomslot v-if="isbottom"><Bloebottom></Bloebottom></Bloebottomslot>
 </div>
 </template>
 <script>
