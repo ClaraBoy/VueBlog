@@ -123,7 +123,9 @@ export default {
   computed:{
     time(){
     let date = new Date();
-    return date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDay();
+    let month=date.getMonth()<9 ? "0"+(date.getMonth()+1):(date.getMonth()+1);
+    let day=date.getUTCDay()<9 ? "0"+(date.getUTCDay()):(date.getUTCDay());
+    return date.getFullYear()+"-"+month+"-"+day;
 }
   },
   mounted() {
