@@ -31,6 +31,10 @@ export default new VueRouter({
       path:'/show',
       component:() => import("../components/show")
     },
+    {
+      path:"/404",
+      component:()=>import("../components/404")
+    },
   ],
   mode:"history"
 })

@@ -226,6 +226,9 @@ export default {
       url:"/Details?menutitle="+this.$route.query.menutitle,
     }).then(res=>{
       this.til=res.data;
+      if(this.$route.query.menutitle===""||this.til===""){
+        this.$router.replace("/404")
+      }
       console.log('内容：'+res.data.toString());
     }).catch(err=>{
       console.log(err);
