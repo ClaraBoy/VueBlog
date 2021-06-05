@@ -52,7 +52,7 @@ export default {
     but(){
       this.$router.push({
         path:"/Details",
-        query:{menutitle:this.items.menutitle}
+        query:{menutitle:this.items.menutitle},
       })
     }
   },

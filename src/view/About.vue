@@ -37,14 +37,13 @@
     </div>
     <div class="rightbox">
       <el-card class="box-card">
-        <ul>
-          <li @click="rnm()">分类目录</li>
-          <li>node.js</li>
-          <li>uniapp</li>
-          <li>vue</li>
-          <li>web</li>
-          <li>建站</li>
-          <li>系统</li>
+        <ul ref="lis">
+          <h4>快速链接</h4>
+          <a href="https://www.runoob.com/" target="_blank"><li>菜鸟教程</li></a>
+          <a href="https://www.cnblogs.com/" target="_blank"><li>博客园</li></a>
+          <a href="https://www.csdn.net/" target="_blank"><li>CSDN</li></a>
+          <a href="https://www.csdn.net/" target="_blank"><li>GitHub</li></a>
+            <a href="https://gitee.com/" target="_blank"><li>码云</li></a>
         </ul>
       </el-card>
     </div>
@@ -293,5 +292,13 @@ background-color:  #FB5353;
   line-height: 49px;
   margin: 30px 30px auto;
 }
-
+.box-card li{
+  list-style: none;
+  cursor: pointer;
+  margin-top: 10px;
+}
+.box-card a{
+  text-decoration: none;
+  color: black;
+}
 </style>
