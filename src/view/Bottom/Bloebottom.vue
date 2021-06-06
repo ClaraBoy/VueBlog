@@ -1,6 +1,6 @@
 <template>
   <div>
-  <div class="demobottom"><h3>© 2021</h3></div>
+  <div class="demobottom"><h3>© 2021 LQ所属版权</h3></div>
   </div>
 </template>
 <script>

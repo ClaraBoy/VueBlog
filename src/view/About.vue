@@ -220,6 +220,7 @@ export default {
         },
       },
   mounted() {
+    document.body.style.overflow='';//出现滚动条
     this.rnm();
     this.backreple();
     demos({
@@ -240,6 +241,7 @@ export default {
     }).catch(err=>{
       console.log(err);
     })
+
   },
 }
 </script>

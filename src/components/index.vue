@@ -151,6 +151,7 @@ export default {
       this.ispText=false
       this.ispText2=true
     },2000)
+    document.body.style.overflow='hidden';
   },
 }
 

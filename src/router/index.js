@@ -17,7 +17,7 @@ export default new VueRouter({
     },
     {
       path:'/Clara_Write',
-      component: () => import("../view/Bloe")
+      component: () => import("../view/Bloe"),
     },
     {
       path:'/Details',
@@ -35,6 +35,10 @@ export default new VueRouter({
       path:"/404",
       component:()=>import("../components/404")
     },
+    {
+      path:"*",
+      component:()=>import("../components/404")
+    }
   ],
   mode:"history"
 })

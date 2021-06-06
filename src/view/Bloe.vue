@@ -44,6 +44,7 @@ import {demos} from "../network/request"
 import newdemo from "../view/new_demo/demo"
 export default {
   name: "Bloe",
+  inject:['reload'],
   components: {
     demo,
     Bloebottom,
@@ -124,11 +125,12 @@ export default {
     time(){
     let date = new Date();
     let month=date.getMonth()<9 ? "0"+(date.getMonth()+1):(date.getMonth()+1);
-    let day=date.getUTCDay()<9 ? "0"+(date.getUTCDay()):(date.getUTCDay());
+    let day=date.getDate()<9 ? "0"+date.getDate():date.getDate();
     return date.getFullYear()+"-"+month+"-"+day;
 }
   },
   mounted() {
+    document.body.style.overflow='';//出现滚动条
     demos({
       url:"/Menucomments?comments=1",
     }).then(res=>{

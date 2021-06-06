@@ -1,7 +1,8 @@
 <template>
 <div>
 <div class="mess">
-  <span class="sp1">404</span><span class="sp2">页面走丢了...</span>
+  <span class="sp1">404</span><span class="sp2">页面跑丢了...</span>
+  <span class="sp3" @click="backindex()">返回首页</span>
   <div class="booblack">
     <div class="wf"></div>
     <div class="wf2"></div>
@@ -11,10 +12,14 @@
 </div>
 </div>
 </template>
-
 <script>
 export default {
-name: "404.vue"
+name: "404.vue",
+  methods:{
+  backindex(){
+   this.$router.replace("Clara_Write");
+  }
+  }
 }
 </script>
 
@@ -31,7 +36,27 @@ name: "404.vue"
 }
 .sp2{
   padding-left: 30px;
-  font-size: 40px;
+  font-size: 35px;
+}
+.sp3{
+  position: absolute;
+  margin-top: 130px;
+  font-size: 16px;
+  cursor: pointer;
+  left: 250px;
+  height: 40px;
+  width: 100px;
+  background-color: black;
+  color: white;
+  line-height: 40px;
+  text-align: center;
+  transition: all .1s;
+}
+.sp3:hover{
+  box-shadow: red;
+  box-shadow: 10px 10px 5px #888888;
+  left: 248px;
+  margin-top: 128px;
 }
 .booblack{
   top: -15px;
@@ -53,7 +78,7 @@ name: "404.vue"
   border-radius: 5px;
 }
 .wf2{
-  width: 100px;
+  width: 105px;
   height: 5px;
   position: absolute;
   background-color: #404040;
