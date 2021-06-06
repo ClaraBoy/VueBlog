@@ -178,16 +178,26 @@ name: "Login",
            url:"/sendVerification",
            data:this.resetpwdinfo,
          }).then(res=>{
-                  if(res.data!=null) {
+                  if(Number(res.data*1)>1000) {
                     this.$message({
                       message: "验证码发送成功 30s后可重新发送",
                       type: 'success'
                     });
+                    this.isAble=true;
+                    setTimeout(()=>{
+                      this.isAble=false;
+                    },30000)
+                  }else if(Number(res.data*1)===0){
+                    this.$message({
+                      message: "用户名不存在",
+                      type: 'warning'
+                    });
+                  }else if(Number(res.data*1)<0){
+                    this.$message({
+                      message: "邮箱错误",
+                      type: 'warning'
+                    });
                   }
-           this.isAble=true;
-                  setTimeout(()=>{
-                    this.isAble=false;
-                  },30000)
          }).catch(ree=>{
 
          })
@@ -211,7 +221,6 @@ name: "Login",
     },
     resetpwd(){
       if(this.resetpwdinfo.uname.length>0&&this.resetpwdinfo.uemile.length>0&&this.resetpwdinfo.upwd>0&&this.resetpwdinfo.Verification.length>0){
-
           demos({
             medthod:"post",
             url:""
