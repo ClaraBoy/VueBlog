@@ -6,25 +6,25 @@
     <input type="radio" name="r" id="t3"/>
     <input type="radio" name="r" id="t4"/>
     <div :class="{registerBox:isLoginShowOpinion%2===0,registerBox2:isLoginShowOpinion%2!==0}">
-      <label for="t4">
+      <label for="t4" @click="closet4()">
         <svg t="1620034191579" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1128" width="16" height="16"><path d="M926.1 813.5L810.7 928.9 510.4 628.6 210.2 928.9 94.7 813.5 395 513.2 94.7 212.9 210.2 97.5l300.3 300.3L810.7 97.5 926.1 213 625.9 513.2l300.2 300.3z" fill="#060001" p-id="1129"></path></svg>
       </label>
       <h2>注&nbsp册</h2>
       <el-form label-position="top" label-width="80px">
         <el-form-item>
-          <el-input style="width: 80%;padding-top: 10px" v-model="registerinfo.nickname" placeholder="昵称"></el-input>
+          <el-input style="width: 80%;margin-top: 10px" v-model="registerinfo.nickname" placeholder="昵称"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-input style="width: 80%;padding-top: 10px" v-model="registerinfo.uname" placeholder="用户名"></el-input>
+          <el-input style="width: 80%;margin-top: 10px" v-model="registerinfo.uname" placeholder="用户名"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-input style="width: 80%;padding-top: 10px" v-model="registerinfo.upwd" placeholder="密码"></el-input>
+          <el-input style="width: 80%;margin-top: 10px" v-model="registerinfo.upwd" placeholder="密码" show-password @blur="Check_password()"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-input style="width: 80%;padding-top: 10px" v-model="registerinfo.upwd" placeholder="重复密码"></el-input>
+          <el-input style="width: 80%;margin-top: 10px" v-model="registerinfo.repeatupwd" placeholder="重复密码" show-password @blur="Check_password()"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-input style="width: 80%;padding-top: 10px" v-model="registerinfo.uemile" placeholder="邮箱"></el-input>
+          <el-input style="width: 80%;margin-top: 10px" v-model="registerinfo.uemile" placeholder="邮箱"></el-input>
         </el-form-item>
         <el-form-item size="large">
           <el-button type="primary" style="background-color: black; color: white;width: 60%;" @click="Submitregister()">注册</el-button>
@@ -36,10 +36,10 @@
         <div style="margin: 20px;"><h2>用&nbsp户&nbsp登&nbsp陆</h2></div>
         <el-form label-position="top" label-width="80px">
           <el-form-item>
-            <el-input style="width: 80%;padding-top: 20px" v-model="info.uname" placeholder="账号"></el-input>
+            <el-input style="width: 80%;margin-top: 20px" v-model="info.uname" placeholder="账号"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-input style="width: 80%;padding-top: 20px" v-model="info.upwd" placeholder="密码"></el-input>
+            <el-input style="width: 80%;margin-top: 20px" v-model="info.upwd" placeholder="密码" show-password></el-input>
           </el-form-item>
           <label for="t1">忘记密码</label>
           <label for="t3">注册</label>
@@ -60,11 +60,11 @@
             </el-form-item>
             <el-form-item>
               <el-input style="width: 50%;position: absolute;left: 40px" placeholder="邮箱" :disabled="isAble" @blur="sendVerification()" v-model="resetpwdinfo.uemile">
-              </el-input><el-input style="width: 28%; margin-left: 52%" placeholder="验证码" v-model="resetpwdinfo.Verification"></el-input>
+              </el-input><el-input style="width: 28%; margin-left: 52%" placeholder="验证码" v-model="resetpwdinfo.verificationCode"></el-input>
             </el-form-item>
             <el-form-item>
-              <el-input style="width: 60%; padding-top: 10px" placeholder="新密码" v-model="resetpwdinfo.upwd"></el-input>
-              <el-input style="width: 60%; padding-top: 20px" placeholder="重复新密码" v-model="resetpwdinfo.upwd"></el-input>
+              <el-input style="width: 60%; margin-top: 10px" placeholder="新密码" v-model="resetpwdinfo.upwd" show-password></el-input>
+              <el-input style="width: 60%; margin-top: 20px" placeholder="重复新密码" v-model="resetpwdinfo.repeatupwd" show-password></el-input>
             </el-form-item>
             <label for="t2" class="backLogin">返回登录</label>
             <el-form-item size="large">
@@ -94,14 +94,16 @@ name: "Login",
         nickname:"",
         uname:"",
         upwd: "",
+        repeatupwd:"",
         uemile:"",
     },
     user:{},
     resetpwdinfo:{
       uname:"",
       uemile:"",
-      Verification:"",
+      verificationCode:"",
       upwd: "",
+      repeatupwd:"",
     },
     isAble:false,
   }
@@ -134,33 +136,40 @@ name: "Login",
       })
     },
     Submitregister() {
-      if (this.registerinfo.nickname.length>0&&this.registerinfo.uname.length>0&&this.registerinfo.upwd.length>=6&&this.registerinfo.uemile.length>0) {
-        const regEmail = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/;
-        if (regEmail.test(this.registerinfo.uemile)) {
-          demos({
-            method: "post",
-            url: "/addUser",
-            data: this.registerinfo,
-          }).then(res => {
-            if(res.data==0){
-              this.$message({
-                message: "请检查信息 或有重复",
-                type: 'warning'
-              });
-            }else{
-              this.$message({
-                message: "注册成功",
-                type: 'success'
-              });
-            }
-          }).catch(err => {
-            console.log(err);
-          })
+      if (this.registerinfo.nickname!==""&&this.registerinfo.uname!==""&&this.registerinfo.upwd!==""&&this.registerinfo.uemile!=="") {
+        if(this.registerinfo.upwd===this.registerinfo.repeatupwd) {
+          const regEmail = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/;
+          if (regEmail.test(this.registerinfo.uemile)) {
+            demos({
+              method: "post",
+              url: "/addUser",
+              data: this.registerinfo,
+            }).then(res => {
+              if (res.data == 0) {
+                this.$message({
+                  message: "请检查信息 或有重复",
+                  type: 'warning'
+                });
+              } else {
+                this.$message({
+                  message: "注册成功",
+                  type: 'success'
+                });
+              }
+            }).catch(err => {
+              console.log(err);
+            })
+          } else {
+            this.$message({
+              type: 'warning',
+              message: '请输正确的邮箱地址',
+            })
+          }
         }else{
           this.$message({
-            type: 'warning',
-            message: '请输正确的邮箱地址',
-          })
+            message: "两次密码不一致",
+            type: 'warning'
+          });
         }
       }else{
         this.$message({
@@ -170,7 +179,7 @@ name: "Login",
       }
     },
     sendVerification(){
-      if(this.resetpwdinfo.uname.length>0&&this.resetpwdinfo.uemile.length>0){
+      if(this.resetpwdinfo.uname!==""&&this.resetpwdinfo.uemile!==""){
         const regEmail = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/;
         if (regEmail.test(this.resetpwdinfo.uemile)) {
          demos({
@@ -178,7 +187,7 @@ name: "Login",
            url:"/sendVerification",
            data:this.resetpwdinfo,
          }).then(res=>{
-                  if(Number(res.data*1)>1000) {
+                  if(Number(res.data*1)===1) {
                     this.$message({
                       message: "验证码发送成功 30s后可重新发送",
                       type: 'success'
@@ -220,17 +229,51 @@ name: "Login",
       }
     },
     resetpwd(){
-      if(this.resetpwdinfo.uname.length>0&&this.resetpwdinfo.uemile.length>0&&this.resetpwdinfo.upwd>0&&this.resetpwdinfo.Verification.length>0){
+      if(this.resetpwdinfo.uname!==""&&this.resetpwdinfo.uemile!==""&&this.resetpwdinfo.upwd!==""&&this.resetpwdinfo.verificationCode!==""){
           demos({
-            medthod:"post",
-            url:""
+            method:"post",
+            url:"/verification",
+            data:this.resetpwdinfo,
           }).then(res=>{
-            alert(res.data)
+           if(res.data===true){
+             this.$message({
+               message: "密码重置成功",
+               type: 'success'
+             });
+             this.resetpwdinfo.uname="";
+             this.resetpwdinfo.uemile="";
+             this.resetpwdinfo.upwd="";
+             this.resetpwdinfo.verificationCode="";
+           }else {
+             this.$message({
+               message: "验证码已失效",
+               type: 'warning'
+             });
+           }
           }).catch(err=>{
 
           })
-        }
+        }else{
+        this.$message({
+          message: "检查信息",
+          type: 'warning'
+        });
+      }
     },
+    closet4(){
+      this.registerinfo.uname="";
+      this.registerinfo.nickname="";
+      this.registerinfo.upwd="";
+      this.registerinfo.uemile="";
+    },
+    Check_password(){
+      if(this.registerinfo.upwd!==this.registerinfo.repeatupwd){
+        this.$message({
+          message: "两次密码不一致",
+          type: 'warning'
+        });
+      }
+    }
     },
 }
 </script>
