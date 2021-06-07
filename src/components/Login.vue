@@ -63,8 +63,8 @@
               </el-input><el-input style="width: 28%; margin-left: 52%" placeholder="验证码" v-model="resetpwdinfo.verificationCode"></el-input>
             </el-form-item>
             <el-form-item>
-              <el-input style="width: 60%; margin-top: 10px" placeholder="新密码" v-model="resetpwdinfo.upwd" show-password></el-input>
-              <el-input style="width: 60%; margin-top: 20px" placeholder="重复新密码" v-model="resetpwdinfo.repeatupwd" show-password></el-input>
+              <el-input style="width: 60%; margin-top: 10px" placeholder="新密码" v-model="resetpwdinfo.upwd" show-password @blur="Check_password2()"></el-input>
+              <el-input style="width: 60%; margin-top: 20px" placeholder="重复新密码" v-model="resetpwdinfo.repeatupwd" show-password @blur="Check_password2()"></el-input>
             </el-form-item>
             <label for="t2" class="backLogin">返回登录</label>
             <el-form-item size="large">
@@ -229,30 +229,39 @@ name: "Login",
       }
     },
     resetpwd(){
-      if(this.resetpwdinfo.uname!==""&&this.resetpwdinfo.uemile!==""&&this.resetpwdinfo.upwd!==""&&this.resetpwdinfo.verificationCode!==""){
+      if(this.resetpwdinfo.uname!==""&&this.resetpwdinfo.uemile!==""&&this.resetpwdinfo.upwd!==""&&this.resetpwdinfo.verificationCode!==""&&this.resetpwdinfo.repeatupwd!==""){
+        if(this.resetpwdinfo.upwd===this.resetpwdinfo.repeatupwd) {
+
           demos({
-            method:"post",
-            url:"/verification",
-            data:this.resetpwdinfo,
-          }).then(res=>{
-           if(res.data===true){
-             this.$message({
-               message: "密码重置成功",
-               type: 'success'
-             });
-             this.resetpwdinfo.uname="";
-             this.resetpwdinfo.uemile="";
-             this.resetpwdinfo.upwd="";
-             this.resetpwdinfo.verificationCode="";
-           }else {
-             this.$message({
-               message: "验证码已失效",
-               type: 'warning'
-             });
-           }
-          }).catch(err=>{
+            method: "post",
+            url: "/verification",
+            data: this.resetpwdinfo,
+          }).then(res => {
+            if (res.data === true) {
+              this.$message({
+                message: "密码重置成功",
+                type: 'success'
+              });
+              this.resetpwdinfo.uname = "";
+              this.resetpwdinfo.uemile = "";
+              this.resetpwdinfo.upwd = "";
+              this.resetpwdinfo.verificationCode = "";
+              this.resetpwdinfo.repeatupwd = "";
+            } else {
+              this.$message({
+                message: "验证码错误",
+                type: 'warning'
+              });
+            }
+          }).catch(err => {
 
           })
+        }else{
+          this.$message({
+            message: "两次密码不一致",
+            type: 'warning'
+          });
+        }
         }else{
         this.$message({
           message: "检查信息",
@@ -265,14 +274,23 @@ name: "Login",
       this.registerinfo.nickname="";
       this.registerinfo.upwd="";
       this.registerinfo.uemile="";
+      this.registerinfo.repeatupwd="";
     },
-    Check_password(){
-      if(this.registerinfo.upwd!==this.registerinfo.repeatupwd){
-        this.$message({
-          message: "两次密码不一致",
-          type: 'warning'
-        });
-      }
+    Check_password() {
+        if (this.registerinfo.upwd !== this.registerinfo.repeatupwd) {
+          this.$message({
+            message: "两次密码不一致",
+            type: 'warning'
+          });
+        }
+        },
+          Check_password2() {
+          if (this.resetpwdinfo.upwd !== this.resetpwdinfo.repeatupwd) {
+            this.$message({
+              message: "两次密码不一致",
+              type: 'warning'
+            });
+          }
     }
     },
 }
