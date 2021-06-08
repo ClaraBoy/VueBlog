@@ -38,7 +38,11 @@ export default new VueRouter({
     {
       path:"*",
       component:()=>import("../components/404")
-    }
+    },
+    {
+      path:"/test",
+      component:()=>import("../components/test")
+    },
   ],
   mode:"history"
 })

@@ -95,6 +95,13 @@ export default {
           }
       },
       Li:{},
+      msg_data: [],
+      lockReconnect: false,//是否真正建立连接
+      timeout: 2*1000,//5秒一次心跳
+      timeoutObj: null,//心跳心跳倒计时
+      serverTimeoutObj: null,//心跳倒计时
+      timeoutnum: null,//断开 重连倒计时
+      mess:"",
     }
   },
   methods: {
@@ -119,45 +126,140 @@ export default {
     },
     isdemos2() {
       this.isdemo = "lists2";
-    }
-  },
-  computed:{
-    time(){
-    let date = new Date();
-    let month=date.getMonth()<9 ? "0"+(date.getMonth()+1):(date.getMonth()+1);
-    let day=date.getDate()<9 ? "0"+date.getDate():date.getDate();
-    return date.getFullYear()+"-"+month+"-"+day;
-}
-  },
-  mounted() {
-    document.body.style.overflow='';//出现滚动条
-    demos({
-      url:"/Menucomments?comments=1",
-    }).then(res=>{
-      this.peo["lists"].list=res.data;
-     // console.log(res.data);
-    }).catch(err=>{
-      console.log(err);
-    }),
+    },
+    initWebSocket: function () {
+      this.websock = new WebSocket("ws://localhost:9000/count");
+      this.websock.onopen = this.websocketonopen;
+      this.websock.onerror = this.websocketonerror;
+      this.websock.onmessage = this.websocketonmessage;
+      this.websock.onclose = this.websocketclose;
+    },
+    //打开连接
+    websocketonopen: function () {
+      console.log("WebSocket连接成功");
+      let actions = 200;
+      this.websocketsend(JSON.stringify(actions));
+    },
+    //连接错误
+    websocketonerror: function (e) {
+      console.log("WebSocket连接发生错误");
+      this.websocketonopen();
+    },
+    websocketonmessage: function (e) {
+      //接收数据
+     // var da = JSON.parse(e.data);
+      console.log(e.data);
+      // this.msg_data.unshift(e.);
+    },
+    websocketclose: function (e) {
+      console.log("connection closed (" + e.code + ")");
+    },
+    websocketsend(Data){
+      //数据发送
+      //this.websock.send(Data);
+    },
+    getMenucomments(){
+      demos({
+        url:"/Menucomments?comments=1",
+      }).then(res=>{
+        this.peo["lists"].list=res.data;
+        // console.log(res.data);
+      }).catch(err=>{
+        console.log(err);
+      })
+    },
+    getMenuyear(){
       demos({
         url:"/Menuyear?year=2021",
       }).then(res=>{
         this.peo["lists2"].list=res.data;
-      //  console.log(res.data);
+        //  console.log(res.data);
       }).catch(err=>{
         console.log(err);
       })
+    },
+    getList(){
       demos({
         url:"/queryLists",
       }).then(res=>{
         this.Li=res.data;
-        //console.log(res.data);
       }).catch(err=>{
         console.log(err);
       })
+    },
+        initWebSocketTo: function () {
+          this.websock = new WebSocket("ws://localhost:9000/The_heartbeat");
+          this.websock.onopen = this.websocketonopenTo;
+          this.websock.onerror = this.websocketonerrorTo;
+          this.websock.onmessage = this.websocketonmessageTo;
+          this.websock.onclose = this.websocketcloseTo;
+        },
+        startTo(){
+          if(this.lockReconnect===true)
+          {
+            clearInterval(this.timeoutnum);
+            this.serverTimeoutObj=setInterval(()=>{
+              this.timeoutObj=setTimeout(()=>{
+                this.websocketsendTo("200");
+                if(this.mess.toString()==="200"){
+                      this.getMenuyear();
+                      this.getMenucomments();
+                      this.getList();
+                }
+              });
+            },this.timeout)
+          }else{
+            clearInterval(this.serverTimeoutObj);
+            clearInterval(this.timeoutObj);
+            this.timeoutnum= setInterval(()=>{
+              setTimeout(this.websocketonopenTo,0)
+            },5000)
+          }
+        },
+        websocketonopenTo: function (e){
+          this.lockReconnect=true;
+          this.startTo();
+        },
+        websocketonerrorTo: function (e) {
+          console.log("WebSocket连接发生错误");
+          this.websocketonopen();
+        },
+        websocketonmessageTo: function (e) {
+          //接收数据
+          // var da = JSON.parse(e.data);
+          this.mess=e.data.toString();
+        },
+        websocketcloseTo: function (e) {
+          console.log("connection closed (" + e.code + ")");
+        },
+        websocketsendTo(Data) {
+          this.websock.send(Data);
+        },
+  },
+  computed:{
+    time()
+    {
+    let date = new Date();
+    let month=date.getMonth()<9 ? "0"+(date.getMonth()+1):(date.getMonth()+1);
+    let day=date.getDate()<9 ? "0"+date.getDate():date.getDate();
+    return date.getFullYear()+"-"+month+"-"+day;
+    }
+  },
+  mounted() {
+    document.body.style.overflow='';//出现滚动条
+    this.getMenucomments();
+    this.getMenuyear();
+    this.getList();
+  },
+  created() {
+    this.initWebSocket();
+    this.initWebSocketTo();
+  },
+  destroyed: function () {
+    this.websocketclose();
+    this.websocketcloseTo();
   },
 }
-
 </script>
 <style lang="scss" scoped>
 .cl h1{

@@ -218,34 +218,38 @@ export default {
             })
           }
         },
+        getDetails(){
+          demos({
+            url:"/Details?menutitle="+this.$route.query.menutitle,
+          }).then(res=>{
+            this.til=res.data;
+            if(this.$route.query.menutitle===""||this.til===""){
+              this.$router.replace("/404")
+            }
+            console.log('内容：'+res.data.toString());
+          }).catch(err=>{
+            console.log(err);
+          })
+        },
+        getQueryComment(){
+          demos({
+            url:"/QueryComment?topictitle="+this.$route.query.menutitle,
+          }).then(res=>{
+            this.Comment=res.data;
+          }).catch(err=>{
+            console.log(err);
+          })
+        }
       },
   mounted() {
     document.body.style.overflow='';//出现滚动条
     this.rnm();
     this.backreple();
-    demos({
-      url:"/Details?menutitle="+this.$route.query.menutitle,
-    }).then(res=>{
-      this.til=res.data;
-      if(this.$route.query.menutitle===""||this.til===""){
-        this.$router.replace("/404")
-      }
-      console.log('内容：'+res.data.toString());
-    }).catch(err=>{
-      console.log(err);
-    })
-    demos({
-      url:"/QueryComment?topictitle="+this.$route.query.menutitle,
-    }).then(res=>{
-      this.Comment=res.data;
-    }).catch(err=>{
-      console.log(err);
-    })
-
+    this.getDetails();
+    this.getQueryComment();
   },
 }
 </script>
-
 <style scoped>
 .bodytext{
   margin-top:2%;
