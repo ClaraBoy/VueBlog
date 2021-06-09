@@ -54,7 +54,7 @@ export default {
   position: absolute;
   top: 0;
   background-color: Transparent;
-  right: 10%;
+  right: 8%;
   height: 49px;
   line-height: 49px;
   margin-top: 0.2%;

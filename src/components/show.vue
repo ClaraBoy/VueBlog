@@ -2,8 +2,11 @@
 <div class="show">
   <div style=" width: 100%; display: flex; top:0">
   <top>
-    <div slot="butindexlogin" class="butindexlogin"><span style="display: inline" @click="Login">{{Loginspanshow}}
-    </span><span @click="drawer=true" style="display: inline"  >博客</span><span v-show="$store.getters.RetToken" @click="sign_out">退出登录</span></div>
+
+    <div slot="butindexlogin" class="butindexlogin">
+      <span @click="butTo()">签到</span>
+      <span style="display: inline" @click="Login">{{Loginspanshow}}
+    </span><span @click="drawer=true" style="display: inline"  >博客</span><span v-show="$store.getters.RetToken" @click="sign_out">退出</span></div>
     <div slot="Login" class="LoginCss" v-show="!$store.getters.RetToken"><Login :isLoginShowOpinion="isLoginShowOpinion"/></div>
   </top>
   </div>
@@ -54,6 +57,7 @@
 <script>
 import top from "./top";
 import Login from "./Login";
+import {demos} from "../network/request";
 require("../assets/css/style.css")
 export default {
   name: "show",
@@ -90,6 +94,28 @@ export default {
         location.reload();
       },10)
      this.$router.replace("/")
+    },
+    butTo() {
+      if (this.$store.getters.Retnickname == null && localStorage.getItem("token") == null) {
+        this.$message({
+          message: '警告,身份过期或未登录,请登陆 等待跳转中...',
+          type: 'warning'
+        });
+        setTimeout(()=>{
+          this.$router.push("/show");
+        },1000)
+      } else {
+        demos({
+          method: "post",
+          url: "/monitor?nickname="+this.$store.getters.Retnickname,
+        }).then(res => {
+          this.$message({
+            message: res.data,
+            type: 'success'
+          });
+        }).catch(err => {
+        })
+      }
     }
   },
   computed:{
@@ -135,7 +161,7 @@ export default {
   position: absolute;
 }
 .butindexlogin{
-  width: 400px;
+  width: 450px;
   height: 53px;
   display: block;
   top: 0;
