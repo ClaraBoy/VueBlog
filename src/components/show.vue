@@ -96,7 +96,7 @@ export default {
      this.$router.replace("/")
     },
     butTo() {
-      if (this.$store.getters.Retnickname == null && localStorage.getItem("token") == null) {
+      if (localStorage.getItem("token") == null||this.$store.getters.Retnickname==null) {
         this.$message({
           message: '警告,身份过期或未登录,请登陆 等待跳转中...',
           type: 'warning'
@@ -109,9 +109,19 @@ export default {
           method: "post",
           url: "/monitor?nickname="+this.$store.getters.Retnickname,
         }).then(res => {
-          this.$message({
-            message: res.data,
-            type: 'success'
+          this.$alert(res.data, '今日音乐推荐链接', {
+            confirmButtonText: '确定',
+            callback: action => {
+              this.$message({
+                type: 'info',
+                message: "谢谢关注",
+              });
+              if(res.data==="你已拥有名额"||res.data==="已无名额"||res.data==="系统暂未初始化"){
+
+              }else{
+                window.open(res.data, '_blank');
+              }
+            }
           });
         }).catch(err => {
         })
@@ -124,6 +134,9 @@ export default {
               return "登陆";
             }
             else{
+              if(this.$store.getters.Retnickname===null){
+                 this.sign_out();
+              }
               return this.$store.getters.Retnickname;
             }
           }
