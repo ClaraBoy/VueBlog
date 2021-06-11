@@ -106,6 +106,8 @@ name: "Login",
       repeatupwd:"",
     },
     isAble:false,
+    isCheck_password:false,
+    isCheck_password2:false,
   }
   },
   methods:{
@@ -136,7 +138,7 @@ name: "Login",
       })
     },
     Submitregister() {
-      if (this.registerinfo.nickname!==""&&this.registerinfo.uname!==""&&this.registerinfo.upwd!==""&&this.registerinfo.uemile!=="") {
+      if (this.registerinfo.nickname!==""&&this.registerinfo.uname!==""&&this.registerinfo.upwd!==""&&this.registerinfo.uemile!==""&&this.isCheck_password===true) {
         if(this.registerinfo.upwd===this.registerinfo.repeatupwd) {
           const regEmail = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/;
           if (regEmail.test(this.registerinfo.uemile)) {
@@ -229,7 +231,7 @@ name: "Login",
       }
     },
     resetpwd(){
-      if(this.resetpwdinfo.uname!==""&&this.resetpwdinfo.uemile!==""&&this.resetpwdinfo.upwd!==""&&this.resetpwdinfo.verificationCode!==""&&this.resetpwdinfo.repeatupwd!==""){
+      if(this.resetpwdinfo.uname!==""&&this.resetpwdinfo.uemile!==""&&this.resetpwdinfo.upwd!==""&&this.resetpwdinfo.verificationCode!==""&&this.resetpwdinfo.repeatupwd!==""&&this.isCheck_password2===true){
         if(this.resetpwdinfo.upwd===this.resetpwdinfo.repeatupwd) {
 
           demos({
@@ -276,21 +278,54 @@ name: "Login",
       this.registerinfo.uemile="";
       this.registerinfo.repeatupwd="";
     },
+    // Check_passwordLogin(){
+    //   const regPwd = /^[a-zA-Z]\w{5,17}$/;
+    //   if (!regPwd.test(this.info.upwd)) {
+    //     this.$message({
+    //       message:"密码要求:以字母开头，长度在6~18之间，只能包含字母、数字和下划线",
+    //       type: 'warning'
+    //     });
+    //   }
+    // },
     Check_password() {
+      const regPwd = /^[a-zA-Z]\w{5,17}$/;
+      if (regPwd.test(this.registerinfo.upwd)&&regPwd.test(this.registerinfo.repeatupwd)) {
         if (this.registerinfo.upwd !== this.registerinfo.repeatupwd) {
           this.$message({
             message: "两次密码不一致",
             type: 'warning'
           });
+          this.isCheck_password=false;
+        }else{
+          this.isCheck_password=true;
         }
+      }else{
+        this.$message({
+          message:"密码要求:以字母开头，长度在6~18之间，只能包含字母、数字和下划线",
+          type: 'warning'
+        });
+        this.isCheck_password=false;
+      }
         },
           Check_password2() {
-          if (this.resetpwdinfo.upwd !== this.resetpwdinfo.repeatupwd) {
-            this.$message({
-              message: "两次密码不一致",
-              type: 'warning'
-            });
-          }
+            const regPwd = /^[a-zA-Z]\w{5,17}$/;
+            if (regPwd.test(this.resetpwdinfo.upwd)&&regPwd.test(this.resetpwdinfo.repeatupwd)) {
+              if (this.resetpwdinfo.upwd !== this.resetpwdinfo.repeatupwd) {
+                this.$message({
+                  message: "两次密码不一致",
+                  type: 'warning'
+                });
+                this.isCheck_password2=false;
+              }else{
+                this.isCheck_password2=true;
+              }
+            }else{
+              this.$message({
+                message:"密码要求:以字母开头，长度在6~18之间，只能包含字母、数字和下划线",
+                type: 'warning'
+              });
+              this.isCheck_password2=false;
+            }
     }
     },
 }
