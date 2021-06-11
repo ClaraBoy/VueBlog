@@ -32,17 +32,18 @@ export default new VueRouter({
       component:() => import("../components/show")
     },
     {
-      path:"/404",
-      component:()=>import("../components/404")
-    },
-    {
       path:"*",
+      name:"/404",
       component:()=>import("../components/404")
     },
     {
       path:"/test",
       component:()=>import("../components/test")
     },
+    {
+      path: "/Search_page",
+      component: () => import("../components/Search_page")
+    }
   ],
   mode:"history"
 })

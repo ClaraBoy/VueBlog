@@ -20,7 +20,7 @@
             </div>
             -->
             <div class="roundbut2">
-              <span>分享到&nbsp</span>
+              <span>分享到:&nbsp</span>
               <el-button size="medium" round>QQ</el-button>
               <el-button size="medium" round>微信</el-button>
               <el-button size="medium" round>微博</el-button>
@@ -48,6 +48,9 @@
           <a href="https://www.csdn.net/" target="_blank"><li>GitHub</li></a>
             <a href="https://gitee.com/" target="_blank"><li>码云</li></a>
         </ul>
+      </el-card>
+      <el-card class="box-cardbottom">
+
       </el-card>
     </div>
   </div>
@@ -280,10 +283,10 @@ export default {
   width: 100%;
 }
 .childbox{
-  width: 70%;
+  width: 65%;
 }
 .box-card{
-  margin-left: 15%;
+  margin-left: 20%;
 }
 .rightbox{
   position: absolute;
@@ -336,6 +339,13 @@ background-color:  #FB5353;
 .box-card a{
   text-decoration: none;
   color: black;
+}
+.box-cardbottom{
+      margin-top: 60px;
+      width: 250px;
+      height: 250px;
+      margin-left: -20%;
+  display: none;
 }
 .footbackbox {
   position: absolute;

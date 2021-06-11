@@ -128,6 +128,7 @@ html {
   outline: none;
   margin-top: 5px;
   height: auto;
+  cursor: pointer;
 }
 
 

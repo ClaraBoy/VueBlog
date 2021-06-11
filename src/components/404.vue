@@ -19,6 +19,9 @@ name: "404.vue",
   backindex(){
    this.$router.replace("Clara_Write");
   }
+  },
+  mounted() {
+    document.body.style.overflow='hidden';
   }
 }
 </script>

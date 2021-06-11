@@ -5,7 +5,7 @@
         <div class="comment-message-message">
           <div class="comment-message-body">
             <div class="comment-message-details">
-              <span class="message-details-sender"><h5>{{username}}</h5></span>
+              <span class="message-details-sender"><h5>{{items.topicname}}</h5></span>
               <span class="message-details-time" ><h3>{{items.topicdate}}</h3></span>
               <button class="but" @click="openDialog(items.topicid)" >回复</button>
             </div>
@@ -102,11 +102,11 @@ return{
     },
   },
   computed:{
-    username(){
-      for(let i=0;i<this.nickname.length;i++){
-          return this.nickname[i].nickname;
-      }
-    },
+    // username(){
+    //   for(let i=0;i<this.nickname.length;i++){
+    //       return this.nickname[i].nickname;
+    //   }
+    // },
     fromusname(){
       for(let s=0;s<this.RepleComments.length;s++){
       for(let i=0;i<this.nickname.length;i++){

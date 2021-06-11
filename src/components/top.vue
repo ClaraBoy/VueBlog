@@ -10,12 +10,13 @@
             background-color="#545c64"
             text-color="#fff"
             active-text-color="#ffd04b"style="background-color: white">
-            <div style="text-align: center">
+            <div class="intbox">
             <el-input
               placeholder="请输入内容"
               prefix-icon="el-icon-search"
-              v-model="input0" :class="{inputw:true}">
+              v-model="SearchDate" :class="{inputw:true}">
             </el-input>
+             <button class="intbut" @click="Search()">检索</button>
             </div>
           </el-menu>
               <div class="Logindiv"><slot name="butindexlogin"></slot></div>
@@ -28,16 +29,32 @@
 <script>
 export default {
   name: "Layout",
+  inject:['reload'],
   data() {
     return {
       activeIndex: '1',
       activeIndex2: '1',
-      input0:'',
+      SearchDate:"",
     };
   },
   methods: {
     indexbuts(){
       this.$router.replace("/Clara");
+    },
+    Search(){
+      if(this.SearchDate===""){
+        this.$message({
+          message: "检索内容不可为空",
+          type: 'warning'
+        });
+      }else{
+        this.$router.push({
+          path:"Search_page",
+          query:{
+            SearchInfo:this.SearchDate,
+          },
+        })
+      }
     }
   },
 }
@@ -67,15 +84,27 @@ export default {
   border-radius: 4px;
   min-height: 36px;
 }
+.intbox{
+  text-align: center;
+  position: relative;
+  width: 40%;
+  margin-left: 20%
+}
+.intbut{
+  height: 30px;
+  width: 60px;
+  background-color: black;
+  color: white;
+  position: absolute;
+  right: 0;top: 12px;
+  cursor: pointer;
+}
 .inputw{
-  width:40%;
+  width:88%;
   transition:width 1s;
   -webkit-transition:width 1s; /* Safari */
   margin-right: 16%;
   margin-top: 0.5%;
-}
-.inputw:hover{
-  width: 50%;
 }
 img{
   width: 120px;

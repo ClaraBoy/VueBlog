@@ -2,7 +2,6 @@
 <div class="show">
   <div style=" width: 100%; display: flex; top:0">
   <top>
-
     <div slot="butindexlogin" class="butindexlogin">
       <span @click="butTo()">签到</span>
       <span style="display: inline" @click="Login">{{Loginspanshow}}
