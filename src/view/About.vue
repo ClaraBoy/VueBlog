@@ -87,7 +87,7 @@ export default {
       RepleComments:{},
       info:{
         id:0,
-        topicid:"",
+        topicname:"",
         topictitle:"",
         topictext:"",
         topicdate:"",
@@ -176,7 +176,7 @@ export default {
           },
         realaddComment(Comment_text){
           this.info.topictext=Comment_text;
-          this.info.topicid=this.$store.getters.RetUid;
+          this.info.topicname=this.$store.getters.Retnickname;
           this.info.topicred=0;
           this.info.topictitle=this.til.menutitle;
           demos({
@@ -280,7 +280,7 @@ export default {
   width: 100%;
 }
 .childbox{
-  width: 65%;
+  width: 70%;
 }
 .box-card{
   margin-left: 15%;

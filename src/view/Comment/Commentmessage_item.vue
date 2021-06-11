@@ -104,10 +104,7 @@ return{
   computed:{
     username(){
       for(let i=0;i<this.nickname.length;i++){
-        if(this.nickname[i].uid.toString()===this.items.topicid.toString())
-        {
           return this.nickname[i].nickname;
-        }
       }
     },
     fromusname(){
