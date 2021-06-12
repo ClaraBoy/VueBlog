@@ -54,6 +54,9 @@ export default {
             SearchInfo:this.SearchDate,
           },
         })
+        setTimeout(()=>{
+          this.reload();
+        },1)
       }
     }
   },
@@ -91,13 +94,17 @@ export default {
   margin-left: 20%
 }
 .intbut{
-  height: 30px;
+  height: 40px;
   width: 60px;
   background-color: black;
   color: white;
   position: absolute;
-  right: 0;top: 12px;
+  right: 0;top: 6px;
   cursor: pointer;
+  border-radius: 5px;
+}
+.intbut:hover{
+  background-color: #FB5353;
 }
 .inputw{
   width:88%;

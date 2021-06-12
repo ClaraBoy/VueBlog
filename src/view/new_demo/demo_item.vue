@@ -5,13 +5,13 @@
       <br>
       <div class="imgBox" @click="Abotuto()">
         <img :src="ismags">
-        <div :class="{left_data:isActives,s:iss}"><h1>{{items.menutitle}}</h1></div>
+        <div class="left_data"><h1>{{items.menutitle}}</h1></div>
       </div>
       <div class="left_span">
         <h1>{{items.menudate}}</h1>
       </div>
       <br><br><br> <br><br><br>
-      <div :class="{left_red:isActives,s:iss}"><h2>阅读量:{{items.menured}}</h2></div>
+      <div class="left_red"><h2>阅读量:{{items.menured}}</h2></div>
       <br><br><br>
     </div>
     <div class="right_span">
@@ -37,8 +37,6 @@ name: "demo_item",
   },
   data(){
   return{
-  isActives:false,
-    iss:true,
     isShowActive:true,
     ismags:require('../../assets/img/Bloe/'+Number(this.index+1)+'.png')
   }
@@ -146,6 +144,7 @@ img{
   right: 50%;
   height: 320px;
   width: 200px;
+  z-index: 30;
 }
 .right_span{
   width: 20px;

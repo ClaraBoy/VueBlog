@@ -32,14 +32,11 @@
       </div>
     </div>
     <div><newdemo :Li="Li"></newdemo></div>
-    <div><Bloebottomslot><Bloebottom></Bloebottom></Bloebottomslot></div>
-  </div>
+    <el-footer style="width: 100%;height: 49px;font-size: 15px;background-color: #404040; color: white;text-align: center;line-height: 49px;margin-top: 80px"><h3>© 2021 LQ所属版权</h3></el-footer>  </div>
 </template>
 <script>
 import anime from "animejs/lib/anime.es.js";
 import demo from "./demo/demo"
-import Bloebottom from "./Bottom/Bloebottom";
-import Bloebottomslot from "./Bottom/Bloebottomslot";
 import {demos} from "../network/request"
 import newdemo from "../view/new_demo/demo"
 export default {
@@ -47,8 +44,6 @@ export default {
   inject:['reload'],
   components: {
     demo,
-    Bloebottom,
-    Bloebottomslot,
     newdemo
   },
   data() {

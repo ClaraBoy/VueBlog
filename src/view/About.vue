@@ -36,7 +36,7 @@
         </div>
       </el-card>
       </div>
-      <div><Bloebottomslot><Bloebottom></Bloebottom></Bloebottomslot></div>
+      <el-footer style="width: 100%;height: 49px;font-size: 15px;background-color: #404040; color: white;text-align: center;line-height: 49px;margin-top: 80px"><h3>© 2021 LQ所属版权</h3></el-footer>
     </div>
     <div class="rightbox">
       <el-card class="box-card">
@@ -69,16 +69,12 @@
 <script>
 import Commentmesssageput from "./Comment/Commentmessageput";
 import Commentmessage from "./Comment/Commentmessage";
-import Bloebottom from "./Bottom/Bloebottom";
-import Bloebottomslot from "./Bottom/Bloebottomslot";
 import {demos} from "../network/request";
 export default {
   name: "About",
   components: {
     Commentmessage,
     Commentmesssageput,
-    Bloebottom,
-    Bloebottomslot,
   },
   inject:['reload'],
   data() {

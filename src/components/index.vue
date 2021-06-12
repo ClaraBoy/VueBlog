@@ -77,12 +77,10 @@
 </template>
 <script>
 import anime from "animejs/lib/anime.es.js";
-import Bloebottomslot from "../view/Bottom/Bloebottomslot";
 export default {
   name: "index",
   inject:['reload'],
   components:{
-    Bloebottomslot
   },
   data(){
     return{
