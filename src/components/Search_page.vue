@@ -21,7 +21,6 @@
           </div>
         </div>
       </el-card>
-    <div class="foot"><el-footer style="width: 100%;height: 49px;font-size: 15px;background-color: #404040; color: white;text-align: center;line-height: 49px"><h3>© 2021 LQ所属版权</h3></el-footer></div>
   </div>
   <div class="footbackbox">
     <ul>
@@ -62,17 +61,17 @@ name: "Search_page",
       if(this.SearchInfo.length*100>document.documentElement.clientHeight)
       {
        // alert(this.SearchInfo.length*100)
-        document.getElementsByClassName("box-card")[0].style.height=this.SearchInfo.length*100+document.documentElement.clientHeight+"px"
-        document.getElementsByClassName("con")[0].style.height=this.SearchInfo.length*100+"px"
-        document.getElementsByClassName("foot")[0].style.position="absolute";
-        document.getElementsByClassName("foot")[0].style.width="100%";
-        document.getElementsByClassName("foot")[0].style.bottom=-this.SearchInfo.length*100+200+"px";
+       //  document.getElementsByClassName("box-card")[0].style.height=this.SearchInfo.length*100+document.documentElement.clientHeight+"px"
+       //  document.getElementsByClassName("con")[0].style.height=this.SearchInfo.length*100+"px"
+       //  document.getElementsByClassName("foot")[0].style.position="absolute";
+       //  document.getElementsByClassName("foot")[0].style.width="100%";
+       //  document.getElementsByClassName("foot")[0].style.bottom=-this.SearchInfo.length*100+200+"px";
       }else{
        // alert(document.body.clientHeight+document.documentElement.clientHeight)
-        document.getElementsByClassName("box-card")[0].style.height=document.body.clientHeight+document.documentElement.clientHeight+"px"
-        document.getElementsByClassName("foot")[0].style.position="absolute";
-        document.getElementsByClassName("foot")[0].style.width="100%";
-        document.getElementsByClassName("foot")[0].style.bottom=-document.body.clientHeight+"px";
+       //  document.getElementsByClassName("box-card")[0].style.height=document.body.clientHeight+document.documentElement.clientHeight+"px"
+       //  document.getElementsByClassName("foot")[0].style.position="absolute";
+       //  document.getElementsByClassName("foot")[0].style.width="100%";
+       //  document.getElementsByClassName("foot")[0].style.bottom=-document.body.clientHeight+"px";
 
 
       }
@@ -153,6 +152,7 @@ name: "Search_page",
   height: auto;
   top: 0;
   position: absolute;
+  overflow: hidden;
 }
 .box-card{
   width: 70%;

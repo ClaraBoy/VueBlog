@@ -1,6 +1,9 @@
 <template>
-  <div class="cl">
-    <div><h1><span style="color: #FB5353">Clara</span> <span style="color: #404040">Write</span></h1></div>
+  <div class="cl" style="">
+    <div class="Suspension" @click="poa()">
+      <div v-show="ispso"><span style="color: #FB5353;">Clara</span> <span style="color: #404040">Write</span></div>
+      <div v-show="!ispso" style="color: black"><span style="color: #FB5353;">Hi</span>&nbsp;<span style="color: #404040">{{this.$store.getters.Retnickname}}</span></div>
+    </div>
     <div class="Bloe-top">
       <div class="Bloe-top-1">
         <div class="imgto">
@@ -32,12 +35,34 @@
       </div>
     </div>
     <div><newdemo :Li="Li"></newdemo></div>
-    <el-footer style="width: 100%;height: 49px;font-size: 15px;background-color: #404040; color: white;text-align: center;line-height: 49px;margin-top: 80px"><h3>© 2021 LQ所属版权</h3></el-footer>  </div>
+    <div style="margin-top: 2%;height: 80px"></div>
+    <div style="
+    position: absolute;
+    bottom: 0;
+    height: 49px;
+    width: 100%;
+    background-color: white;
+    color: black;
+    font-size: 16px;
+    line-height: 49px;
+    text-align: center;
+      -webkit-box-shadow: 0 0 15px 5px rgba(1,1,1,0.1);
+  -moz-box-shadow: 0 0 15px 5px rgba(1,1,1,0.1);
+  box-shadow: 0 0 15px 5px rgba(1,1,1,0.1);
+    ">LQ版权</div>
+    <div class="footbackbox">
+      <ul>
+        <li title="回到顶部" @click="backTop()" class="footback">
+          <svg t="1623384090980" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1542" width="48" height="48"><path d="M800.2 128H224.3c-53 0-96 43-96 96v575.9c0 53 43 96 96 96h575.9c53 0 96-43 96-96V224c0-53-43-96-96-96z m-54.8 520.3c-9.4 9.5-24.7 9.5-34.1 0L512.6 448.9 314 648.3c-9.4 9.5-24.7 9.5-34.1 0-9.4-9.5-9.4-24.8 0-34.3l214.5-215.3c5-5 11.7-7.2 18.3-6.9 6.6-0.3 13.3 1.8 18.3 6.9L745.4 614c9.5 9.5 9.5 24.8 0 34.3z" p-id="1543"></path></svg>
+        </li>
+      </ul>
+    </div>
+  </div>
 </template>
 <script>
 import anime from "animejs/lib/anime.es.js";
 import demo from "./demo/demo"
-import {demos} from "../network/request"
+import {demos, sp} from "../network/request"
 import newdemo from "../view/new_demo/demo"
 export default {
   name: "Bloe",
@@ -97,9 +122,22 @@ export default {
       serverTimeoutObj: null,//心跳倒计时
       timeoutnum: null,//断开 重连倒计时
       mess:"",
+      ispso:true,
+      ospsss:0,
     }
   },
   methods: {
+    backTop(){
+      document.documentElement.scrollTop=0;
+    },
+    poa(){
+      this.ospsss++;
+        if(this.ospsss%2==0){
+          this.ispso=true;
+        }else{
+          this.ispso=false;
+        }
+    },
     playtime() {
       anime({
         targets: '.datetime,.datetime2',
@@ -123,7 +161,7 @@ export default {
       this.isdemo = "lists2";
     },
     initWebSocket: function () {
-      this.websock = new WebSocket("ws://localhost:9000/count");
+      this.websock = new WebSocket("ws:/"+sp+"/count");
       this.websock.onopen = this.websocketonopen;
       this.websock.onerror = this.websocketonerror;
       this.websock.onmessage = this.websocketonmessage;
@@ -183,7 +221,7 @@ export default {
       })
     },
         initWebSocketTo: function () {
-          this.websock = new WebSocket("ws://localhost:9000/The_heartbeat");
+          this.websock = new WebSocket("ws:/"+sp+"/The_heartbeat");
           this.websock.onopen = this.websocketonopenTo;
           this.websock.onerror = this.websocketonerrorTo;
           this.websock.onmessage = this.websocketonmessageTo;
@@ -232,6 +270,7 @@ export default {
         },
   },
   computed:{
+
     time()
     {
     let date = new Date();
@@ -249,6 +288,27 @@ export default {
   created() {
     this.initWebSocket();
     this.initWebSocketTo();
+    window.onscroll = function () {
+      let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+      let windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+      //变量scrollHeight是滚动条的总高度
+      let scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
+      //滚动条到底部的条件
+      if (scrollTop + windowHeight > scrollHeight/2+scrollHeight/3) {
+        //写后台加载数据的函数
+        let top= document.getElementsByClassName("footback")[0];
+        top.style.display="block";
+      }else{
+        let top= document.getElementsByClassName("footback")[0];
+        top.style.display="none"
+      }
+      if (scrollTop>0) {
+        //写后台加载数据的函数
+           document.getElementsByClassName("Suspension")[0].style.visibility="visible";
+      }else{
+            document.getElementsByClassName("Suspension")[0].style.visibility="hidden";
+      }
+    }
   },
   destroyed: function () {
     this.websocketclose();
@@ -257,9 +317,29 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.cl{
+  position: relative;
+  height:auto;
+}
 .cl h1{
   text-align: center;
-  padding-top: 3%;
+  padding-top: 30px;
+}
+.Suspension{
+  width: 100%;
+  height: 60px;
+  text-align: center;
+  position: sticky;
+  top: 0;
+  background-color: white;
+  float: left;
+  color: white;
+  line-height: 60px;
+  z-index: 600;
+  -webkit-box-shadow: 0 0 15px 5px rgba(1,1,1,0.1);
+  -moz-box-shadow: 0 0 15px 5px rgba(1,1,1,0.1);
+  box-shadow: 0 0 15px 5px rgba(1,1,1,0.1);
+  visibility: hidden;
 }
 h1,span,h2,h3:hover{
   cursor:pointer;
@@ -532,7 +612,21 @@ img:hover {
   opacity: 0;
   pointer-events: none;
 }
-
+.footbackbox {
+  position: absolute;
+  bottom: 120px;
+  right: 60px;
+  text-align: center;
+  background-color: #404040;
+}
+.footbackbox .footback{
+  list-style: none;
+  cursor: pointer;
+  position:fixed;
+  bottom: 100px;
+  right: 60px;
+  display: none;
+}
 
 
 

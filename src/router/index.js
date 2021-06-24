@@ -36,10 +36,10 @@ export default new VueRouter({
       name:"/404",
       component:()=>import("../components/404")
     },
-    // {
-    //   path:"/test",
-    //   component:()=>import("../components/404")
-    // },
+    {
+      path:"/test",
+      component:()=>import("../components/404")
+    },
     {
       path: "/Search_page",
       component: () => import("../components/Search_page")

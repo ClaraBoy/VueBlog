@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-      <Show></Show>
+      <div class="top"><Show></Show></div>
     <router-view v-if="isRouterAlive"></router-view>
   </div>
 </template>
@@ -36,6 +36,13 @@ export default {
 
 <style>
 *{padding: 0;margin: 0;border: 0;}
+.top{
+  /*position: sticky;*/
+  /*top: 0;*/
+  /*-webkit-box-shadow: 0 0 15px 5px rgba(1,1,1,0.1);*/
+  /*-moz-box-shadow: 0 0 15px 5px rgba(1,1,1,0.1);*/
+  /*box-shadow: 0 0 15px 5px rgba(1,1,1,0.1);*/
+}
 .el-main{
   padding: 0;
   overflow: hidden;

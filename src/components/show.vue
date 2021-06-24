@@ -4,8 +4,8 @@
   <top>
     <div slot="butindexlogin" class="butindexlogin">
       <span @click="butTo()">签到</span>
-      <span style="display: inline" @click="Login">{{Loginspanshow}}
-    </span><span @click="drawer=true" style="display: inline"  >博客</span><span v-show="$store.getters.RetToken" @click="sign_out">退出</span></div>
+      <span style="display: inline-block" @click="Login">{{Loginspanshow}}
+    </span><span @click="drawer=true" style="display: inline-block">博客</span><span v-show="$store.getters.RetToken" @click="sign_out">退出</span></div>
     <div slot="Login" class="LoginCss" v-show="!$store.getters.RetToken"><Login :isLoginShowOpinion="isLoginShowOpinion"/></div>
   </top>
   </div>
@@ -31,7 +31,7 @@
         </div>
       </div>
       <div class="Ep3">
-        <h1 @click="inntitleland($event)">Bloe</h1>
+        <h1 @click="inntitleland($event)">Bloe主页</h1>
         <div class="Ep3-1">
           <p @click="but('/index-2-1')">Vuecli 脚手架</p>
           <p @click="but('/index-2-2')">springboot+MyBatis+vue开发</p>

@@ -1,6 +1,7 @@
 <template>
-<div class="bodytext">
-  <div style="position: relative">
+  <div ref="opop" class="pop" style="position: relative;height: auto">
+<div class="bodytext" ref="boxheight">
+  <div>
     <div class="textbox">
       <div class="childbox">
       <el-card class="box-card">
@@ -31,12 +32,11 @@
           <div class="criticism">
             <div style="background-color: black;width: 100%;clear: both"></div>
             <Commentmesssageput :Commentslength="Comment.length" @categoriesclick="sonclick"></Commentmesssageput>
-           <Commentmessage  :Comments="Comment" :RepleComments="RepleComments" :nickname="nickname" @repleoutto="butrepleoutto" ref="child"></Commentmessage>
+            <Commentmessage   :Comments="Comment" :RepleComments="RepleComments" :nickname="nickname" @repleoutto="butrepleoutto" ref="child"></Commentmessage>
           </div>
         </div>
       </el-card>
       </div>
-      <el-footer style="width: 100%;height: 49px;font-size: 15px;background-color: #404040; color: white;text-align: center;line-height: 49px;margin-top: 80px"><h3>© 2021 LQ所属版权</h3></el-footer>
     </div>
     <div class="rightbox">
       <el-card class="box-card">
@@ -52,6 +52,7 @@
       <el-card class="box-cardbottom">
 
       </el-card>
+
     </div>
   </div>
   <div class="footbackbox">
@@ -64,6 +65,22 @@
       </li>
     </ul>
   </div>
+</div>
+    <div style="
+    position: absolute;
+    bottom: 0;
+    height: 49px;
+    width: 100%;
+    background-color: white;
+    color: black;
+    font-size: 16px;
+    line-height: 49px;
+    text-align: center;
+    display: none;
+      -webkit-box-shadow: 0 0 15px 5px rgba(1,1,1,0.1);
+  -moz-box-shadow: 0 0 15px 5px rgba(1,1,1,0.1);
+  box-shadow: 0 0 15px 5px rgba(1,1,1,0.1);
+    ">LQ版权</div>
 </div>
 </template>
 <script>
@@ -138,6 +155,7 @@ export default {
       }).catch(err=>{
         console.log(err);
       })
+
     },
         sonclick(Comment_text) {
           if (localStorage.getItem("token") == null) {
@@ -261,7 +279,19 @@ export default {
           })
         },
       },
+  watch: {
+    Comment(){
+            this.$nextTick(()=>{
+
+            });
+          },
+    immediate: true
+  },
   mounted() {
+    setTimeout(()=>{
+      document.getElementsByClassName("pop")[0].style.height=this.$refs.boxheight.scrollHeight+120+"px";
+      document.getElementsByClassName("foot")[0].style.display="block";
+    },100)
     document.body.style.overflow='';//出现滚动条
     this.rnm();
     this.backreple();
@@ -273,6 +303,7 @@ export default {
 <style scoped>
 .bodytext{
   margin-top:2%;
+  position: relative;
 }
 .textbox{
   position: absolute;
@@ -356,6 +387,7 @@ background-color:  #FB5353;
   position:fixed;
   bottom: 100px;
   right: 60px;
+  display: none;
 }
 .footbackbox .footIndex{
   position: fixed;

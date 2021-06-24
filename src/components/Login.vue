@@ -12,10 +12,10 @@
       <h2>注&nbsp册</h2>
       <el-form label-position="top" label-width="80px">
         <el-form-item>
-          <el-input style="width: 80%;margin-top: 10px" v-model="registerinfo.nickname" placeholder="昵称"></el-input>
+          <el-input style="width: 80%;margin-top: 10px" v-model="registerinfo.nickname" placeholder="昵称" @blur="TestNickName()"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-input style="width: 80%;margin-top: 10px" v-model="registerinfo.uname" placeholder="用户名"></el-input>
+          <el-input style="width: 80%;margin-top: 10px" v-model="registerinfo.uname" placeholder="用户名" @blur="TestUname()"></el-input>
         </el-form-item>
         <el-form-item>
           <el-input style="width: 80%;margin-top: 10px" v-model="registerinfo.upwd" placeholder="密码" show-password @blur="Check_password()"></el-input>
@@ -24,7 +24,7 @@
           <el-input style="width: 80%;margin-top: 10px" v-model="registerinfo.repeatupwd" placeholder="重复密码" show-password @blur="Check_password()"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-input style="width: 80%;margin-top: 10px" v-model="registerinfo.uemile" placeholder="邮箱"></el-input>
+          <el-input style="width: 80%;margin-top: 10px" v-model="registerinfo.uemile" placeholder="邮箱" @blur="TestUemile()"></el-input>
         </el-form-item>
         <el-form-item size="large">
           <el-button type="primary" style="background-color: black; color: white;width: 60%;" @click="Submitregister()">注册</el-button>
@@ -36,10 +36,10 @@
         <div style="margin: 20px;"><h2>用&nbsp户&nbsp登&nbsp陆</h2></div>
         <el-form label-position="top" label-width="80px">
           <el-form-item>
-            <el-input style="width: 80%;margin-top: 20px" v-model="info.uname" placeholder="账号"></el-input>
+            <el-input style="width: 80%;margin-top: 20px" v-model="info.uname" placeholder="账号" @blur="TestLoginUname()"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-input style="width: 80%;margin-top: 20px" v-model="info.upwd" placeholder="密码" show-password></el-input>
+            <el-input style="width: 80%;margin-top: 20px" v-model="info.upwd" placeholder="密码" show-password @blur="TestLoginUpwd()"></el-input>
           </el-form-item>
           <label for="t1">忘记密码</label>
           <label for="t3">注册</label>
@@ -56,7 +56,7 @@
         <div style="margin: 20px;"><h2>忘&nbsp记&nbsp密&nbsp码</h2></div>
           <el-form label-position="top" label-width="80px">
             <el-form-item>
-              <el-input style="width: 80%;padding-top: 20px" placeholder="账号" v-model="resetpwdinfo.uname"></el-input>
+              <el-input style="width: 80%;padding-top: 20px" placeholder="账号" v-model="resetpwdinfo.uname" @blur="Testreset()"></el-input>
             </el-form-item>
             <el-form-item>
               <el-input style="width: 50%;position: absolute;left: 40px" placeholder="邮箱" :disabled="isAble" @blur="sendVerification()" v-model="resetpwdinfo.uemile">
@@ -108,38 +108,129 @@ name: "Login",
     isAble:false,
     isCheck_password:false,
     isCheck_password2:false,
+    isNickNmae:false,
+    isUname:false,
+    isUemile:false,
+    isLoginUname:false,
+    isLoginUpwd:false,
+    isResUname:false,
   }
   },
   methods:{
-    Submit(){
-      demos({
-        method:"post",
-        url:"/Ulogin",
-        data:this.info,
-      }).then(res=>{
-        this.user=res.data;
-        if(this.user.token===null) {
-          console.log(res.data)
-          this.$message.error("登陆失败 请检查信息");
-          this.info.uname="";
-          this.info.upwd="";
+    TestNickName(){
+        const NickNameReg  = "^[\u4e00-\u9fa5]{0,6}$";
+         let NickNameRe = new RegExp(NickNameReg)
+        if(NickNameRe.test(this.registerinfo.nickname)){
+          this.isNickNmae=true;
         }else{
-          console.log(this.user.uid)
-          this.$store.commit("LoginToken",this.user);
-          this.user=res.data;
           this.$message({
-            message: "欢迎您 亲爱的:"+this.info.uname,
-            type: 'success'
-          });
+            type: 'warning',
+            message: '只能输入汉字且长度在6个字符以内',
+          })
+          this.isNickNmae=false;
         }
-        console.log(res.data);
-      }).catch(err=>{
-        console.log(err);
-      })
+    },
+    TestUname(){
+      const UnameReg ='^[a-zA-Z][a-zA-Z0-9_]{4,8}$';
+      let UnameRe=new RegExp(UnameReg);
+      if(UnameRe.test(this.registerinfo.uname)){
+          this.isUname=true;
+      }else{
+        this.$message({
+          type: 'warning',
+          message: '字母开头，允许5-9字节，允许字母数字下划线',
+        })
+        this.isUname=false;
+      }
+    },
+    TestUemile(){
+      const UemileReg="^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$";
+      let UemileRe=new RegExp(UemileReg);
+          if(UemileRe.test(this.registerinfo.uemile)){
+            this.isUemile=true;
+          }else{
+            this.$message({
+              type: 'warning',
+              message: '请输正确的邮箱地址',
+            })
+            this.isUemile=false;
+          }
+    },
+    TestLoginUname(){
+      const LoginUnameReg ='^[a-zA-Z][a-zA-Z0-9_]{4,8}$';
+      let LoginUnameRe=new RegExp(LoginUnameReg);
+      if(LoginUnameRe.test(this.info.uname)){
+        this.isLoginUname=true;
+      }else{
+        this.$message({
+          type: 'warning',
+          message: '字母开头，允许5-9字节，允许字母数字下划线',
+        })
+        this.isLoginUname=false;
+      }
+    },
+    TestLoginUpwd(){
+      const ULoginUpwdeg = /^[a-zA-Z]\w{5,17}$/;
+      let ULoginUpwde=new RegExp(ULoginUpwdeg);
+      if(ULoginUpwde.test(this.info.upwd)){
+            this.isLoginUpwd=true;
+      }else{
+        this.$message({
+          message:"密码要求:以字母开头，长度在6~18之间，只能包含字母、数字和下划线",
+          type: 'warning'
+        });
+        this.isLoginUpwd=false;
+      }
+    },
+    Testreset(){
+      const ResUnameReg ='^[a-zA-Z][a-zA-Z0-9_]{4,8}$';
+      let ResUnameRe=new RegExp(ResUnameReg);
+      if(ResUnameRe.test(this.resetpwdinfo.uname)){
+        this.isResUname=true;
+      }else{
+        this.$message({
+          type: 'warning',
+          message: '字母开头，允许5-9字节，允许字母数字下划线',
+        })
+        this.isResUname=false;
+      }
+    },
+    Submit(){
+      if(this.isLoginUpwd&&this.isLoginUname) {
+        demos({
+          method: "post",
+          url: "/Ulogin",
+          data: this.info,
+        }).then(res => {
+          this.user = res.data;
+          if (this.user.token === null) {
+            console.log(res.data)
+            this.$message.error("登陆失败 请检查信息");
+            this.info.uname = "";
+            this.info.upwd = "";
+          } else {
+            console.log(this.user.uid)
+            this.$store.commit("LoginToken", this.user);
+            this.user = res.data;
+            this.$message({
+              message: "欢迎您 亲爱的:" + this.info.uname,
+              type: 'success'
+            });
+          }
+          console.log(res.data);
+        }).catch(err => {
+          console.log(err);
+        })
+      }else{
+        this.$message({
+          message: "请检查信息",
+          type: 'warning'
+        });
+      }
     },
     Submitregister() {
-      if (this.registerinfo.nickname!==""&&this.registerinfo.uname!==""&&this.registerinfo.upwd!==""&&this.registerinfo.uemile!==""&&this.isCheck_password===true) {
-        if(this.registerinfo.upwd===this.registerinfo.repeatupwd) {
+      if (this.registerinfo.nickname!==""&&this.registerinfo.uname!==""&&this.registerinfo.upwd!==""&&this.registerinfo.uemile!==""&&this.isCheck_password===true&&this.isNickNmae===true&&this.isUname===true) {
+        if(this.registerinfo.upwd===this.registerinfo.repeatupwd&&this.isUemile===true) {
           const regEmail = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/;
           if (regEmail.test(this.registerinfo.uemile)) {
             demos({
@@ -231,9 +322,8 @@ name: "Login",
       }
     },
     resetpwd(){
-      if(this.resetpwdinfo.uname!==""&&this.resetpwdinfo.uemile!==""&&this.resetpwdinfo.upwd!==""&&this.resetpwdinfo.verificationCode!==""&&this.resetpwdinfo.repeatupwd!==""&&this.isCheck_password2===true){
+      if(this.resetpwdinfo.uname!==""&&this.resetpwdinfo.uemile!==""&&this.resetpwdinfo.upwd!==""&&this.resetpwdinfo.verificationCode!==""&&this.resetpwdinfo.repeatupwd!==""&&this.isCheck_password2===true&&this.isResUname){
         if(this.resetpwdinfo.upwd===this.resetpwdinfo.repeatupwd) {
-
           demos({
             method: "post",
             url: "/verification",

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="display: flex">
     <div>
     <div class="slideshow mid">
       <div class="slides">
