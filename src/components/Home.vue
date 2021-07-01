@@ -15,7 +15,7 @@
         <div class="box_sb1 sc1">
           <p :class="{pText:ispText,pText2:ispText2}">Spring Boot是由Pivotal团队提供的全新框架，其设计目的是用来简化新Spring应用的初始搭建以及开发过程。该框架使用了特定的方式来进行配置，从而使开发人员不再需要定义样板化的配置。通过这种方式，Spring Boot致力于在蓬勃发展的快速应用开发领域(rapid application development)成为领导者。</p>
         </div>
-        <img src="../assets/img/index/1.jpg" alt=""/>
+        <img src="../assets/img/Bloe/1.jpg" alt=""/>
       </div>
       <div class="slide">
         <div class="box_sb sb2">
@@ -29,7 +29,7 @@
             一个丰富的官方插件集合，集成了前端生态中最好的工具。
             一套完全图形化的创建和管理 Vue.js 项目的用户界面。</p>
         </div>
-        <img src="../assets/img/index/2.jpg" alt=""/>
+        <img src="../assets/img/Bloe/2.jpg" alt=""/>
       </div>
       <div class="slide">
         <div class="box_sb sb3">
@@ -38,7 +38,7 @@
         <div class="box_sb1 sc3">
           <p :class="{pText:ispText,pText2:ispText2}">MyBatis 是一款优秀的持久层框架，它支持定制化 SQL、存储过程以及高级映射。MyBatis 避免了几乎所有的 JDBC 代码和手动设置参数以及获取结果集。MyBatis 可以使用简单的 XML 或注解来配置和映射原生信息，将接口和 Java 的 POJOs(Plain Ordinary Java Object,普通的 Java对象)映射成数据库中的记录。</p>
         </div>
-        <img src="../assets/img/index/3.jpg" alt=""/>
+        <img src="../assets/img/Bloe/3.jpg" alt=""/>
       </div>
       <div class="slide">
         <div class="box_sb sb4">
@@ -47,7 +47,7 @@
         <div class="box_sb1 sc4">
           <p :class="{pText:ispText,pText2:ispText2}">HTML的全称为超文本标记语言，是一种标记语言。它包括一系列标签．通过这些标签可以将网络上的文档格式统一，使分散的Internet资源连接为一个逻辑整体。HTML文本是由HTML命令组成的描述性文本，HTML命令可以说明文字，图形、动画、声音、表格、链接等</p>
         </div>
-        <img src="../assets/img/index/4.jpg" alt=""/>
+        <img src="../assets/img/Bloe/4.jpg" alt=""/>
       </div>
       <div class="slide">
         <div class="box_sb sb5">
@@ -56,7 +56,7 @@
         <div class="box_sb1 sc5">
           <p :class="{pText:ispText,pText2:ispText2}">jQuery是一个快速、简洁的JavaScript框架，是继Prototype之后又一个优秀的JavaScript代码库（或JavaScript框架）。jQuery设计的宗旨是“write Less，Do More”，即倡导写更少的代码，做更多的事情。它封装JavaScript常用的功能代码，提供一种简便的JavaScript设计模式，优化HTML文档操作、事件处理、动画设计和Ajax交互。</p>
         </div>
-        <img src="../assets/img/index/5.jpg" alt=""/>
+        <img src="../assets/img/Bloe/5.jpg" alt=""/>
       </div>
       <div>
       </div>
@@ -78,8 +78,7 @@
 <script>
 import anime from "animejs/lib/anime.es.js";
 export default {
-  name: "index",
-  inject:['reload'],
+  name: "Home",
   components:{
   },
   data(){

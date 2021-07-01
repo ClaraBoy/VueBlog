@@ -1,6 +1,6 @@
 <template>
 <div>
-  <div :class="{card:isLoginShowOpinion%2===0,card2:isLoginShowOpinion%2!==0,middle:true}">
+  <div v-show="isshow" :class="{card:isLoginShowOpinion%2===0,card2:isLoginShowOpinion%2!==0,middle:true}">
     <input type="radio" name="r" id="t1"/>
     <input type="radio" name="r" id="t2"/>
     <input type="radio" name="r" id="t3"/>
@@ -84,6 +84,7 @@ name: "Login",
   props:{
     isLoginShowOpinion:Number,
   },
+  inject:['reload'],
   data(){
   return{
     info:{
@@ -114,6 +115,7 @@ name: "Login",
     isLoginUname:false,
     isLoginUpwd:false,
     isResUname:false,
+    isshow:true
   }
   },
   methods:{
@@ -209,7 +211,6 @@ name: "Login",
             this.info.uname = "";
             this.info.upwd = "";
           } else {
-            console.log(this.user.uid)
             this.$store.commit("LoginToken", this.user);
             this.user = res.data;
             this.$message({
@@ -417,10 +418,16 @@ name: "Login",
               this.isCheck_password2=false;
             }
     }
-    },
+  },
+  watch:{
+//       "isLoginShowOpinion":function(newVal){
+//         setTimeout(()=>{
+//           this.reload();
+//         },100)
+// },
+  },
 }
 </script>
-
 <style scoped>
 body{
   color: transparent;

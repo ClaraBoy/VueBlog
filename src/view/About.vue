@@ -1,5 +1,5 @@
 <template>
-  <div ref="opop" class="pop" style="position: relative;height: auto">
+  <div class="pop" style="position: relative;height: auto">
 <div class="bodytext" ref="boxheight">
   <div>
     <div class="textbox">
@@ -66,7 +66,7 @@
     </ul>
   </div>
 </div>
-    <div style="
+    <div class="foot" style="
     position: absolute;
     bottom: 0;
     height: 49px;
@@ -78,8 +78,8 @@
     text-align: center;
     display: none;
       -webkit-box-shadow: 0 0 15px 5px rgba(1,1,1,0.1);
-  -moz-box-shadow: 0 0 15px 5px rgba(1,1,1,0.1);
-  box-shadow: 0 0 15px 5px rgba(1,1,1,0.1);
+      -moz-box-shadow: 0 0 15px 5px rgba(1,1,1,0.1);
+      box-shadow: 0 0 15px 5px rgba(1,1,1,0.1);
     ">LQ版权</div>
 </div>
 </template>
@@ -274,6 +274,10 @@ export default {
             url:"/QueryComment?topictitle="+this.$route.query.menutitle,
           }).then(res=>{
             this.Comment=res.data;
+            setTimeout(()=>{
+              document.getElementsByClassName("pop")[0].style.height=this.$refs.boxheight.scrollHeight+120+"px";
+              document.getElementsByClassName("foot")[0].style.display="block";
+            },1000)
           }).catch(err=>{
             console.log(err);
           })
@@ -288,10 +292,7 @@ export default {
     immediate: true
   },
   mounted() {
-    setTimeout(()=>{
-      document.getElementsByClassName("pop")[0].style.height=this.$refs.boxheight.scrollHeight+120+"px";
-      document.getElementsByClassName("foot")[0].style.display="block";
-    },100)
+    this.$store.commit("puLoginShowTo", false);
     document.body.style.overflow='';//出现滚动条
     this.rnm();
     this.backreple();

@@ -1,22 +1,27 @@
 import Vuex from "vuex"
 import Vue from "vue"
+import fa from "element-ui/src/locale/lang/fa";
 Vue.use(Vuex)
 const store=new Vuex.Store({
   state: {
     ID:"",
     Token:"",
-    nickname:""
+    nickname:"",
+    LoginShow:false,
   },
   mutations:{
       LoginToken(state,userinfo){
         state.Token=userinfo.token;
         state.ID=userinfo.uid;
-        localStorage.token=userinfo.token;
+        localStorage.setItem("token",userinfo.token);
         sessionStorage.setItem("ID",userinfo.uid);
         sessionStorage.setItem("Nickname",userinfo.nickname);
         state.ID=userinfo.uid;
         state.Nickname=userinfo.nickname;
-      }
+      },
+    puLoginShowTo(state,whether){
+      state.LoginShow=whether;
+    }
   },
   getters:{
     RetToken(state){
@@ -39,6 +44,9 @@ const store=new Vuex.Store({
         state.nickname=sessionStorage.getItem("Nickname");
       }
       return state.nickname;
+    },
+    LoginShows(state){
+        return state.LoginShow;
     }
   }
 })

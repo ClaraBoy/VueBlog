@@ -3,10 +3,15 @@
   <div style=" width: 100%; display: flex; top:0">
   <top>
     <div slot="butindexlogin" class="butindexlogin">
-      <span @click="butTo()">签到</span>
-      <span style="display: inline-block" @click="Login">{{Loginspanshow}}
-    </span><span @click="drawer=true" style="display: inline-block">博客</span><span v-show="$store.getters.RetToken" @click="sign_out">退出</span></div>
-    <div slot="Login" class="LoginCss" v-show="!$store.getters.RetToken"><Login :isLoginShowOpinion="isLoginShowOpinion"/></div>
+      <div class="p1"  @click="butTo()">签到</div>
+      <div  class="fathers" @click="Login">{{Loginspanshow}}
+<!--        <div class="childs"  v-show="$store.getters.RetToken" @click="sign_out()">退出</div>-->
+      </div>
+      <div class="p3"  @click="drawer=true">博客</div>
+    </div>
+    <div slot="Login" class="LoginCss" v-show="!$store.getters.RetToken" v-if="$store.getters.LoginShows">
+      <Login :isLoginShowOpinion="isLoginShowOpinion"/>
+    </div>
   </top>
   </div>
   <el-drawer
@@ -56,7 +61,7 @@
 <script>
 import top from "./top";
 import Login from "./Login";
-import {demos} from "../network/request";
+import {demos, sp} from "../network/request";
 require("../assets/css/style.css")
 export default {
   name: "show",
@@ -73,27 +78,67 @@ export default {
     };
   },
   methods: {
+    initWebSocket: function () {
+      this.websock = new WebSocket("ws:/" + sp + "/count");
+      this.websock.onopen = this.websocketonopen;
+      this.websock.onerror = this.websocketonerror;
+      this.websock.onmessage = this.websocketonmessage;
+      this.websock.onclose = this.websocketclose;
+    },
+    //打开连接
+    websocketonopen: function () {
+      console.log("WebSocket连接成功");
+      let actions = 200;
+      this.websocketsend(JSON.stringify(actions));
+    },
+    //连接错误
+    websocketonerror: function (e) {
+      console.log("WebSocket连接发生错误");
+      this.websocketonopen();
+    },
+    websocketonmessage: function (e) {
+      //接收数据
+      // var da = JSON.parse(e.data);
+      console.log(e.data);
+      // this.msg_data.unshift(e.);
+    },
+    websocketclose: function (e) {
+      console.log("connection closed (" + e.code + ")");
+    },
+    websocketsend(Data) {
+      //数据发送
+      //this.websock.send(Data);
+    },
     inntitleland($event) {
       this.innerDrawer = true;
      // console.log($event.target.innerText);
       //this.$router.replace('/'+$event.target.innerText+'-page-1')
-      this.$router.push('/Clara_Write')
+      this.$router.replace('/Clara_Write')
       this.drawer=false;
     },
     but(Ep){
      // console.log(Ep);
     },
     Login() {
-      this.isLoginShowOpinion++;
+      if(this.$route.path!=="/Clara"){
+        sessionStorage.clear();
+        localStorage.clear();
+          this.$router.push("/")
+      }else{
+        this.isLoginShowOpinion++;
+        this.$store.commit("puLoginShowTo", true);
+      }
     },
-    sign_out(){
-      sessionStorage.clear();
-      localStorage.clear();
-      setTimeout(()=>{
-        location.reload();
-      },10)
-     this.$router.replace("/")
-    },
+    // sign_out(){
+    //   sessionStorage.removeItem("ID")
+    //   sessionStorage.removeItem("Nickname")
+    //   localStorage.removeItem("token")
+    //   setTimeout(()=>{
+    //     location.reload();
+    //     alert(778878)
+    //   },1000)
+    //  this.$router.replace("/")
+    // },
     butTo() {
       if (localStorage.getItem("token") == null||this.$store.getters.Retnickname==null) {
         this.$message({
@@ -138,11 +183,14 @@ export default {
               }
               return this.$store.getters.Retnickname;
             }
-          }
+          },
   },
   components:{
     top,
     Login
+  },
+  created() {
+    this.websocketonopen();
   },
   beforeRouteEnter (to, from,next) {
     if(from.path==='/Details'){
@@ -173,16 +221,50 @@ export default {
   position: absolute;
 }
 .butindexlogin{
-  width: 450px;
+  width: 500px;
   height: 53px;
-  display: block;
   top: 0;
   transition: all 1.0s;
   font-size: 20px;
 }
-.butindexlogin span{
-  padding-left: 60px;
-  display: inline;
+.butindexlogin .p1{
+  margin-left: 100px;
+  float: left;
+  display: inline-block;
+  width: 100px;
+  height: 49px;
+  text-align: center;
+  cursor: pointer;
+}
+.butindexlogin .p3{
+  margin-left: 100px;
+  position: absolute;
+  display: inline-block;
+  width: 100px;
+  height: 49px;
+  text-align: center;
+  top: 0;
+  cursor: pointer;
+}
+.butindexlogin .fathers{
+    position: relative;
+    overflow: hidden;
+    width: 150px;
+    height: 49px;
+  background-color: white;
+  text-align: center;
+  transition: all .3s;
+  cursor: pointer;
+}
+/*.butindexlogin .fathers:hover{*/
+/*  height: 100px;*/
+/* }*/
+.butindexlogin .childs{
+    width: 150px;
+    text-align: center;
+    position: absolute;
+    top: 50px;
+  cursor: pointer;
 }
 .Ep{
   display: flex;

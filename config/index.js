@@ -10,7 +10,12 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
+    proxyTable: {
+      // withCredentials: false, // 允许携带cookie
+      // headers: {
+      //   "Content-Type": "application/x-www-form-urlencoded;charset=utf-8"
+      // },
+    },
 
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST
@@ -20,7 +25,7 @@ module.exports = {
     notifyOnErrors: true,
     poll: false, // https://webpack.js.org/configuration/dev-server/#devserver-watchoptions-
 
-    
+
     /**
      * Source Maps
      */
@@ -43,7 +48,7 @@ module.exports = {
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
+    assetsPublicPath: './',
 
     /**
      * Source Maps

@@ -13,12 +13,12 @@
               <span>访问量:{{item.menured}}</span>
             </div>
         </div>
-          <div v-if="SearchInfo.length===index+1">
-            <div class="AttachBox">
-             <div class="AttachLeft">广告位</div>
-              <div class="AttachRight">广告位</div>
-            </div>
-          </div>
+<!--          <div v-if="SearchInfo.length===index+1">-->
+<!--            <div class="AttachBox">-->
+<!--             <div class="AttachLeft">广告位</div>-->
+<!--              <div class="AttachRight">广告位</div>-->
+<!--            </div>-->
+<!--          </div>-->
         </div>
       </el-card>
   </div>
@@ -135,6 +135,9 @@ name: "Search_page",
           top.style.display="none"
         }
       }
+  },
+  mounted() {
+    this.$store.commit("puLoginShowTo", false);
   },
   beforeRouteUpdate(to, from, next) {
     this.mod();
