@@ -158,7 +158,7 @@ export default {
 
     },
         sonclick(Comment_text) {
-          if (localStorage.getItem("token") == null) {
+          if (this.$store.getters.RetToken == null) {
             this.$message({
               message: '警告,身份过期或未登录,请登陆 等待跳转中...',
               type: 'warning'
@@ -210,7 +210,7 @@ export default {
           })
         },
         butrepleoutto(repleinfo){
-          if (localStorage.getItem("token") == null) {
+          if (this.$store.getters.RetToken == null) {
             this.$message({
               message: '警告,身份过期或未登录,请登陆 等待跳转中...',
               type: 'warning'
@@ -292,7 +292,7 @@ export default {
     immediate: true
   },
   mounted() {
-    this.$store.commit("puLoginShowTo", false);
+   // this.$store.commit("puLoginShowTo", false);
     document.body.style.overflow='';//出现滚动条
     this.rnm();
     this.backreple();

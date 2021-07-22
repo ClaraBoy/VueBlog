@@ -23,7 +23,6 @@
         </div>
         <div class="event-price">
           <div class="adult">
-            <div class="tooltiptext">无</div>
             <br><br>
             <i class="fa fa-male" aria-hidden="true"></i>
           </div>

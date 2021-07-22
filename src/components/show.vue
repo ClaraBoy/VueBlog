@@ -9,7 +9,7 @@
       </div>
       <div class="p3"  @click="drawer=true">博客</div>
     </div>
-    <div slot="Login" class="LoginCss" v-show="!$store.getters.RetToken" v-if="$store.getters.LoginShows">
+    <div slot="Login" class="LoginCss" v-show="!$store.getters.RetToken||!$store.getters.Retnickname">
       <Login :isLoginShowOpinion="isLoginShowOpinion"/>
     </div>
   </top>
@@ -120,27 +120,37 @@ export default {
      // console.log(Ep);
     },
     Login() {
-      if(this.$route.path!=="/Clara"){
-        sessionStorage.clear();
-        localStorage.clear();
-          this.$router.push("/")
-      }else{
-        this.isLoginShowOpinion++;
-        this.$store.commit("puLoginShowTo", true);
-      }
+      if (this.$store.getters.RetToken != null||this.$store.getters.Retnickname!=null) {
+            this.$confirm('此操作将退出登陆状态, 是否继续?', '提示', {
+              confirmButtonText: '确定',
+              cancelButtonText: '取消',
+              type: 'warning'
+            }).then(() => {
+              this.$message({
+                type: 'success',
+                message: '退出成功!'
+              });
+              sessionStorage.removeItem("ID")
+              sessionStorage.removeItem("Nickname")
+              sessionStorage.removeItem("token")
+              if(this.$route.path==="/Details"||this.$route.path==="/404"){
+                this.$router.replace('/')
+                location.reload();
+              }
+              this.$router.replace(this.$route.path)
+              location.reload();
+            }).catch(() => {
+              this.$message({
+                type: 'info',
+                message: '已取消退出'
+              });
+            });
+        }else{
+          this.isLoginShowOpinion++;
+        }
     },
-    // sign_out(){
-    //   sessionStorage.removeItem("ID")
-    //   sessionStorage.removeItem("Nickname")
-    //   localStorage.removeItem("token")
-    //   setTimeout(()=>{
-    //     location.reload();
-    //     alert(778878)
-    //   },1000)
-    //  this.$router.replace("/")
-    // },
     butTo() {
-      if (localStorage.getItem("token") == null||this.$store.getters.Retnickname==null) {
+      if (this.$store.getters.RetToken == null||this.$store.getters.Retnickname==null) {
         this.$message({
           message: '警告,身份过期或未登录,请登陆 等待跳转中...',
           type: 'warning'
@@ -179,7 +189,9 @@ export default {
             }
             else{
               if(this.$store.getters.Retnickname===null){
-                 this.sign_out();
+                localStorage.removeItem("token");
+                this.$router.replace('/')
+                return "登陆";
               }
               return this.$store.getters.Retnickname;
             }

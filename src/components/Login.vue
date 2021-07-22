@@ -217,6 +217,13 @@ name: "Login",
               message: "欢迎您 亲爱的:" + this.info.uname,
               type: 'success'
             });
+            if(this.$route.path==="/Details"||this.$route.path==="/404"){
+              this.$router.replace('/')
+              location.reload();
+            }else{
+              this.$router.replace(this.$route.path)
+              location.reload();
+            }
           }
           console.log(res.data);
         }).catch(err => {

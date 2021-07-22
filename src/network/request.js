@@ -2,9 +2,9 @@
 import axios from "axios";
 export function demos (config){
   const a=axios.create({
-    //baseURL:"http://server.natappfree.cc:40823/",
+   // baseURL:"http://37icsp.natappfree.cc",
     baseURL:"http://localhost:9000",
-    timeout:5000,
+    timeout:100000,
   })
  return  a(config);
 }

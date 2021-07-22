@@ -312,7 +312,6 @@ export default {
       }
     },
     mounted() {
-      this.$store.commit("puLoginShowTo", false);
       document.body.style.overflow = '';//出现滚动条
       this.getMenucomments();
       this.getMenuyear();
