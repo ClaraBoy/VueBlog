@@ -18,6 +18,7 @@
     :visible.sync="drawer"
     :direction="direction"
     size="100%">
+    <div>
     <div class="Ep">
       <div class="Ep1">
         <h1>Hi</h1>
@@ -53,6 +54,7 @@
         </div>
       </div>
     </div>
+    </div>
     <div class="bottom">© 2021</div>
   </el-drawer>
 
@@ -63,6 +65,7 @@ import top from "./top";
 import Login from "./Login";
 import {demos, sp} from "../network/request";
 require("../assets/css/style.css")
+require("../assets/css/Show_media.scss")
 export default {
   name: "show",
   inject:['reload'],
@@ -150,37 +153,43 @@ export default {
         }
     },
     butTo() {
-      if (this.$store.getters.RetToken == null||this.$store.getters.Retnickname==null) {
-        this.$message({
-          message: '警告,身份过期或未登录,请登陆 等待跳转中...',
-          type: 'warning'
-        });
         setTimeout(()=>{
           this.$router.push("/show");
         },1000)
-      } else {
+      // serivce.interceptors.response.use(response => {
+      //   console.log("响应拦截" + response.status);
+      //   return response;
+      // })
         demos({
           method: "post",
-          url: "/monitor?nickname="+this.$store.getters.Retnickname,
+          url: "/monitor/"+this.$store.getters.Retnickname+"/"+this.$store.getters.RetToken,
         }).then(res => {
-          this.$alert(res.data, '今日音乐推荐链接', {
-            confirmButtonText: '确定',
-            callback: action => {
-              this.$message({
-                type: 'info',
-                message: "谢谢关注",
-              });
-              if(res.data==="你已拥有名额"||res.data==="已无名额"||res.data==="系统暂未初始化"){
+          if(res.data===403){
+            this.$message({
+              message: '警告,身份过期或未登录,请登陆 等待跳转中...',
+              type: 'warning'
+            });
+              this.$router.push("/show");
+          }else{
+            this.$alert(res.data, '今日音乐推荐链接', {
+              confirmButtonText: '确定',
+              callback: action => {
+                this.$message({
+                  type: 'info',
+                  message: "谢谢关注",
+                });
+                if(res.data==="你已拥有名额"||res.data==="已无名额"||res.data==="系统暂未初始化"){
 
-              }else{
-                window.open(res.data, '_blank');
+                }else{
+                  window.open(res.data, '_blank');
+                }
               }
-            }
-          });
+            });
+          }
         }).catch(err => {
+
         })
       }
-    }
   },
   computed:{
           Loginspanshow(){
@@ -279,30 +288,30 @@ export default {
   cursor: pointer;
 }
 .Ep{
+  padding: 10px 60px 60px 60px;
+  width: 100%;
+  height: auto;
+  flex-flow: wrap;
   display: flex;
-  position: center;
-  margin: 0 auto;
+  justify-content: center;
 }
 .Ep1{
-margin-left: 10%;
-  width: 15%;
   color: #404040;
+  margin-bottom: 30px;
 }
 .Ep2,.Ep3{
-  margin: auto;
-  width: 20%;
+  margin: 30px auto;
   color: #FB5353;
 }
 .Ep4{
-  margin-right: 10%;
-  width: 15%;
   color: #404040;
+  margin-bottom: 30px;
 }
 .Ep1-1{
   background-color: #404040;
   width: 100%;
   color: white;
-  margin-top: 120px;
+  margin-top: 60px;
   line-height: 49px;
   border-radius: 4%;
 }
@@ -310,7 +319,7 @@ margin-left: 10%;
   background-color: #FB5353;
   width: 100%;
   color: white;
-  margin-top: 200px;
+  margin-top: 60px;
   line-height: 49px;
   border-radius: 4%;
 }
@@ -318,7 +327,7 @@ margin-left: 10%;
   background-color: #FB5353;
   width: 100%;
   color: white;
-  margin-top: 200px;
+  margin-top: 60px;
   line-height: 49px;
   border-radius: 4%;
 }
@@ -326,7 +335,7 @@ margin-left: 10%;
   background-color: #404040;
   width: 100%;
   color: white;
-  margin-top: 120px;
+  margin-top: 60px;
   line-height: 49px;
   border-radius: 4%;
 }
@@ -356,5 +365,9 @@ span:hover{
 }
 .bottom{
 padding-top:10%;
+}
+p{
+  padding: 0 60px 20px 60px;
+  line-height: 3;
 }
 </style>

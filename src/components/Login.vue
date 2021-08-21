@@ -211,6 +211,7 @@ name: "Login",
             this.info.uname = "";
             this.info.upwd = "";
           } else {
+            localStorage.setItem("token",res.data.token)
             this.$store.commit("LoginToken", this.user);
             this.user = res.data;
             this.$message({

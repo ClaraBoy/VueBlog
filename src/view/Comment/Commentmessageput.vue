@@ -71,7 +71,7 @@ html {
   /*Responsive on all sizes ---*/
   height: auto;
   width: 80%;
-  background: white;
+  min-width: 200px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

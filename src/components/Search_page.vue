@@ -37,6 +37,7 @@
 <script>
 import {demos} from "../network/request";
 import anime from "animejs";
+require("../assets/css/Search_page.scss")
 export default {
 name: "Search_page",
   inject:['reload'],
@@ -151,11 +152,14 @@ name: "Search_page",
 
 <style scoped>
 .con{
+  left: 0;
+  right: 0;
   width: 100%;
   height: auto;
   top: 0;
   position: absolute;
   overflow: hidden;
+  margin: 0 auto;
 }
 .box-card{
   width: 70%;

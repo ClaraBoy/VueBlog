@@ -31,6 +31,10 @@ export default {
       })
     }
   },
+  mounted() {
+      document.body.style.maxWidth=window.screen.width+"px";
+      this.widths = document.documentElement.clientWidth;
+  }
 }
 </script>
 
@@ -49,5 +53,8 @@ export default {
 }
 .el-header{
   padding: 0;
+}
+body{
+  margin:0 auto 0 auto;
 }
 </style>

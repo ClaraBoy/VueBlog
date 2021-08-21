@@ -1,5 +1,7 @@
 <template>
-  <div class="pop" style="position: relative;height: auto">
+  <div>
+    <div>
+  <div class="pop">
 <div class="bodytext" ref="boxheight">
   <div>
     <div class="textbox">
@@ -8,18 +10,18 @@
         <h1>{{til.menutitle}}</h1>
         <el-divider></el-divider>
         <div>
-          <div v-html="til.detailstext"></div>
+          <el-scrollbar style="height:100%;border: 0">
+            <div v-html="til.detailstext"></div>
+          </el-scrollbar>
           <br>
           <br>
           <el-divider></el-divider>
+          <div class="roundbutBox" style="height: auto;width: 100%;overflow: hidden">
           <div class="roundbut">
-           <!-- <div class="roundbut1">
+            <div class="roundbut1">
               <span>相关标签:&nbsp</span>
-              <el-button size="medium" round>Vue</el-button>
-              <el-button size="medium" round>js</el-button>
-              <el-button size="medium" round>springboot</el-button>
+              <el-button size="medium" round>c语言</el-button>
             </div>
-            -->
             <div class="roundbut2">
               <span>分享到:&nbsp</span>
               <el-button size="medium" round>QQ</el-button>
@@ -27,7 +29,8 @@
               <el-button size="medium" round>微博</el-button>
             </div>
           </div>
-          <br><br>
+          </div>
+          <br>
           <el-divider></el-divider>
           <div class="criticism">
             <div style="background-color: black;width: 100%;clear: both"></div>
@@ -49,9 +52,9 @@
             <a href="https://gitee.com/" target="_blank"><li>码云</li></a>
         </ul>
       </el-card>
-      <el-card class="box-cardbottom">
+<!--      <el-card class="box-cardbottom">-->
 
-      </el-card>
+<!--      </el-card>-->
 
     </div>
   </div>
@@ -66,30 +69,36 @@
     </ul>
   </div>
 </div>
-    <div class="foot" style="
-    position: absolute;
-    bottom: 0;
-    height: 49px;
-    width: 100%;
-    background-color: white;
-    color: black;
-    font-size: 16px;
-    line-height: 49px;
-    text-align: center;
-    display: none;
-      -webkit-box-shadow: 0 0 15px 5px rgba(1,1,1,0.1);
-      -moz-box-shadow: 0 0 15px 5px rgba(1,1,1,0.1);
-      box-shadow: 0 0 15px 5px rgba(1,1,1,0.1);
-    ">LQ版权</div>
+    <foot style="position: absolute;"></foot>
+  </div>
+<!--    <div class="foot" style="-->
+<!--    position: absolute;-->
+<!--    bottom: 0;-->
+<!--    height: 49px;-->
+<!--    width: 100%;-->
+<!--    background-color: white;-->
+<!--    color: black;-->
+<!--    font-size: 16px;-->
+<!--    line-height: 49px;-->
+<!--    text-align: center;-->
+<!--    display: none;-->
+<!--      -webkit-box-shadow: 0 0 15px 5px rgba(1,1,1,0.1);-->
+<!--      -moz-box-shadow: 0 0 15px 5px rgba(1,1,1,0.1);-->
+<!--      box-shadow: 0 0 15px 5px rgba(1,1,1,0.1);-->
+<!--    ">LQ版权</div>-->
 </div>
+  </div>
 </template>
 <script>
 import Commentmesssageput from "./Comment/Commentmessageput";
 import Commentmessage from "./Comment/Commentmessage";
 import {demos} from "../network/request";
+import Foot from "../components/foot";
+require("../assets/css/About_media.scss")
 export default {
   name: "About",
   components: {
+    Foot,
     Commentmessage,
     Commentmesssageput,
   },
@@ -166,7 +175,9 @@ export default {
             setTimeout(()=>{
               this.$router.push("/show");
             },1000)
-          } else {
+          }
+          else
+          {
             demos({
               method: "get",
               url: "/addComment",
@@ -174,14 +185,14 @@ export default {
                 authorization: this.$store.getters.RetToken,
               },
             }).then(res => {
-              if (res.data == 0) {
+              if (res.data == "200") {
                 this.realaddComment(Comment_text);
               } else {
                 this.$message({
                   message: '警告,身份过期或未登录,请登陆 等待跳转中...',
                   type: 'warning'
                 });
-                localStorage.removeItem("token")
+              //  localStorage.removeItem("token")
                 setTimeout(()=>{
                   this.$router.push("/show");
                 },1000)
@@ -226,14 +237,14 @@ export default {
                 authorization: this.$store.getters.RetToken,
               },
             }).then(res => {
-              if (res.data == 0) {
+              if (res.data === 0) {
                 repleinfo.repletitle = this.til.menutitle;
                 demos({
                   method: "post",
                   url: "/replecomment",
                   data: repleinfo,
                 }).then(res => {
-                  if (res.data === 1) {
+                  if (res.data == 1) {
                     this.$message('回复成功');
                     this.backreple();
                     this.reload();
@@ -302,6 +313,11 @@ export default {
 }
 </script>
 <style scoped>
+.pop{
+  width: 100%;
+  height: auto;
+  position: relative;
+}
 .bodytext{
   margin-top:2%;
   position: relative;
@@ -323,13 +339,13 @@ export default {
   width: 150px;
 }
 .roundbut{
+  display: flex;
+  flex-wrap: wrap;
   text-align: right;
-  margin-top: 2%;
-  position: relative;
+ justify-content: space-between;
 }
 .roundbut1{
   text-align: right;
-  position: absolute;
 }
 .roundbut1 button:hover{
 background-color:  #FB5353;
@@ -339,9 +355,8 @@ background-color:  #FB5353;
 }
 .roundbut2{
   text-align: right;
-  position: absolute;
   right: 20px;
-  border: 0px;
+  border: 0;
 }
 .roundbut2 button:hover{
   background-color:  #404040;
@@ -378,9 +393,8 @@ background-color:  #FB5353;
 .footbackbox {
   position: absolute;
   bottom: 120px;
-  right: 60px;
+  right: 80px;
   text-align: center;
-  background-color: #404040;
 }
 .footbackbox .footback{
   list-style: none;

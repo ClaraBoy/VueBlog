@@ -1,5 +1,6 @@
 <template>
-  <div class="cl" style="">
+  <div class="cl">
+    <div style="height: auto;width: 100%;">
     <div class="Suspension">
       <div class="lao">
       <div class="Su1" style="height: 60px;">
@@ -15,9 +16,10 @@
       <div class="SuspensionHr"></div>
       </div>
       <div class="menu" :class="{p_readOnlyS:readOnlyS}">
-        <div @click="MenuBut('open')"><svg t="1625147312870" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2388" width="32" height="32"><path d="M382.3 165.6h-165c-47.5 0-86 38.4-86 86v165c0 47.5 38.4 86 86 86h165c47.5 0 86.5-38.4 86-86v-165c0-47.6-38.5-86-86-86z m43.3 251c0 11.2-4.3 21.9-12.3 29.9-8 8.5-19.2 12.8-31 12.8h-165c-24 0-43.2-19.2-43.2-43.2V251c0-24 19.2-43.2 43.2-43.2h165v0.5c24 0 43.2 19.2 43.2 43.2v165.1zM382.3 557.5h-165c-47.5 0-86 38.4-86 86v165c0 47.5 38.4 86 86 86h165c47.5 0 86.5-38.4 86-86v-165c0-47.6-38.5-86-86-86z m43.3 251c0 11.2-4.3 21.9-12.3 29.9-8 8.5-19.2 12.8-31 12.8h-165c-24 0-43.2-19.2-43.2-43.2V643.5c0-24 19.2-43.2 43.2-43.2h165c24 0 43.2 19.2 43.2 43.2v165zM871.4 273.5L755 157.1c-16-16-37.9-25.1-60.9-25.1s-44.8 9.1-60.9 25.1L516.9 273.5c-33.6 33.6-33.6 88.1 0 121.7l116.4 116.4c16 16 37.9 25.1 60.9 25.1s44.8-8.5 60.9-25.1l116.4-116.4c33.5-33.6 33.5-88.1-0.1-121.7zM841 364.8L724.6 481.2c-7.5 8-18.2 12.3-30.4 12.3-11.7 0-22.4-4.8-30.4-12.8L547.3 364.2c-8-8-12.8-19.2-12.8-30.4 0-11.7 4.3-22.4 12.8-30.4L663.7 187c8-7.5 19.2-12.3 30.4-12.3 11.7 0 22.4 4.8 30.4 12.8L841 303.9c8 8 12.8 19.2 12.8 30.4 0 11.8-4.3 22.5-12.8 30.5zM776.4 557.5h-165c-47.5 0-86 38.4-86 86v165c0 47.5 38.4 86 86 86h165c47.5 0 86.5-38.4 86-86v-165c-0.1-47.6-38.5-86-86-86z m43.2 251c0 11.2-4.3 21.9-12.3 29.9-8 8.5-19.2 12.8-31 12.8h-165c-24 0-43.2-19.2-43.2-43.2V643.5c0-24 19.2-43.2 43.2-43.2h165c24 0 43.2 19.2 43.2 43.2v165z" p-id="2389"></path></svg></div>
+        <div @click="MenuBut()">
+          <svg t="1625147312870" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2388" width="32" height="32"><path d="M382.3 165.6h-165c-47.5 0-86 38.4-86 86v165c0 47.5 38.4 86 86 86h165c47.5 0 86.5-38.4 86-86v-165c0-47.6-38.5-86-86-86z m43.3 251c0 11.2-4.3 21.9-12.3 29.9-8 8.5-19.2 12.8-31 12.8h-165c-24 0-43.2-19.2-43.2-43.2V251c0-24 19.2-43.2 43.2-43.2h165v0.5c24 0 43.2 19.2 43.2 43.2v165.1zM382.3 557.5h-165c-47.5 0-86 38.4-86 86v165c0 47.5 38.4 86 86 86h165c47.5 0 86.5-38.4 86-86v-165c0-47.6-38.5-86-86-86z m43.3 251c0 11.2-4.3 21.9-12.3 29.9-8 8.5-19.2 12.8-31 12.8h-165c-24 0-43.2-19.2-43.2-43.2V643.5c0-24 19.2-43.2 43.2-43.2h165c24 0 43.2 19.2 43.2 43.2v165zM871.4 273.5L755 157.1c-16-16-37.9-25.1-60.9-25.1s-44.8 9.1-60.9 25.1L516.9 273.5c-33.6 33.6-33.6 88.1 0 121.7l116.4 116.4c16 16 37.9 25.1 60.9 25.1s44.8-8.5 60.9-25.1l116.4-116.4c33.5-33.6 33.5-88.1-0.1-121.7zM841 364.8L724.6 481.2c-7.5 8-18.2 12.3-30.4 12.3-11.7 0-22.4-4.8-30.4-12.8L547.3 364.2c-8-8-12.8-19.2-12.8-30.4 0-11.7 4.3-22.4 12.8-30.4L663.7 187c8-7.5 19.2-12.3 30.4-12.3 11.7 0 22.4 4.8 30.4 12.8L841 303.9c8 8 12.8 19.2 12.8 30.4 0 11.8-4.3 22.5-12.8 30.5zM776.4 557.5h-165c-47.5 0-86 38.4-86 86v165c0 47.5 38.4 86 86 86h165c47.5 0 86.5-38.4 86-86v-165c-0.1-47.6-38.5-86-86-86z m43.2 251c0 11.2-4.3 21.9-12.3 29.9-8 8.5-19.2 12.8-31 12.8h-165c-24 0-43.2-19.2-43.2-43.2V643.5c0-24 19.2-43.2 43.2-43.2h165c24 0 43.2 19.2 43.2 43.2v165z" p-id="2389"></path></svg></div>
          <div class="menu_box" @click="MenuBut('off')">
-              <div v-html="HtmlInfo" style="color: black"></div>
+              <div style="color: black"></div>
          </div>
       </div>
     </div>
@@ -53,20 +55,6 @@
     </div>
     <div><newdemo :Li="Li"></newdemo></div>
     <div style="margin-top: 2%;height: 80px"></div>
-    <div style="
-    position: absolute;
-    bottom: 0;
-    height: 49px;
-    width: 100%;
-    background-color: white;
-    color: black;
-    font-size: 16px;
-    line-height: 49px;
-    text-align: center;
-      -webkit-box-shadow: 0 0 15px 5px rgba(1,1,1,0.1);
-  -moz-box-shadow: 0 0 15px 5px rgba(1,1,1,0.1);
-  box-shadow: 0 0 15px 5px rgba(1,1,1,0.1);
-    ">LQ版权</div>
     <div class="footbackbox">
       <ul>
         <li title="回到顶部" @click="backTop()" class="footback">
@@ -75,16 +63,20 @@
       </ul>
     </div>
   </div>
+  <foot></foot>
+  </div>
 </template>
 <script>
 import anime from "animejs/lib/anime.es.js";
 import demo from "./demo/demo"
 import {demos, sp} from "../network/request"
 import newdemo from "../view/new_demo/demo"
+import Foot from "../components/foot";
 export default {
   name: "Bloe",
   inject: ['reload'],
   components: {
+    Foot,
     demo,
     newdemo
   },
@@ -144,61 +136,14 @@ export default {
       pso: 10,
       websocks:"",
       readOnlyS:false,
-      HtmlInfo:""
     }
   },
   methods: {
-    MenuBut(mess){
-      let windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
-      if(mess==='off'){
-        setTimeout(()=>{
-          this.HtmlInfo=""
-        },500)
-        this.readOnlyS=true;
-        setTimeout(()=>{
-            this.readOnlyS=false;
-        },1000)
-        anime({
-          targets: '.menu_box',
-          height:"0px",
-          width:"1000%",
-          backgroundColor: '#383531',
-          easing: 'easeInOutQuad'
-        });
-      }
-      if(mess==='open'){
-        setTimeout(()=>{
-          this.HtmlInfo=
-            "<h3 style='margin-top: 15px'>话题探讨</h3>"+
-            "<h4 style='margin-top: 10px'>如何看待国足20年再进世界杯</h4>"+
-            "<div style='width: 90%;text-align: center;margin: 0 auto'>"+
-            "<p>当你指望用抽到“上上签”的方式“冲出亚洲”，本身就说明你不具备打进世界杯正赛的实力！\n" +
-            "\n" +
-            "现在的国足，就是如此。\n"+
-            "</p>"+
-            "</div>"+
-            "<br>"+
-            "<span style='background-color: #e8e8e8;width: 70%;display: inline-block;text-align: left;border-radius: 5px;'>&nbsp;&nbsp;&nbsp;看好</span>"+
-            "&nbsp;<a style='width: 16%;color: white;background-image: linear-gradient(\n" +
-            "39deg, #f74830 0%, #fa7d4c 100%);display: inline-block;border-radius: 5px;'>投票</a>"+
-            "<br>"+
-            "<br>"+
-            "<span style='background-color: #e8e8e8;width: 70%;display: inline-block;text-align: left;border-radius: 5px;'>&nbsp;&nbsp;&nbsp;不看好</span>"+
-            "&nbsp;<a style='width: 16%;color: white;background-image: linear-gradient(\n" +
-            "39deg, #f74830 0%, #fa7d4c 100%);display: inline-block;border-radius: 5px;'>投票</a>"
-        },500)
-        this.readOnlyS=true;
-        setTimeout(()=>{
-          this.readOnlyS=false;
-        },1000)
-        anime({
-          targets: '.menu_box',
-          height:windowHeight+"px",
-          width:"1000%",
-          backgroundColor: '#FFF',
-          easing: 'easeInOutQuad'
-        });
-      }
+    MenuBut(){
+    const open= this.$router.resolve({
+        path:"/mov",
+      });
+      window.open(open.href, '_blank');
     },
     backTop() {
       document.documentElement.scrollTop = 0;
@@ -393,18 +338,20 @@ export default {
 .cl{
   position: relative;
   height:auto;
+  width: 100%;
 }
 .cl h1{
   text-align: center;
   padding-top: 30px;
 }
 .Suspension{
+  background-color: white;
   width: 100%;
   height: 60px;
   text-align: center;
   position: sticky;
-  top: 0;
-  background-color: white;
+  top: -1px;
+  margin: 0 auto;
   float: left;
   color: white;
   line-height: 60px;
@@ -423,7 +370,8 @@ export default {
   overflow: hidden;
   width: 600px;
   margin: 0 auto;
-  height: 60px
+  height: 60px;
+  justify-content: center;
 }
 .SuspensionHr{
   background-color: #FB5353;
@@ -453,8 +401,9 @@ h1,span,h2,h3:hover{
   cursor:pointer;
 }
 .Bloe-top{
+  flex-flow: wrap;
   width: 100%;
-  height: 70%;
+  height: auto;
   display:flex;
   margin-top:2%;
   position: relative;
@@ -462,22 +411,22 @@ h1,span,h2,h3:hover{
 .Bloe-top-1{
 display: flex;
   flex: 1;
-  width: 50%;
 }
 .Bloe-top-2{
   flex: 1;
-  width: 50%;
 }
 .imgto{
   width: 100%;
 }
 .datetime
 {
+  align-self: center;
   z-index: 5;
   transition-duration: 0.2s;
 }
 .datetime2
 {
+  align-self: center;
   z-index: 5;
   color: Transparent;
   transition-duration: 0.2s;
@@ -719,13 +668,6 @@ img:hover {
 .slider .item:not(.is-active){
   opacity: 0;
   pointer-events: none;
-}
-.footbackbox {
-  position: absolute;
-  bottom: 120px;
-  right: 60px;
-  text-align: center;
-  background-color: #404040;
 }
 .footbackbox .footback{
   list-style: none;

@@ -12,6 +12,7 @@ import Login from "../components/Home"
 import show from"../components/show"
 import p404 from"../components/404"
 import Search_page from"../components/Search_page"
+import mov from "../view/mov/mov";
 export default new VueRouter({
   routes: [
     {
@@ -44,7 +45,7 @@ export default new VueRouter({
       component:show
     },
     {
-      path:"/404",
+      path:"*",
       name:"/404",
      // component:()=>import("../components/404")
       component:p404
@@ -53,6 +54,10 @@ export default new VueRouter({
       path: "/Search_page",
     //  component: () => import("../components/Search_page")
       component:Search_page
+    },
+    {
+      path:"/mov",
+      component:mov
     }
   ],
   mode:"history"

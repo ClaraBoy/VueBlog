@@ -27,6 +27,7 @@
   </div>
 </template>
 <script>
+require("../assets/css/Top_media.scss")
 export default {
   name: "Layout",
   inject:['reload'],

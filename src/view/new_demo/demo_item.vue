@@ -1,10 +1,12 @@
 <template>
 <div>
   <div class="con">
+    <div class="coo">
     <div class="left">
       <br>
+      <div>
       <div class="imgBox" @click="Abotuto()">
-        <img :src="ismags">
+        <img :src="ismags" alt="">
         <div class="left_data"><h1>{{items.menutitle}}</h1></div>
       </div>
       <div class="left_span">
@@ -14,10 +16,10 @@
       <div class="left_red"><h2>阅读量:{{items.menured}}</h2></div>
       <br><br><br>
     </div>
-    <div class="right_span">
-      <div :class="{showActive:isShowActive}"><right :index="index" :rightto="[items.info1,items.info2]"></right></div>
     </div>
-    <div class="right">
+      <div class="right_span">
+        <div :class="{showActive:isShowActive}"><right :index="index" :rightto="[items.info1,items.info2]"></right></div>
+      </div>
     </div>
   </div>
 </div>
@@ -26,6 +28,7 @@
 <script>
 import anime from "animejs/lib/anime.es.js";
 import right from "../demo/right";
+require("../../assets/css/Bloe_media.scss")
 export default {
 name: "demo_item",
   components:{
@@ -37,7 +40,7 @@ name: "demo_item",
   },
   data(){
   return{
-    isShowActive:true,
+    isShowActive:false,
     ismags:require('../../assets/img/Bloe/'+Number(this.index+1)+'.png')
   }
   },
@@ -73,16 +76,8 @@ name: "demo_item",
         easing: 'easeInOutExpo'
       });
       setTimeout(()=>{
-        this.isActives=true;
         this.iss=false;
       },2000)
-      anime({
-        targets: '.right_span',
-        right:500,
-        duration: 1600,
-        color:"",
-        easing: 'easeInOutExpo'
-      });
       setTimeout(()=>{
         anime({
           targets: '.right',
@@ -90,7 +85,6 @@ name: "demo_item",
           duration: 1600,
           easing: 'easeInOutExpo'
         });
-        this.isShowActive=false;
       },900)
     },100)
   }
@@ -103,32 +97,40 @@ name: "demo_item",
   margin: 0;
 }
 .con{
-  width: 90%;
-  display: flex;
-  position: relative;
-  margin-top: 6%;
+  width: 100%;
   transition-duration: 2s;
-  height: 320px;
-  margin-left: 10%;
+  height: auto;
+  margin: 6% auto;
+  position: relative;
+}
+.coo{
+  margin: 0 auto;
+  display: flex;
+  flex-flow: wrap;
+  width: 90%;
+  height:320px;
+  justify-content: center;
+  position: relative;
 }
 .left{
   position: absolute;
   background-color: #FB5353;
   width: 40%;
   height: 320px;
+    left: 0;
 }
 .left_span{
   display: inline-flex;
   top: 0;
   position: absolute;
   color: white;
+  left: 1%;
 }
 .imgBox{
   position: absolute;
-  width: 0;
+  width: 80%;
   height: 260px;
   margin-left: 50%;
-  background-image: url("../../assets/img/Bloe/1.png");
   background-position: center;
   background-repeat: no-repeat;
   box-shadow: 7px 29px 49px 0px rgba(0,0,0,3);
@@ -147,11 +149,9 @@ img{
   z-index: 30;
 }
 .right_span{
-  width: 20px;
   height: 60px;
   position: absolute;
-  right:80%;
-  z-index: 0;
+  right: 60px;
 }
 .s{
  color: transparent;
