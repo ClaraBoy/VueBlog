@@ -1,5 +1,6 @@
 <template>
 <div>
+  <br>
   <div class="container">
       <div class="comment-messages-list">
         <div class="comment-message-message">
@@ -7,16 +8,16 @@
             <div class="comment-message-details">
               <span class="message-details-sender"><h5>{{items.topicname}}</h5></span>
               <span class="message-details-time" ><h3>{{items.topicdate}}</h3></span>
-              <button class="but" @click="openDialog(items.topicid)" >回复</button>
+              <button class="but" @click="openDialog(items.topicname,items.topicred)" >回复</button>
             </div>
             <div class="comment-message-text">
               <p>{{items.topictext}}</p>
             </div>
             <div v-for="(item,index) in RepleComments" style="margin-left: 40px;">
-              <div v-show="items.id===item.commentid">
+              <div v-show="items.topicred===item.touid">
                 <br>
-             {{fromusname}}{{fname[index]}}-回复-{{replename}}{{rname[index]}}:{{item.repletext}}
-                <el-button type="primary" style="width: 60px;height: 20px; background-color: white;color: black;border: 0px" @click="but(item.fromusid)" v-show="item.fromusid.toString()!=$store.getters.RetUid">回复</el-button>
+                  {{item.commentname}} : {{item.repletext}}
+<!--                <el-button type="primary" style="width: 60px;height: 20px; background-color: white;color: black;border: 0" @click="but(item.commentname,item.touid)" v-show="item.commentname.toString()!=$store.getters.Retnickname">回复</el-button>-->
               </div>
             </div>
           </div>
@@ -51,12 +52,12 @@ return{
   dialogFormVisible:false,
   formLabelWidth: '60px',
   repleinfo:{
-    commentid:this.items.id,//根
-    repleid:this.items.topicid,//给谁的回复
+    commentname:this.$store.getters.Retnickname,//回复人
+    replename:"",//给谁的回复
     repleType:0,//回复的类型
     repletitle:"",//哪一篇文章
-    fromusid:this.$store.getters.RetUid,//回复人id
-    touid:"",//赞不知道
+    fromusid:this.$store.getters.RetUid,
+    touid:"",//根
     repletext:"",//内容
   },
   fname:[],
@@ -64,19 +65,21 @@ return{
 }
   },
   methods:{
-    openDialog(topicid){
-      // if(topicid.toString()===this.$store.getters.RetUid) {
-      //   this.$message({
-      //     message: '不能给自己回复',
-      //     type: 'warning'
-      //   });
-      // }else{
-      //   this.dialogFormVisible=true;
-      // }
-      this.$message({
-              message: '此功能改进中  敬请期待！',
-              type: 'warning'
-            });
+    openDialog(nickname,topicred){
+      if(nickname===this.$store.getters.Retnickname) {
+        this.$message({
+          message: '不能向自己回复',
+          type: 'warning'
+        });
+      }else{
+        this.repleinfo.replename=nickname;
+        this.repleinfo.touid=topicred;
+        this.dialogFormVisible=true;
+      }
+      // this.$message({
+      //         message: '此功能改进中  敬请期待！',
+      //         type: 'warning'
+      //       });
     },
     butreple(){
       this.dialogFormVisible=false;
@@ -89,14 +92,15 @@ return{
         this.$emit("reple",this.repleinfo);//发射事件
       }
     },
-    but(fromusid){
-      if(fromusid.toString()===this.$store.getters.RetUid){
+    but(commentname,touid){
+      if(commentname.toString()===this.$store.getters.Retnickname){
         this.$message({
           message: '不能给自己回复',
           type: 'warning'
         });
       }else{
-        this.repleinfo.repleid=fromusid;
+        this.repleinfo.replename=commentname;
+        this.repleinfo.touid=touid;
         this.dialogFormVisible=true;
      }
     },
@@ -118,14 +122,14 @@ return{
      }
     },
     replename(){
-      for(let s=0;s<this.RepleComments.length;s++){
-      for(let i=0;i<this.nickname.length;i++){
-          if(this.nickname[i].uid.toString()===this.RepleComments[s].repleid.toString())
-          {
-            this.rname.push(this.nickname[i].nickname) ;
-          }
-        }
-      }
+      // for(let s=0;s<this.RepleComments.length;s++){
+      // for(let i=0;i<this.nickname.length;i++){
+      //     if(this.nickname[i].uid.toString()===this.RepleComments[s].repleid.toString())
+      //     {
+      //       this.rname.push(this.nickname[i].nickname) ;
+      //     }
+      //   }
+      // }
     }
 
   },

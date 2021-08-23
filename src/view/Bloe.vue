@@ -16,9 +16,9 @@
       <div class="SuspensionHr"></div>
       </div>
       <div class="menu" :class="{p_readOnlyS:readOnlyS}">
-        <div @click="MenuBut()">
-          <svg t="1625147312870" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2388" width="32" height="32"><path d="M382.3 165.6h-165c-47.5 0-86 38.4-86 86v165c0 47.5 38.4 86 86 86h165c47.5 0 86.5-38.4 86-86v-165c0-47.6-38.5-86-86-86z m43.3 251c0 11.2-4.3 21.9-12.3 29.9-8 8.5-19.2 12.8-31 12.8h-165c-24 0-43.2-19.2-43.2-43.2V251c0-24 19.2-43.2 43.2-43.2h165v0.5c24 0 43.2 19.2 43.2 43.2v165.1zM382.3 557.5h-165c-47.5 0-86 38.4-86 86v165c0 47.5 38.4 86 86 86h165c47.5 0 86.5-38.4 86-86v-165c0-47.6-38.5-86-86-86z m43.3 251c0 11.2-4.3 21.9-12.3 29.9-8 8.5-19.2 12.8-31 12.8h-165c-24 0-43.2-19.2-43.2-43.2V643.5c0-24 19.2-43.2 43.2-43.2h165c24 0 43.2 19.2 43.2 43.2v165zM871.4 273.5L755 157.1c-16-16-37.9-25.1-60.9-25.1s-44.8 9.1-60.9 25.1L516.9 273.5c-33.6 33.6-33.6 88.1 0 121.7l116.4 116.4c16 16 37.9 25.1 60.9 25.1s44.8-8.5 60.9-25.1l116.4-116.4c33.5-33.6 33.5-88.1-0.1-121.7zM841 364.8L724.6 481.2c-7.5 8-18.2 12.3-30.4 12.3-11.7 0-22.4-4.8-30.4-12.8L547.3 364.2c-8-8-12.8-19.2-12.8-30.4 0-11.7 4.3-22.4 12.8-30.4L663.7 187c8-7.5 19.2-12.3 30.4-12.3 11.7 0 22.4 4.8 30.4 12.8L841 303.9c8 8 12.8 19.2 12.8 30.4 0 11.8-4.3 22.5-12.8 30.5zM776.4 557.5h-165c-47.5 0-86 38.4-86 86v165c0 47.5 38.4 86 86 86h165c47.5 0 86.5-38.4 86-86v-165c-0.1-47.6-38.5-86-86-86z m43.2 251c0 11.2-4.3 21.9-12.3 29.9-8 8.5-19.2 12.8-31 12.8h-165c-24 0-43.2-19.2-43.2-43.2V643.5c0-24 19.2-43.2 43.2-43.2h165c24 0 43.2 19.2 43.2 43.2v165z" p-id="2389"></path></svg></div>
-         <div class="menu_box" @click="MenuBut('off')">
+        <div>
+          <svg style="display: none"  t="1625147312870" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2388" width="32" height="32"><path d="M382.3 165.6h-165c-47.5 0-86 38.4-86 86v165c0 47.5 38.4 86 86 86h165c47.5 0 86.5-38.4 86-86v-165c0-47.6-38.5-86-86-86z m43.3 251c0 11.2-4.3 21.9-12.3 29.9-8 8.5-19.2 12.8-31 12.8h-165c-24 0-43.2-19.2-43.2-43.2V251c0-24 19.2-43.2 43.2-43.2h165v0.5c24 0 43.2 19.2 43.2 43.2v165.1zM382.3 557.5h-165c-47.5 0-86 38.4-86 86v165c0 47.5 38.4 86 86 86h165c47.5 0 86.5-38.4 86-86v-165c0-47.6-38.5-86-86-86z m43.3 251c0 11.2-4.3 21.9-12.3 29.9-8 8.5-19.2 12.8-31 12.8h-165c-24 0-43.2-19.2-43.2-43.2V643.5c0-24 19.2-43.2 43.2-43.2h165c24 0 43.2 19.2 43.2 43.2v165zM871.4 273.5L755 157.1c-16-16-37.9-25.1-60.9-25.1s-44.8 9.1-60.9 25.1L516.9 273.5c-33.6 33.6-33.6 88.1 0 121.7l116.4 116.4c16 16 37.9 25.1 60.9 25.1s44.8-8.5 60.9-25.1l116.4-116.4c33.5-33.6 33.5-88.1-0.1-121.7zM841 364.8L724.6 481.2c-7.5 8-18.2 12.3-30.4 12.3-11.7 0-22.4-4.8-30.4-12.8L547.3 364.2c-8-8-12.8-19.2-12.8-30.4 0-11.7 4.3-22.4 12.8-30.4L663.7 187c8-7.5 19.2-12.3 30.4-12.3 11.7 0 22.4 4.8 30.4 12.8L841 303.9c8 8 12.8 19.2 12.8 30.4 0 11.8-4.3 22.5-12.8 30.5zM776.4 557.5h-165c-47.5 0-86 38.4-86 86v165c0 47.5 38.4 86 86 86h165c47.5 0 86.5-38.4 86-86v-165c-0.1-47.6-38.5-86-86-86z m43.2 251c0 11.2-4.3 21.9-12.3 29.9-8 8.5-19.2 12.8-31 12.8h-165c-24 0-43.2-19.2-43.2-43.2V643.5c0-24 19.2-43.2 43.2-43.2h165c24 0 43.2 19.2 43.2 43.2v165z" p-id="2389"></path></svg></div>
+         <div class="menu_box">
               <div style="color: black"></div>
          </div>
       </div>
@@ -126,7 +126,7 @@ export default {
       Li: {},
       msg_data: [],
       lockReconnect: false,//是否真正建立连接
-      timeout: 2 * 1000,//5秒一次心跳
+      timeout: 5 * 1000,//5秒一次心跳
       timeoutObj: null,//心跳心跳倒计时
       serverTimeoutObj: null,//心跳倒计时
       timeoutnum: null,//断开 重连倒计时
@@ -139,12 +139,6 @@ export default {
     }
   },
   methods: {
-    MenuBut(){
-    const open= this.$router.resolve({
-        path:"/mov",
-      });
-      window.open(open.href, '_blank');
-    },
     backTop() {
       document.documentElement.scrollTop = 0;
     },
@@ -199,6 +193,11 @@ export default {
         console.log(err);
       })
     },
+
+
+
+
+
     initWebSocketTo: function () {
       this.websocks = this.websock = new WebSocket("ws:/" + sp + "/The_heartbeat");
       this.websock.onopen = this.websocketonopenTo;
@@ -228,12 +227,12 @@ export default {
       }
     },
     websocketonopenTo: function (e) {
-      console.log("WebSocket页面更新连接成功");
+      console.log("主页面WebSocket页面更新连接成功");
       this.lockReconnect = true;
       this.startTo();
     },
     websocketonerrorTo: function (e) {
-      console.log("WebSocket连接发生错误");
+      console.log("主页面WebSocket连接发生错误");
       this.websocketonopen();
     },
     websocketonmessageTo: function (e) {
@@ -248,6 +247,13 @@ export default {
       this.websock.send(Data);
     },
     },
+
+
+
+
+
+
+
     computed: {
       time() {
         let date = new Date();
@@ -298,7 +304,6 @@ export default {
           });
         }
         if (scrollTop < this.Top) {
-          console.log(this.pos)
           anime({
             targets: '.SuspensionHr',
             width: this.pos + "%",
@@ -330,7 +335,7 @@ export default {
       clearInterval(this.serverTimeoutObj);
       clearInterval(this.timeoutObj);
       console.log("我已经离开了！");
-      console.log("websocket已关闭");
+      console.log("主页面websocket已关闭");
     },
 }
 </script>

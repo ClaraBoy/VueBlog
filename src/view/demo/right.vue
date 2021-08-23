@@ -62,7 +62,9 @@ name: "right",
   width: 400px;
   overflow: hidden;
   margin-top: 30px;
-}.tc_box_topbut{
+  position: relative;
+}
+.tc_box_topbut{
    background-color: #404040;
    width: 100px;
    height: 30px;
@@ -71,7 +73,7 @@ name: "right",
    color: white;
    position: absolute;
    margin-top: 20px;
-   z-index: 20;
+  z-index: 5;
  }
 .box1{
   width: 1200px;

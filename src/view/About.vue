@@ -18,16 +18,16 @@
           <el-divider></el-divider>
           <div class="roundbutBox" style="height: auto;width: 100%;overflow: hidden">
           <div class="roundbut">
-            <div class="roundbut1">
-              <span>相关标签:&nbsp</span>
-              <el-button size="medium" round>c语言</el-button>
-            </div>
-            <div class="roundbut2">
-              <span>分享到:&nbsp</span>
-              <el-button size="medium" round>QQ</el-button>
-              <el-button size="medium" round>微信</el-button>
-              <el-button size="medium" round>微博</el-button>
-            </div>
+<!--            <div class="roundbut1">-->
+<!--              <span>相关标签:&nbsp</span>-->
+<!--              <el-button size="medium" round>c语言</el-button>-->
+<!--            </div>-->
+<!--            <div class="roundbut2">-->
+<!--              <span>分享到:&nbsp</span>-->
+<!--              <el-button size="medium" round>QQ</el-button>-->
+<!--              <el-button size="medium" round>微信</el-button>-->
+<!--              <el-button size="medium" round>微博</el-button>-->
+<!--            </div>-->
           </div>
           </div>
           <br>
@@ -116,7 +116,7 @@ export default {
         topictitle:"",
         topictext:"",
         topicdate:"",
-        topicred:0
+        topicred:"",
       },
       nickname:{}
     }
@@ -202,11 +202,19 @@ export default {
             })
           }
           },
+        //发布功能
         realaddComment(Comment_text){
           this.info.topictext=Comment_text;
           this.info.topicname=this.$store.getters.Retnickname;
-          this.info.topicred=0;
           this.info.topictitle=this.til.menutitle;
+          let count=0;
+          console.log(this.Comment)
+          for(let i=0;i<this.Comment.length;i++){
+              if(this.Comment[i].topictitle===this.til.menutitle){
+                count++;
+              }
+          }
+          this.info.topicred=count;
           demos({
             method: "post",
             url:"/realaddComment",
@@ -220,6 +228,7 @@ export default {
             console.log(err);
           })
         },
+        //回复功能
         butrepleoutto(repleinfo){
           if (this.$store.getters.RetToken == null) {
             this.$message({
@@ -237,7 +246,7 @@ export default {
                 authorization: this.$store.getters.RetToken,
               },
             }).then(res => {
-              if (res.data === 0) {
+              if (res.data == "200") {
                 repleinfo.repletitle = this.til.menutitle;
                 demos({
                   method: "post",
@@ -287,7 +296,6 @@ export default {
             this.Comment=res.data;
             setTimeout(()=>{
               document.getElementsByClassName("pop")[0].style.height=this.$refs.boxheight.scrollHeight+120+"px";
-              document.getElementsByClassName("foot")[0].style.display="block";
             },1000)
           }).catch(err=>{
             console.log(err);
@@ -355,7 +363,7 @@ background-color:  #FB5353;
 }
 .roundbut2{
   text-align: right;
-  right: 20px;
+  justify-self: right;
   border: 0;
 }
 .roundbut2 button:hover{
